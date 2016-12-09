@@ -1,0 +1,14 @@
+*.aux
+*.bbl
+*.pdf
+*.dvi
+*.log
+*.blg
+.DS_Store
+tex/*.aux
+tex/*.bbl
+tex/*.pdf
+tex/*.dvi
+tex/*.log
+tex/*.blg
+tex/.DS_Store
