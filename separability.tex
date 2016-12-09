@@ -1,0 +1,115 @@
+\documentclass{sigplanconf}
+\usepackage{latexsym, mathrsfs}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage[linesnumbered,ruled,procnumbered]{algorithm2e}
+\usepackage{paralist}
+\usepackage{xspace}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{floatflt}
+\usepackage{times}
+\usepackage{balance}
+\usepackage{spverbatim}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{subcaption} %{subfig}
+
+\renewcommand*\ttdefault{cmvtt}
+%\renewcommand*\familydefault{\ttdefault} %% Only if the base font of the document is to be typewriter style
+\usepackage[T1]{fontenc}
+
+\usepackage{cleveref}
+\crefname{section}{\S\!\!\!\;}{\S\S}
+\Crefname{section}{\S}{\S\S}
+
+\usepackage[utf8]{inputenc} % make sure your Latex source has this, for accented chars
+
+%COMPRESS
+\newcommand{\squeezeup}{\vspace{-2.5mm}}
+\DeclareMathOperator{\sign}{sign}
+
+
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\maketitle}{\@copyrightspace}{}{}{}
+\makeatother
+
+\newcommand{\q}[1]{{\vspace{.1in}\noindent \em {\bf Research Question}}}
+\newenvironment{mydescription}{%
+   \begin{description}{
+           }
+}{%
+   \end{description}%
+}
+\newenvironment{denselist}{
+    \begin{list}{\small{$\bullet$}}%
+    {\setlength{\itemsep}{0ex} \setlength{\topsep}{0ex}
+    \setlength{\parsep}{0pt} \setlength{\itemindent}{0pt}
+    \setlength{\leftmargin}{1.5em}
+    \setlength{\partopsep}{0pt}}}%
+    {\end{list}}
+
+
+\makeatletter
+\def\@copyrightspace{\relax}
+\makeatother
+
+
+\newcommand{\topic}[1]{\vspace{1pt} \noindent \underline{\bf #1}}
+%\theoremstyle{slplain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{conjecture}{Conjecture}
+\newtheorem{example}{Example}
+\newtheorem{formulation}{Problem}
+\newtheorem{definition}{Definition}
+\newtheorem{observation}[theorem]{\textbf{Observation}}
+\newtheorem{claim}[lemma]{\textbf{Claim}}
+\newtheorem{problem}{\textbf{Problem}}
+\newcommand{\stitle}[1]{\vspace{0.5em}\noindent\textbf{#1}}
+
+\newcommand{\mm}{\mathcal{M}\xspace}
+\newcommand{\ff}{\mathcal{F}\xspace}
+\newcommand{\sss}{\mathcal{S}\xspace}
+
+\newcommand{\topk}{{\sc Top-k}\xspace}
+\newcommand{\genviz}{{\sc Genvisage}\xspace}
+%\newcommand{\ss}[1]{\noindent{\textcolor{red}{[Saurabh: #1]}}}
+\newcommand{\agp}[1]{\noindent{\textcolor{RedOrange}{[Aditya: #1]}}}
+\newcommand{\cb}[1]{\noindent{\textcolor{magenta}{[Charles: #1]}}}
+\newcommand{\silu}[1]{\noindent{\textcolor{blue}{[Silu: #1]}}}
+
+\newcommand{\expn}[1]{\noindent{\textcolor{blue}{[Expand?]: #1}}}
+\newcommand{\cut}[1]{}
+\newcommand{\todo}[1]{\noindent{\textcolor{red}{\textbf{[TODO]: #1}}}}
+\newcommand{\trim}[1]{\noindent{\textcolor{magenta}{[Reduce?]: #1}}}
+
+\newcommand{\eat}[1]{}
+
+\newcommand{\papertext}[1]{\noindent{\textcolor{blue}{PAPER: #1}}}
+%\newcommand{\tr}[1]{\noindent{\textcolor{red}{#1}}}
+\newcommand{\tr}[1]{}
+%\newcommand{\tleftout}[1]{\noindent{\textcolor{blue}{#1}}}
+\newcommand{\tleftout}[1]{}
+
+\newcommand{\squishlist}{\begin{list}{$\bullet$}{\leftmargin=1.2em \topsep 1pt \itemsep -1pt \parsep 1pt}}
+\newcommand{\squishend}{\end{list}}
+\newcommand{\sampar}[1]{\vspace{3pt}\noindent{\bf #1}}
+\begin{document}
+\title{\genviz: Rapid Identification of Visually Explainable Features for Genomic Data Analysis}
+
+
+\authorinfo{xxx}
+       {University of Illinois (UIUC)}
+        {\url{xxx@illinois.edu}}
+
+
+\maketitle
+
+\input{body.tex}
+
+{\scriptsize
+\bibliographystyle{abbrv}
+\bibliography{ref}
+}
+\end{document}
