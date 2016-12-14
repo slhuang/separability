@@ -22,12 +22,20 @@ As illustrated in Figure~\ref{fig:workflow}, given matrix $\mm$ and two sample s
 \end{inparaenum}
 As we will illustrate in Section~\ref{sec:exp}, two features that perform poorly on their own may have very good separability when combined together. Furthermore, since we are targeting as a data exploration tool before more time-consuming machine learning methods, our design principle is to prioritize running time over accuracy. Next, let us formally define the \textit{separability} problem. 
 
-\begin{figure}[h]
+% \begin{figure}[h]
+% 	\centering
+% 	\includegraphics[width=\linewidth]{fig/workflow.pdf}
+% \caption{\genviz Workflow}
+% \label{fig:workflow}
+% \end{figure} 
+
+\begin{figure*}[t]
 	\centering
-	\includegraphics[width=\linewidth]{fig/workflow.pdf}
-\caption{Different methods to Calculate Separability Score $\theta_{i,j}$}
+	\includegraphics[width=0.9\linewidth]{fig/workflow2.pdf}
+\caption{\genviz Workflow}
 \label{fig:workflow}
-\end{figure} 
+\end{figure*} 
+
 
 
 % \slhuang{feature pair is }
@@ -94,9 +102,17 @@ First, given a feature pair $(f_i, f_j)$ and a line $\ell$ in the 2-D plane, a s
 \theta_{i,j}  \approx \theta_{i,j}^{\hat{\ell}}
 \end{equation}
 
-\stitle{Rocchio-based.} The basic idea of Rocchio's algorithm is to estimate each sample's label the same as its nearest centroid. More specifically, let us denote the centroid of positive samples $\sss_+$ and negative samples $\sss_-$ as $\mu_+=(x_+,y_+)$ and $\mu_-=(x_-,y_-)$ respectively ,as shown in Figure~\ref{fig:rocchio}. Link $\mu_+$ with $\mu_-$, then the perpendicular bisector is defined as the representative separating line $\hat{\ell}$ as illustrated in Figure~\ref{fig:rocchio}. Mathmatically, $\hat{\ell}$ can be represented as Equation~\ref{eqn:rep_line} with instantiated $w_i$, $w_j$ and $w_0$ in Equation~\ref{eqn:line}. The corresponding $\theta_{i,j}^{\hat{\ell}}$ equals 13 with one negative sample (blue point in Figure~\ref{fig:rocchio}) mis-estimated as positive.
+\stitle{Rocchio-based.} The basic idea of Rocchio's algorithm is to estimate each sample's label the same as its nearest centroid. More specifically, let us denote the centroid of positive samples $\sss_+$ and negative samples $\sss_-$ as $\mu_+=(\mm_i^+,\mm_j^+)$ and $\mu_-=(\mm_i^-,\mm_j^-)$ respectively ,as shown in Figure~\ref{fig:rocchio}. Link $\mu_+$ with $\mu_-$, then the perpendicular bisector is defined as the representative separating line $\hat{\ell}$. Mathmatically, $\hat{\ell}$ can be represented as an instantiated line in Equation~\ref{eqn:line} with instantiated $w_i$, $w_j$ and $w_0$ as shown in Equation~\ref{eqn:rep_line}. Figure~\ref{fig:rocchio} illustrates the centroids $\mu_+$ and $\mu_-$, as well as the Rocchio-based representative separating line $\hat{\ell}$. The corresponding $\theta_{i,j}^{\hat{\ell}}$ equals 13 with one negative sample (blue point in Figure~\ref{fig:rocchio}) mis-estimated as positive.
+
+
+%\hat{\ell}: \hspace{4mm} (\mm_i^+-\mm_i^-)\cdot x + (\mm_j^+-\mm_j^-)\cdot y -(\frac{(\mm_i^+)^2-(\mm_i^-)^2}{2}+\frac{(\mm_j^+)^2-(\mm_j^-)^2}{2}) =0 
+
 \begin{equation}\label{eqn:rep_line}
-\hat{\ell}: \hspace{4mm} (x_+-x_-)\cdot x + (y_+-y_-)\cdot y -(\frac{x_+^2-x_-^2}{2}+\frac{y_+^2-y_-^2}{2}) =0 
+\begin{split}
+& w_i = \mm_i^+-\mm_i^- \\
+& w_j = \mm_j^+-\mm_j^- \\
+& w_0 = -(\frac{(\mm_i^+)^2-(\mm_i^-)^2}{2}+\frac{(\mm_j^+)^2-(\mm_j^-)^2}{2})
+\end{split}
 \end{equation}
 
 \begin{figure}[h]
@@ -123,6 +139,52 @@ First, given a feature pair $(f_i, f_j)$ and a line $\ell$ in the 2-D plane, a s
 
 %==================================================================
 \section{Proposed Optimizations}\label{sec:opt}
+In the following, we will focus on Rocchio-based method to calculate the separability score. We first analyze the time complexity and then propose several optimization techniques in order to reduce the running time. 
+
+\stitle{Time Complexity Analysis.} Given a feature pair $(f_i, f_j)$, the separating line $\hat{\ell}$ can be calculated in $O(1)$ using Equation~\ref{eqn:rep_line}. However, calculating the number of correctly separated samples $\theta_{i,j}^{\hat{\ell}}$ requires a full scan of all samples, i.e., $O(n)$. In addition, by choosing any two features from the whole feature set, there are $O(m^2)$ feature pair candidates. Thus, in total the running time complexity is $O(m^2n)$, which is very time-consuming especially when $m$ and $n$ are large. In the following, we propose different methodologies to reduce the running time.
+
+First, we observe massive redundancy in calculating Equation~\ref{eqn:rep_line} for different feature pairs. In Section~\ref{ssec:trans}, we propose to map sample-feature matrix $\mm$ into a different space, and then transform Equation~\ref{eqn:rep_line} accordingly. Next, we introduce several different optimization modulars to further reduce the running time in Section~\ref{ssec:earlyT},~\ref{ssec:sampling} and \ref{ssec:traversal}. Modular \earlyT and \sampling aim to reduce the number of samples checked (i.e., $n$), while modular \traversal aims to reduce the number of feature pairs checked (i.e., $m^2$). These optimization modulars can be used by their own or combined together, as we will show in Section~\ref{sec:exp}. 
+
+\subsection{Pre-Transformation} \label{ssec:trans}
+\stitle{Motivation.} Let us first review the process of computing the separability score $\theta_{i,j}^{\hat{\ell}}$. Given a fature pair $(f_i,f_j)$, we first compute $w_0$, $w_i$ and $w_j$ for $\hat{\ell}$ based on Equation~\ref{eqn:rep_line}. Next, for each sample $s_k$, we can get the estimated label $\eta_{i,j}^{\hat{\ell},k}$ according to Equation~\ref{eqn:est_label}. This step requires two multiplications and three additions. Last, we can calculate $\tau_{i,j}^{\hat{\ell},k}$ and the separability score $\theta_{i,j}^{\hat{\ell}}$ based on Equation~\ref{eqn:s_sample} and \ref{eqn:s_line} respectively. The whole process is repeated for every feature pair candidate. However, we observe that there exists massive redundancy when calculating different feature pairs. For instance, given two feature pairs $(f_i,f_j)$ and $(f_i,f_{j'})$ with fixed $f_i$, $w_i$ is in fact the same, and $w_i\cdot \mm_{i,k}$ in Equation~\ref{eqn:est_label} is repeated twice for each sample $s_k$. Thus, we propose to pre-transform $\mm_{i,k}$ into another space to reduce the computational redundancy.
+
+\stitle{Transformation.} For each $\mm_{i,k}$, i.e., the value of sample $s_k$ on feature $f_i$, we pre-transform it to $\widehat{\mm}_{i,k}$ as illustrated in Equation~\ref{eqn:matrix_transform}, where $\mm_i^+$ ($\mm_j^+$) and $\mm_i^-$ ($\mm_j^-$) are constants given a feature $f_i$ ($f_j$). By incorporating $\ell_k$ in Equation~\ref{eqn:matrix_transform}, we can unify the process of calculating $\tau_{i,j}^{\hat{\ell},k}$ for both positive and negative samples, and get rid of checking the real label $\ell_k$ in Equation~\ref{eqn:s_sample}. Accordingly, Equation~\ref{eqn:est_label} and Equation~\ref{eqn:s_sample} can be combined and transformed into Equation~\ref{eqn:s_sample_transform}.
+
+\begin{equation}\label{eqn:matrix_transform}
+\widehat{\mm}_{i,k} = ((\mm_i^+-\mm_i^-)\cdot \mm_{i,k}-\frac{(\mm_i^+)^2-(\mm_i^-)^2}{2})\cdot \ell_k 
+\end{equation}
+
+\begin{equation}\label{eqn:s_sample_transform}
+\tau_{i,j}^{\hat{\ell},k}=\left\{
+                \begin{array}{ll}
+                  1 \textit{\hspace{2mm} if \hspace{2mm}} \sign(\widehat{\mm}_{i,k} + \widehat{\mm}_{j,k}) = 1\\
+                  0 \textit{\hspace{2mm} otherwise \hspace{2mm}} 
+                \end{array}
+              \right.
+\end{equation}
+
+%\begin{equation}\label{eqn:est_label_transform}
+%\eta_{i,j}^{\hat{\ell},k}=\sign(\widehat{\mm}_{i,k} + \widehat{\mm}_{j,k})
+%\end{equation}
+
+Now, let us revisit the process of computing separability score $\theta_{i,j}^{\hat{\ell}}$ after pre-transformation. Given a feature pair $(f_i,f_j)$, we can compute $\tau_{i,j}^{\hat{\ell},k}$ for each sample $s_k$ based on Equation~\ref{eqn:s_sample_transform}. Note that this step only involves one addition and one comparison. Then, similar to that without transformation, we can calculate $\theta_{i,j}^{\hat{\ell}}$ based on Equation~\ref{eqn:s_line}. In all, compared to that without transformation, we not only eliminate the step of computing $w_0$, $w_i$ and $w_j$ for every feature pair, but also reduce the cost of calculating $\eta_{i,j}^{\hat{\ell},k}$ in Equation~\ref{eqn:est_label}. Hence, by conducting transformation in Equation~\ref{eqn:matrix_transform} and~\ref{eqn:s_sample_transform}, we have mapped our problem to a new space. In the following sections, we will consider $\widehat{\mm}$ instead of $\mm$, and Equation~\ref{eqn:s_sample_transform} instead of Equation~\ref{eqn:est_label} and~\ref{eqn:s_sample}.
+
+\subsection{Early Termination} \label{ssec:earlyT}
+As discussed at the beginning of Section~\ref{sec:opt}, given a feature pair $(f_i,f_j)$, we need to make a full scan of all samples to compute $\theta_{i,j}^{\hat{\ell}}$. However, since we only care about 
+
+\stitle{High Level Idea.}
+
+\stitle{Enhancement by Sample Ordering.}
+
+\earlyT Modular
+Early Termination
+
+\subsection{Sampling-based Estimation} \label{ssec:sampling}
+Sampling-based Estimation
+\sampling Modular
+
+\subsection{Search Space Traversal} \label{ssec:traversal}
+\traversal Modular
 
 %==================================================================
 \section{Experiment}
