@@ -190,7 +190,7 @@ First, we observe massive redundancy in calculating Equation~\ref{eqn:rep_line} 
 \stitle{Transformation.} For each $\mm_{i,k}$, i.e., the value of sample $s_k$ on feature $f_i$, we pre-transform it to $\widehat{\mm}_{i,k}$ as illustrated in Equation~\ref{eqn:matrix_transform}, where $\mm_i^+$ ($\mm_j^+$) and $\mm_i^-$ ($\mm_j^-$) are constants given a feature $f_i$ ($f_j$). By incorporating $\ell_k$ in Equation~\ref{eqn:matrix_transform}, we can unify the process of calculating $\theta_{i,j}^{\hat{\ell},k}$ for both positive and negative samples, and get rid of checking the real label $\ell_k$ in Equation~\ref{eqn:s_sample}. Accordingly, Equation~\ref{eqn:est_label} and Equation~\ref{eqn:s_sample} can be combined and transformed into Equation~\ref{eqn:s_sample_transform}.
 
 \begin{equation}\label{eqn:matrix_transform}
-\widehat{\mm}_{i,k} = ((\mm_i^+-\mm_i^-)\cdot \mm_{i,k}-\frac{(\mm_i^+)^2-(\mm_i^-)^2}{2})\cdot \ell_k 
+\widehat{\mm}_{i,k} = ((\mm_i^+-\mm_i^-)\cdot \mm_{i,k}-\frac{(\mm_i^+)^2-(\mm_i^-)^2}{2})\cdot l_k 
 \end{equation}
 
 \begin{equation}\label{eqn:s_sample_transform}
@@ -207,9 +207,10 @@ First, we observe massive redundancy in calculating Equation~\ref{eqn:rep_line} 
 %\end{equation}
 
 Now, let us revisit the process of computing separability score $\theta_{i,j}^{\hat{\ell}}$ after pre-transformation. Given a feature pair $(f_i,f_j)$, we can compute $\theta_{i,j}^{\hat{\ell},k}$ for each sample $s_k$ based on Equation~\ref{eqn:s_sample_transform}. Note that this step only involves one addition and one comparison. Then, similar to that without transformation, we can calculate $\theta_{i,j}^{\hat{\ell}}$ based on Equation~\ref{eqn:s_line}. In all, compared to that without transformation, we not only eliminate the step of computing $w_0$, $w_i$ and $w_j$ for every feature pair, but also reduce the cost of calculating $\eta_{i,j}^{\hat{\ell},k}$ in Equation~\ref{eqn:est_label}. Hence, by conducting transformation in Equation~\ref{eqn:matrix_transform} and~\ref{eqn:s_sample_transform}, we have mapped our problem to a new space. In the following sections, we will consider $\widehat{\mm}$ instead of $\mm$, and Equation~\ref{eqn:s_sample_transform} instead of Equation~\ref{eqn:est_label} and~\ref{eqn:s_sample}.
-\silu{add an example}
+
 
 \begin{example}[Transformation]
+Figure~\ref{fig:transform} illustrates the transformation for two feature $f_i$ and $f_j$. The upper part depicts $\mm_{i,k}$ and $\mm_{j,k}$ before transformation, where red color represents positive label and green color represents negative labels. As we can see, the centroid of $\sss_+$ and $\sss_-$ are $\mu_+=(5,7)$ and $\mu_-=(3,5)$ respectively. Hence, we can rewrite Equation~\ref{eqn:matrix_transform} as $\widehat{\mm_{i,k}} = (2\mm_{i,k}-8)\cdot l_k$ and $\widehat{\mm_{j,k}} = (2\mm_{i,k}-12)\cdot l_k$ for feature $f_i$ and $f_j$ respectively. After calculation, we can obtain the $\widehat{\mm_{i,k}}$ and $\widehat{\mm_{j,k}}$ in the lower part of Figure~\ref{fig:transform}.
 \end{example}
 
 \begin{figure}[h]
@@ -219,14 +220,14 @@ Now, let us revisit the process of computing separability score $\theta_{i,j}^{\
 		\includegraphics[width=\linewidth]{fig/transformation.pdf}
 		\vspace{-5mm}
 		\caption{Pre-Transformation}%{$\theta_{i,j}^{\ell}$ with Different Lines}
-		\label{fig:brute_force}
+		\label{fig:transform}
 	\end{subfigure}
 	\begin{subfigure}{.235\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{fig/earlyT.pdf}
 		\vspace{-5mm}
 		\caption{Early Termination ($\tau = 1$)}%{$\theta_{i,j}^{\hat{\ell}}$ with Representative Line}
-		\label{fig:rocchio}
+		\label{fig:earlyT}
 	\end{subfigure}
 \caption{Different Methods to Reduce Running Time}
 \label{fig:metric}
@@ -241,6 +242,9 @@ As discussed at the beginning of Section~\ref{sec:opt}, given a feature pair $(f
 \stitle{Enhancement by Sample Ordering.} Furthermore, in order to terminate early, an intuitive method is to first examine the samples that are more problematic. In this way, given a bad feature pair, the number of mistakenly separated samples is likely to fast exceeds ($n-\tau$) by just looking at a few samples. Hence, we propose to order the samples in descending order in terms of "problematic". In our experiment, for each sample $s_k$, we quantify "problematic" by the number of single features $f_i$ that mistakendly separate this sample, i.e., $\widehat{\mm_{i,k}}<=0$.
 
 \begin{example}[\earlyT \& Sample Ordering]
+Figure~\ref{fig:earlyT} illustrates how early termination and sample ordering help reduce the running time. The upper part is $\widehat{\mm}$ after transformation. Assume the current error upper bound is $\tau=1$. We start scan the sample list from left to right and determine whether each sample is correctly separated or not based on Equation~\ref{eqn:s_sample_transform}. Sample $s_1$ is mistakenly separated since $\widehat{\mm_{i,1}}+\widehat{\mm_{j,1}}\leq0$, marked as blue color in Figure~\ref{fig:earlyT}. We can terminate at $s_5$ since the number of mistakenly separated samples exceeds $\tau=1$.
+
+The lower part of Figure~\ref{fig:earlyT} shows the $\widehat{\mm}$ after sample reordering, where "problematic" samples are placed on the front. In this way, by only checking the first two samples, we can terminate and get rid of this feature pair.
 \end{example}
 
 \subsection{Sampling-based Estimation} \label{ssec:sampling}
