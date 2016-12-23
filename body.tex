@@ -13,12 +13,12 @@
 \section{Problem Definition}\label{sec:prob}
 In Section~\ref{sec:intro}, we have talked about different biology applications that can be abstracted as a separability problem. In this section, we will formally formulate the problem and discuss the challenges in it. 
 
-We first introduce some essential notations. Let $\mm$ be a feature-sample matrix of size $m\times N$, where each row is a feature and each column is a sample. Correspondingly, denote the $m$ features as $\ff=\{f_1,f_2,\cdots,f_m\}$ and $N$ samples as $\sss=\{s_1,s_2,\cdots,s_N\}$. Each entry $\mm_{i,j}$ in $\mm$ is of numeric type, referring to the value of sample $s_j$ on feature $f_i$. In addition, we are given two non-overlapping sets of samples, one with positive label and the other with negative label, denoted as $\sss_+$ and $\sss_-$ respectively. Both positive and negative samples are a subset of all samples, i.e., $\sss_+\subset \sss$ and $\sss_-\subset \sss$. Let $\widehat{\sss}$ be the sample set with both positive and negative labels and $n$ be the total number of samples, i.e., $\sss_+\cup \sss_- = \widehat{\sss}$, $|\widehat{\sss}| = n$ and $n\leq N$. Furthermore, let $l_k$ be the label of sample $s_k\in \widehat{\sss}$, i.e., $l_k=1$ if $s_k$ is positive and $l_k=-1$ if $s_k$ is negative. 
+We first introduce some essential notations. Let $\mm$ be a feature-object matrix of size $m\times N$, where each row is a feature and each column is an object. Correspondingly, denote the $m$ features as $\ff=\{f_1,f_2,\cdots,f_m\}$ and $N$ objects as $\oo=\{o_1,o_2,\cdots,o_N\}$. Each entry $\mm_{i,j}$ in $\mm$ is of numeric type, referring to the value of object $o_j$ on feature $f_i$. In addition, we are given two non-overlapping sets of objects, one with positive label and the other with negative label, denoted as $\oo_+$ and $\oo_-$ respectively. Both positive and negative objects are a subset of all objects, i.e., $\oo_+\subset \oo$ and $\oo_-\subset \oo$. Let $\widehat{\oo}$ be the object set with both positive and negative labels and $n$ be the total number of objects, i.e., $\oo_+\cup \oo_- = \widehat{\oo}$, $|\widehat{\oo}| = n$ and $n\leq N$. Furthermore, let $l_k$ be the label of object $o_k\in \widehat{\oo}$, i.e., $l_k=1$ if $o_k$ is positive and $l_k=-1$ if $o_k$ is negative. 
 
-As illustrated in Figure~\ref{fig:workflow}, given matrix $\mm$ and two sample sets $\sss_+$ and $\sss_-$, the goal is to find discriminative features to separate $\sss_+$ from $\sss_-$, and output a visualization to explain the separability. In \genviz, we focus on finding \topk feature pairs instead of \topk single features. This is because \begin{inparaenum}[\itshape (a)\upshape]
+As illustrated in Figure~\ref{fig:workflow}, given matrix $\mm$ and two object sets $\oo_+$ and $\oo_-$, the goal is to find discriminative features to separate $\oo_+$ from $\oo_-$, and output a visualization to explain the separability. In \genviz, we focus on finding \topk feature pairs instead of \topk single features. This is because \begin{inparaenum}[\itshape (a)\upshape]
 \item a single feature can be considered as a special case of a feature pair by taking the same feature in a feature pair;
 \item a combined feature pair is likely to provide new insight compared to single features;
-\item feature pair can be easily visualized as a 2-D space.
+\item feature pair can be easily visualized in a 2-D space.
 \end{inparaenum}
 As we will illustrate in Section~\ref{sec:exp}, two features that perform poorly on their own may have very good separability when combined together. Furthermore, since we are targeting as a data exploration tool before more time-consuming machine learning methods, our design principle is to prioritize running time over accuracy. Next, let us formally define the \textit{separability} problem. 
 
@@ -40,14 +40,14 @@ As we will illustrate in Section~\ref{sec:exp}, two features that perform poorly
 
 % \slhuang{feature pair is }
 \begin{formulation}[Separability]\label{prob:separability}
-Given a feature-sample matrix $\mm$ and two labeled sample set $(\sss_+,\sss_-)$, \textbf{fast identify} \topk feature pairs $(f_i,f_j)$ separating $\sss_+$ from $\sss_-$ based on a given \textbf{separability metric}, and output a 2-D \textbf{visualization}.
+Given a feature-object matrix $\mm$ and two labeled object set $(\oo_+,\oo_-)$, \textbf{fast identify} \topk feature pairs $(f_i,f_j)$ separating $\oo_+$ from $\oo_-$ based on a given \textbf{separability metric}, and output a 2-D \textbf{visualization}.
 \end{formulation}
-There are three key aspects in Problem~\ref{prob:separability}. First, the output of \genviz is not just the \topk feature pairs, but also the corresponding visualizations. The output visualizations can help the users better interpret the result, i.e., how $\sss_+$ is separated from $\sss_-$. Second, given a feature pair $(f_i,f_j)$, how to measure its quality in separating $\sss_+$ from $\sss_-$ poses an interesting challenge. Last but not least, how to fast identify \topk feature pairs based on the separability metric is also a big concern since small latency is critical for data exploration tool. In the following, we ellaborate more on these three points.
+There are three key aspects in Problem~\ref{prob:separability}. First, the output of \genviz is not just the \topk feature pairs, but also the corresponding visualizations. The output visualizations can help the users better interpret the result, i.e., how $\oo_+$ is separated from $\oo_-$. Second, given a feature pair $(f_i,f_j)$, how to measure its quality in separating $\oo_+$ from $\oo_-$ poses an interesting challenge. Last but not least, how to fast identify \topk feature pairs based on the separability metric is also a big concern since small latency is critical for data exploration tool. In the following, we ellaborate more on these three points.
 
-\stitle{Visualization Output.} Given a feature pair $(f_i,f_j)$, it is natural to visualize the sample sets $(\sss_+,\sss_-)$ in a two dimensional space by coloring $\sss_+$ as red and $\sss_-$ as green, where the x-axis and y-axis represent feature $f_i$ and $f_j$ respectively. Thus, a visualization and a feature pair has an one-to-one relationship: each visualization corresponds to one feature pair and vice versa. By looking at the visualization, the users can easily have a general sense of how $\sss_+$ and $\sss_-$ are separated for a given feature pair, and have a better interpretation towards the results compared to the pure feature pair names.
+\stitle{Visualization Output.} Given a feature pair $(f_i,f_j)$, it is natural to visualize the object sets $(\oo_+,\oo_-)$ in a two dimensional space by coloring $\oo_+$ as red and $\oo_-$ as green, where the x-axis and y-axis represent feature $f_i$ and $f_j$ respectively. Thus, a visualization and a feature pair has a one-to-one relationship: each visualization corresponds to one feature pair and vice versa. By looking at the visualization, the users can easily have a general sense of how $\oo_+$ and $\oo_-$ are separated for a given feature pair, and have a better interpretation towards the results compared to the pure feature pair names.
 
 
-\stitle{Separability Metric.} As far as we are concerned, existing separability measurements focus on single feature instead of feature pair. For instance, in order to characterize differentially expressed genes (DEG), biologists typically do association test (e.g, hypergeometric test) to find the best single feature that separate two gene sets. However, we argue that feature pair can provide new insights that is not revealed by top single features, as we will demonstrate in Section~\ref{sec:exp}. Hence, developing a meaningful separability metric for feature pairs is the very first step towards our separability problem and is of great importance. Furthermore, since \genviz has visualization as the output instead of a pure separability score, our proposed separability metric should also encodes the visual separability to some extent. 
+\stitle{Separability Metric.} As far as we are concerned, existing separability measurements focus on single feature instead of feature pair. For instance, in order to characterize differentially expressed genes (DEG), biologists typically do association test (e.g, hypergeometric test) to find the best single feature that separate two gene sets. However, we argue that feature pair can provide new insights that is not revealed by top single features, as we will demonstrate in Section~\ref{sec:exp}. Hence, developing a meaningful separability metric for feature pairs is the very first step towards our separability problem and is of great importance. Furthermore, since \genviz has visualization as the output instead of a pure separability score, our proposed separability metric should encodes the visual separability to some extent. 
 
 \stitle{Fast Identification.} Since \genviz serves as a data exploration tool before looking into more sophisticated machine learning algorithms, we in particular care more about the running time than the accuracy. For one thing, instead of complicated machine learning methods, we prefer light-weight separability metrics. In some sense, we try to solve Problem~\ref{prob:separability} in a "quick and dirty" way. For another, various optimization mechanisms are essential to further cut down the running time.
 
@@ -66,19 +66,19 @@ In the following, we will first describe our selected separability metric in Sec
     \hline
     $f_i$ & feature $i$ in $\ff$ & $m$ & cardinality of $\ff$\\
     \hline
-    $\sss$ & sample set in $\mm$ & $N$ & cardinality of $\sss$\\
+    $\oo$ & object set in $\mm$ & $N$ & cardinality of $\oo$\\
     \hline
-    $\sss_+$ & positive sample set & $\sss_-$ & negative sample set\\
+    $\oo_+$ & positive object set & $\oo_-$ & negative object set\\
     \hline
-    $\widehat{\sss}$ & $\sss_+\cup \sss_-$ & $n$ & cardinality of $\widehat{\sss}$\\
+    $\widehat{\oo}$ & $\oo_+\cup \oo_-$ & $n$ & cardinality of $\widehat{\oo}$\\
     \hline
-    $s_k$ & sample $k$ in $\widehat{\sss}$ & $l_k$ & lebel of sample $s_k$\\
+    $o_k$ & object $k$ in $\widehat{\oo}$ & $l_k$ & lebel of object $o_k$\\
     \hline
     $\ell$ & separating line in 2-D & $\hat{\ell}$ & representative line  in 2-D\\
     \hline
-    $\eta_{i,j}^{\ell,k}$ & estimated label of $s_k$ & $\theta_{i,j}^{\ell,k}$ & $s_k$ is correctly separated? \\
+    $\eta_{i,j}^{\ell,k}$ & estimated label of $o_k$ & $\theta_{i,j}^{\ell,k}$ & $o_k$ is correctly separated? \\
     \hline
-    $\theta_{i,j}^{\ell}$ & \# correctly separated $s_k$ & $\theta_{i,j}$ & separability score\\
+    $\theta_{i,j}^{\ell}$ & \# correctly separated $o_k$ & $\theta_{i,j}$ & separability score\\
     \hline
     $\widehat{\mm}$ & $\mm$ after transformation &  \\
     \hline
@@ -92,10 +92,10 @@ In the following, we will first describe our selected separability metric in Sec
 %==================================================================
 \section{Separability Metric}\label{sec:metric}
 
-As discussed in Section~\ref{sec:prob}, given a feature pair $(f_i,f_j)$ we can visualize $\sss_+$ and $\sss_-$ in a 2-D space. In the following, we propose a separability metric based on linear separability~\cite{shamos1975geometric} for a 2-D visualization. 
+As discussed in Section~\ref{sec:prob}, given a feature pair $(f_i,f_j)$ we can visualize $\oo_+$ and $\oo_-$ in a 2-D space. In the following, we propose a separability metric based on linear separability~\cite{shamos1975geometric} for a 2-D visualization. 
 
-Let us first review the concept of {\em linear separability} introduced in Euclidean geometry~\cite{shamos1975geometric}. A pair of point sets in two dimensions, i.e., $\sss_+$ and $\sss_-$, are \emph{linearly separable} if there exits at least one straight line in the plane such that all points from $\sss_+$ are on one side of the line, while all points from $\sss_-$ are on the other side of the line. Mathmatically, we can represent a line $\ell$ using Equation~\ref{eqn:line}, where $x$ and $y$ represent a sample's value on feature $f_i$ and $f_j$ respectively, and $w_0$, $w_i$ and $w_j$ are coefficients. Given a feature pair $(f_i,f_j)$ and a line $\ell$, let $\eta_{i,j}^{\ell,k}$ be the estimated label of a sample $s_k$. The estimated label $\eta_{i,j}^{\ell,k}$ is calculated according to Equation~\ref{eqn:est_label}: if $s_k$ lies on the upper side of $\ell$, then $\eta_{i,j}^{\ell,k}=1$; otherwise, $\eta_{i,j}^{\ell,k}=-1$.   
-If there exists a line $\ell$ such that for any samples $s_k\in \widehat{\sss}$, the estimated label $\eta_{i,j}^{\ell,k}$ is consistent with the real label $l_k$ as shown in Equation~\ref{eqn:linear}, then we say $\sss_+$ and $\sss_-$ are linear separable. 
+Let us first review the concept of {\em linear separability} introduced in Euclidean geometry~\cite{shamos1975geometric}. A pair of point sets in two dimensions, i.e., $\oo_+$ and $\oo_-$, are \emph{linearly separable} if there exits at least one straight line in the plane such that all points from $\oo_+$ are on one side of the line, while all points from $\oo_-$ are on the other side of the line. Mathmatically, we can represent a line $\ell$ using Equation~\ref{eqn:line}, where $x$ and $y$ represent a object's value on feature $f_i$ and $f_j$ respectively, and $w_0$, $w_i$ and $w_j$ are coefficients. Given a feature pair $(f_i,f_j)$ and a line $\ell$, let $\eta_{i,j}^{\ell,k}$ be the estimated label of a object $o_k$. The estimated label $\eta_{i,j}^{\ell,k}$ is calculated according to Equation~\ref{eqn:est_label}: if $o_k$ lies on the upper side of $\ell$, then $\eta_{i,j}^{\ell,k}=1$; otherwise, $\eta_{i,j}^{\ell,k}=-1$.   
+If there exists a line $\ell$ such that for any objects $o_k\in \widehat{\oo}$, the estimated label $\eta_{i,j}^{\ell,k}$ is consistent with the real label $l_k$ as shown in Equation~\ref{eqn:linear}, then we say $\oo_+$ and $\oo_-$ are linear separable. 
 \begin{equation}\label{eqn:line}
 \begin{split}
 \ell: \hspace{4mm} w_i\cdot x + w_j\cdot y +w_0 =0 
@@ -107,8 +107,8 @@ If there exists a line $\ell$ such that for any samples $s_k\in \widehat{\sss}$,
 \begin{equation}\label{eqn:linear}
 \eta_{i,j}^{\ell,k} = \left\{
                 \begin{array}{ll}
-                  1 \textit{\hspace{2mm} if \hspace{2mm}} s_k\in \sss_+, \textit{ i.e., } l_k=1 \\
-                  -1 \textit{\hspace{2mm} if \hspace{2mm}} s_k\in \sss_-, \textit{ i.e., } l_k=-1 
+                  1 \textit{\hspace{2mm} if \hspace{2mm}} o_k\in \oo_+, \textit{ i.e., } l_k=1 \\
+                  -1 \textit{\hspace{2mm} if \hspace{2mm}} o_k\in \oo_-, \textit{ i.e., } l_k=-1 
                 \end{array}
               \right.
 \end{equation}
@@ -116,8 +116,8 @@ If there exists a line $\ell$ such that for any samples $s_k\in \widehat{\sss}$,
 
 
 Next, let us introduce our proposed separability metric. Our proposed separability metric is based on linear separability and is defined as {\em how well a 2-D visualization can be linearly separated}. This is because \genviz stresses on visual explainability and linear separability in a 2-D visualization can be easily recognized and interpreted by the users. We then formally define the separability metric.
-First, given a feature pair $(f_i, f_j)$ and a line $\ell$ in the 2-D plane, a sample $s_k$ is said to be correctly separated if Equation~\ref{eqn:linear} holds, i.e., $\eta_{i,j}^{\ell,k}\cdot l_k = 1$. Correspondingly, let $\theta_{i,j}^{\ell,k}$ be the variable indicating whether sample $s_k$ is correctly separated, as depicted in Equation~\ref{eqn:s_sample}. Then, given a feature pair $(f_i, f_j)$ and a line $\ell$, the separability score is defined as the number of correctly separated samples, denoted as $\theta_{i, j}^\ell$ as shown in Equation~\ref{eqn:s_line}. Figure~\ref{fig:brute_force} shows some possible $\theta_{i, j}^\ell$ with different separating lines. Finally, the separability score for a feature pair $(f_i,f_j)$ is defined as the largest $\theta_{i, j}^{\ell}$ among all possible lines $\ell$, denoted as $\theta_{i, j}$ as shown in Equation~\ref{eqn:s_viz}. 
-\begin{equation}\label{eqn:s_sample}
+First, given a feature pair $(f_i, f_j)$ and a line $\ell$ in the 2-D plane, a object $o_k$ is said to be correctly separated if Equation~\ref{eqn:linear} holds, i.e., $\eta_{i,j}^{\ell,k}\cdot l_k = 1$. Correspondingly, let $\theta_{i,j}^{\ell,k}$ be the variable indicating whether object $o_k$ is correctly separated, as depicted in Equation~\ref{eqn:s_object}. Then, given a feature pair $(f_i, f_j)$ and a line $\ell$, the separability score is defined as the number of correctly separated objects, denoted as $\theta_{i, j}^\ell$ as shown in Equation~\ref{eqn:s_line}. Figure~\ref{fig:brute_force} shows some possible $\theta_{i, j}^\ell$ with different separating lines. Finally, the separability score for a feature pair $(f_i,f_j)$ is defined as the largest $\theta_{i, j}^{\ell}$ among all possible lines $\ell$, denoted as $\theta_{i, j}$ as shown in Equation~\ref{eqn:s_viz}. 
+\begin{equation}\label{eqn:s_object}
 \theta_{i,j}^{\ell,k}=\left\{
                 \begin{array}{ll}
                   1 \textit{\hspace{2mm} if \hspace{2mm}} \eta_{i,j}^{\ell,k}\cdot l_k = 1\\
@@ -132,7 +132,7 @@ First, given a feature pair $(f_i, f_j)$ and a line $\ell$ in the 2-D plane, a s
 \theta_{i,j}= \max_{\ell}\{\theta_{i,j}^{\ell}\}
 \end{equation}
 
-%The basic intuition is that the users can easily recognize and interpret linear separability in a 2-D visualization. Thus if a visualization is perfectly linearly separated, it should have high score in our proposed separability metric; otherwise, we would find the best separating line $\ell$ in the visualization and report the largest number of correctly separated samples as the separability score.\silu{talk about weighted case}
+%The basic intuition is that the users can easily recognize and interpret linear separability in a 2-D visualization. Thus if a visualization is perfectly linearly separated, it should have high score in our proposed separability metric; otherwise, we would find the best separating line $\ell$ in the visualization and report the largest number of correctly separated objects as the separability score.\silu{talk about weighted case}
 
 \begin{figure}[h]
 	\centering
@@ -160,7 +160,7 @@ First, given a feature pair $(f_i, f_j)$ and a line $\ell$ in the 2-D plane, a s
 \theta_{i,j}  \approx \theta_{i,j}^{\hat{\ell}}
 \end{equation}
 
-\stitle{Rocchio-based.} The basic idea of Rocchio's algorithm is to estimate each sample's label the same as its nearest centroid. More specifically, let us denote the centroid of positive samples $\sss_+$ and negative samples $\sss_-$ as $\mu_+=(\mm_i^+,\mm_j^+)$ and $\mu_-=(\mm_i^-,\mm_j^-)$ respectively ,as shown in Figure~\ref{fig:rocchio}. Link $\mu_+$ with $\mu_-$, then the perpendicular bisector is defined as the representative separating line $\hat{\ell}$. Mathmatically, $\hat{\ell}$ can be represented as an instantiated line in Equation~\ref{eqn:line} with instantiated $w_i$, $w_j$ and $w_0$ as shown in Equation~\ref{eqn:rep_line}. Figure~\ref{fig:rocchio} illustrates the centroids $\mu_+$ and $\mu_-$, as well as the Rocchio-based representative separating line $\hat{\ell}$. The corresponding $\theta_{i,j}^{\hat{\ell}}$ equals 13 with one negative sample (blue point in Figure~\ref{fig:rocchio}) mis-estimated as positive.
+\stitle{Rocchio-based.} The basic idea of Rocchio's algorithm is to estimate each object's label the same as its nearest centroid. More specifically, let us denote the centroid of positive objects $\oo_+$ and negative objects $\oo_-$ as $\mu_+=(\mm_i^+,\mm_j^+)$ and $\mu_-=(\mm_i^-,\mm_j^-)$ respectively ,as shown in Figure~\ref{fig:rocchio}. Link $\mu_+$ with $\mu_-$, then the perpendicular bisector is defined as the representative separating line $\hat{\ell}$. Mathmatically, $\hat{\ell}$ can be represented as an instantiated line in Equation~\ref{eqn:line} with instantiated $w_i$, $w_j$ and $w_0$ as shown in Equation~\ref{eqn:rep_line}. Figure~\ref{fig:rocchio} illustrates the centroids $\mu_+$ and $\mu_-$, as well as the Rocchio-based representative separating line $\hat{\ell}$. The corresponding $\theta_{i,j}^{\hat{\ell}}$ equals 13 with one negative object (blue point in Figure~\ref{fig:rocchio}) mis-estimated as positive.
 
 
 %\hat{\ell}: \hspace{4mm} (\mm_i^+-\mm_i^-)\cdot x + (\mm_j^+-\mm_j^-)\cdot y -(\frac{(\mm_i^+)^2-(\mm_i^-)^2}{2}+\frac{(\mm_j^+)^2-(\mm_j^-)^2}{2}) =0 
@@ -174,26 +174,26 @@ First, given a feature pair $(f_i, f_j)$ and a line $\ell$ in the 2-D plane, a s
 \end{equation}
 
 
-\stitle{Brute-force v.s. Rocchio-based.} Compared to brute force, Rocchio-based method is more light-weight in terms of running time, but at the cost of accuracy in calculating $\theta_{i,j}$. Intuitively, Rocchio-based representative line is a reasonable approxy to the best separating line since Rocchio-based method assigns each sample to its nearest centroid and each centroid is calculated as the representative of each group. We will further experimentally demonstrate that $\theta_{i,j}-\theta_{i,j}^{\hat{\ell}}$ is small in Section~\ref{sec:exp}.
+\stitle{Brute-force v.s. Rocchio-based.} Compared to brute force, Rocchio-based method is more light-weight in terms of running time, but at the cost of accuracy in calculating $\theta_{i,j}$. Intuitively, Rocchio-based representative line is a reasonable approxy to the best separating line since Rocchio-based method assigns each object to its nearest centroid and each centroid is calculated as the representative of each group. We will further experimentally demonstrate that $\theta_{i,j}-\theta_{i,j}^{\hat{\ell}}$ is small in Section~\ref{sec:exp}.
 
 %==================================================================
 \section{Proposed Optimizations}\label{sec:opt}
 In the following, we will focus on Rocchio-based method to calculate the separability score. We first analyze the time complexity and then propose several optimization techniques in order to reduce the running time. 
 
-\stitle{Time Complexity Analysis.} Given a feature pair $(f_i, f_j)$, the separating line $\hat{\ell}$ can be calculated in $O(1)$ using Equation~\ref{eqn:rep_line}. However, calculating the number of correctly separated samples $\theta_{i,j}^{\hat{\ell}}$ requires a full scan of all samples, i.e., $O(n)$. In addition, by choosing any two features from the whole feature set, there are $O(m^2)$ feature pair candidates. Thus, in total the running time complexity is $O(m^2n)$, which is very time-consuming especially when $m$ and $n$ are large. In the following, we propose different methodologies to reduce the running time.
+\stitle{Time Complexity Analysis.} Given a feature pair $(f_i, f_j)$, the separating line $\hat{\ell}$ can be calculated in $O(1)$ using Equation~\ref{eqn:rep_line}. However, calculating the number of correctly separated objects $\theta_{i,j}^{\hat{\ell}}$ requires a full scan of all objects, i.e., $O(n)$. In addition, by choosing any two features from the whole feature set, there are $O(m^2)$ feature pair candidates. Thus, in total the running time complexity is $O(m^2n)$, which is very time-consuming especially when $m$ and $n$ are large. In the following, we propose different methodologies to reduce the running time.
 
-First, we observe massive redundancy in calculating Equation~\ref{eqn:rep_line} for different feature pairs. In Section~\ref{ssec:trans}, we propose to map sample-feature matrix $\mm$ into a different space, and then transform Equation~\ref{eqn:rep_line} accordingly. Next, we introduce several different optimization modulars to further reduce the running time in Section~\ref{ssec:earlyT},~\ref{ssec:sampling} and \ref{ssec:traversal}. Modular \earlyT and \sampling aim to reduce the number of samples checked (i.e., $n$), while modular \traversal aims to reduce the number of feature pairs checked (i.e., $m^2$). These optimization modulars can be used by their own or combined together, as we will show in Section~\ref{sec:exp}. 
+First, we observe massive redundancy in calculating Equation~\ref{eqn:rep_line} for different feature pairs. In Section~\ref{ssec:trans}, we propose to map object-feature matrix $\mm$ into a different space, and then transform Equation~\ref{eqn:rep_line} accordingly. Next, we introduce several different optimization modulars to further reduce the running time in Section~\ref{ssec:earlyT},~\ref{ssec:sampling} and \ref{ssec:traversal}. Modular \earlyT and \sampling aim to reduce the number of objects checked (i.e., $n$), while modular \traversal aims to reduce the number of feature pairs checked (i.e., $m^2$). These optimization modulars can be used by their own or combined together, as we will show in Section~\ref{sec:exp}. 
 
 \subsection{Pre-Transformation} \label{ssec:trans}
-\stitle{Motivation.} Let us first review the process of computing the separability score $\theta_{i,j}^{\hat{\ell}}$. Given a fature pair $(f_i,f_j)$, we first compute $w_0$, $w_i$ and $w_j$ for $\hat{\ell}$ based on Equation~\ref{eqn:rep_line}. Next, for each sample $s_k$, we can get the estimated label $\eta_{i,j}^{\hat{\ell},k}$ according to Equation~\ref{eqn:est_label}. This step requires two multiplications and three additions. Last, we can calculate $\theta_{i,j}^{\hat{\ell},k}$ and the separability score $\theta_{i,j}^{\hat{\ell}}$ based on Equation~\ref{eqn:s_sample} and \ref{eqn:s_line} respectively. The whole process is repeated for every feature pair candidate. However, we observe that there exists massive redundancy when calculating different feature pairs. For instance, given two feature pairs $(f_i,f_j)$ and $(f_i,f_{j'})$ with fixed $f_i$, $w_i$ is in fact the same, and $w_i\cdot \mm_{i,k}$ in Equation~\ref{eqn:est_label} is repeated twice for each sample $s_k$. Thus, we propose to pre-transform $\mm_{i,k}$ into another space to reduce the computational redundancy.
+\stitle{Motivation.} Let us first review the process of computing the separability score $\theta_{i,j}^{\hat{\ell}}$. Given a fature pair $(f_i,f_j)$, we first compute $w_0$, $w_i$ and $w_j$ for $\hat{\ell}$ based on Equation~\ref{eqn:rep_line}. Next, for each object $o_k$, we can get the estimated label $\eta_{i,j}^{\hat{\ell},k}$ according to Equation~\ref{eqn:est_label}. This step requires two multiplications and three additions. Last, we can calculate $\theta_{i,j}^{\hat{\ell},k}$ and the separability score $\theta_{i,j}^{\hat{\ell}}$ based on Equation~\ref{eqn:s_object} and \ref{eqn:s_line} respectively. The whole process is repeated for every feature pair candidate. However, we observe that there exists massive redundancy when calculating different feature pairs. For instance, given two feature pairs $(f_i,f_j)$ and $(f_i,f_{j'})$ with fixed $f_i$, $w_i$ is in fact the same, and $w_i\cdot \mm_{i,k}$ in Equation~\ref{eqn:est_label} is repeated twice for each object $o_k$. Thus, we propose to pre-transform $\mm_{i,k}$ into another space to reduce the computational redundancy.
 
-\stitle{Transformation.} For each $\mm_{i,k}$, i.e., the value of sample $s_k$ on feature $f_i$, we pre-transform it to $\widehat{\mm}_{i,k}$ as illustrated in Equation~\ref{eqn:matrix_transform}, where $\mm_i^+$ ($\mm_j^+$) and $\mm_i^-$ ($\mm_j^-$) are constants given a feature $f_i$ ($f_j$). By incorporating $\ell_k$ in Equation~\ref{eqn:matrix_transform}, we can unify the process of calculating $\theta_{i,j}^{\hat{\ell},k}$ for both positive and negative samples, and get rid of checking the real label $\ell_k$ in Equation~\ref{eqn:s_sample}. Accordingly, Equation~\ref{eqn:est_label} and Equation~\ref{eqn:s_sample} can be combined and transformed into Equation~\ref{eqn:s_sample_transform}.
+\stitle{Transformation.} For each $\mm_{i,k}$, i.e., the value of object $o_k$ on feature $f_i$, we pre-transform it to $\widehat{\mm}_{i,k}$ as illustrated in Equation~\ref{eqn:matrix_transform}, where $\mm_i^+$ ($\mm_j^+$) and $\mm_i^-$ ($\mm_j^-$) are constants given a feature $f_i$ ($f_j$). By incorporating $\ell_k$ in Equation~\ref{eqn:matrix_transform}, we can unify the process of calculating $\theta_{i,j}^{\hat{\ell},k}$ for both positive and negative objects, and get rid of checking the real label $\ell_k$ in Equation~\ref{eqn:s_object}. Accordingly, Equation~\ref{eqn:est_label} and Equation~\ref{eqn:s_object} can be combined and transformed into Equation~\ref{eqn:s_object_transform}.
 
 \begin{equation}\label{eqn:matrix_transform}
 \widehat{\mm}_{i,k} = ((\mm_i^+-\mm_i^-)\cdot \mm_{i,k}-\frac{(\mm_i^+)^2-(\mm_i^-)^2}{2})\cdot l_k 
 \end{equation}
 
-\begin{equation}\label{eqn:s_sample_transform}
+\begin{equation}\label{eqn:s_object_transform}
 \theta_{i,j}^{\hat{\ell},k}=\left\{
                 \begin{array}{ll}
                   1 \textit{\hspace{2mm} if \hspace{2mm}} \sign(\widehat{\mm}_{i,k} + \widehat{\mm}_{j,k}) = 1\\
@@ -206,11 +206,11 @@ First, we observe massive redundancy in calculating Equation~\ref{eqn:rep_line} 
 %\eta_{i,j}^{\hat{\ell},k}=\sign(\widehat{\mm}_{i,k} + \widehat{\mm}_{j,k})
 %\end{equation}
 
-Now, let us revisit the process of computing separability score $\theta_{i,j}^{\hat{\ell}}$ after pre-transformation. Given a feature pair $(f_i,f_j)$, we can compute $\theta_{i,j}^{\hat{\ell},k}$ for each sample $s_k$ based on Equation~\ref{eqn:s_sample_transform}. Note that this step only involves one addition and one comparison. Then, similar to that without transformation, we can calculate $\theta_{i,j}^{\hat{\ell}}$ based on Equation~\ref{eqn:s_line}. In all, compared to that without transformation, we not only eliminate the step of computing $w_0$, $w_i$ and $w_j$ for every feature pair, but also reduce the cost of calculating $\eta_{i,j}^{\hat{\ell},k}$ in Equation~\ref{eqn:est_label}. Hence, by conducting transformation in Equation~\ref{eqn:matrix_transform} and~\ref{eqn:s_sample_transform}, we have mapped our problem to a new space. In the following sections, we will consider $\widehat{\mm}$ instead of $\mm$, and Equation~\ref{eqn:s_sample_transform} instead of Equation~\ref{eqn:est_label} and~\ref{eqn:s_sample}.
+Now, let us revisit the process of computing separability score $\theta_{i,j}^{\hat{\ell}}$ after pre-transformation. Given a feature pair $(f_i,f_j)$, we can compute $\theta_{i,j}^{\hat{\ell},k}$ for each object $o_k$ based on Equation~\ref{eqn:s_object_transform}. Note that this step only involves one addition and one comparison. Then, similar to that without transformation, we can calculate $\theta_{i,j}^{\hat{\ell}}$ based on Equation~\ref{eqn:s_line}. In all, compared to that without transformation, we not only eliminate the step of computing $w_0$, $w_i$ and $w_j$ for every feature pair, but also reduce the cost of calculating $\eta_{i,j}^{\hat{\ell},k}$ in Equation~\ref{eqn:est_label}. Hence, by conducting transformation in Equation~\ref{eqn:matrix_transform} and~\ref{eqn:s_object_transform}, we have mapped our problem to a new space. In the following sections, we will consider $\widehat{\mm}$ instead of $\mm$, and Equation~\ref{eqn:s_object_transform} instead of Equation~\ref{eqn:est_label} and~\ref{eqn:s_object}.
 
 
 \begin{example}[Transformation]
-Figure~\ref{fig:transform} illustrates the transformation for two feature $f_i$ and $f_j$. The upper part depicts $\mm_{i,k}$ and $\mm_{j,k}$ before transformation, where red color represents positive label and green color represents negative labels. As we can see, the centroid of $\sss_+$ and $\sss_-$ are $\mu_+=(5,7)$ and $\mu_-=(3,5)$ respectively. Hence, we can rewrite Equation~\ref{eqn:matrix_transform} as $\widehat{\mm_{i,k}} = (2\mm_{i,k}-8)\cdot l_k$ and $\widehat{\mm_{j,k}} = (2\mm_{i,k}-12)\cdot l_k$ for feature $f_i$ and $f_j$ respectively. After calculation, we can obtain the $\widehat{\mm_{i,k}}$ and $\widehat{\mm_{j,k}}$ in the lower part of Figure~\ref{fig:transform}.
+Figure~\ref{fig:transform} illustrates the transformation for two feature $f_i$ and $f_j$. The upper part depicts $\mm_{i,k}$ and $\mm_{j,k}$ before transformation, where red color represents positive label and green color represents negative labels. As we can see, the centroid of $\oo_+$ and $\oo_-$ are $\mu_+=(5,7)$ and $\mu_-=(3,5)$ respectively. Hence, we can rewrite Equation~\ref{eqn:matrix_transform} as $\widehat{\mm_{i,k}} = (2\mm_{i,k}-8)\cdot l_k$ and $\widehat{\mm_{j,k}} = (2\mm_{i,k}-12)\cdot l_k$ for feature $f_i$ and $f_j$ respectively. After calculation, we can obtain the $\widehat{\mm_{i,k}}$ and $\widehat{\mm_{j,k}}$ in the lower part of Figure~\ref{fig:transform}.
 \end{example}
 
 \begin{figure}[h]
@@ -235,25 +235,58 @@ Figure~\ref{fig:transform} illustrates the transformation for two feature $f_i$ 
 
 
 \subsection{Early Termination} \label{ssec:earlyT}
-As discussed at the beginning of Section~\ref{sec:opt}, given a feature pair $(f_i,f_j)$, we need to make a full scan of all samples to compute $\theta_{i,j}^{\hat{\ell}}$. However, we are not concerned about all feature pairs' separability score, instead we only care about the \topk feature pairs. Thus, we propose to reduce the running time using early termination when scanning the samples, denoted as \earlyT modular as shown in Figure~\ref{fig:workflow}.
+As discussed at the beginning of Section~\ref{sec:opt}, given a feature pair $(f_i,f_j)$, we need to make a full scan of all objects to compute $\theta_{i,j}^{\hat{\ell}}$. However, we are not concerned about all feature pairs' separability score, instead we only care about the \topk feature pairs. Thus, we propose to reduce the running time using early termination when scanning the objects, denoted as \earlyT modular as shown in Figure~\ref{fig:workflow}.
 
-\stitle{High Level Idea.} The basic idea is to maintain a upper bound for the separability error of the \topk feature pairs, denoted as $\tau$. Correspondingly, the lower bound of separability score can be denoted as ($n-\tau$), where $n$ is the total number of samples $\hat{\sss}$. Given a feature pair $(f_i,f_j)$, we start to scan the sample list until the number of mistakenly separated samples exceeds $\tau$, then terminate and abandom this feature pair since it can not be among the \topk feature pairs; otherwise, $(f_i,f_j)$ is added to the feature pair candidate set and we update $\tau$ accordingly.
+\stitle{High Level Idea.} The basic idea is to maintain a upper bound for the separability error of the \topk feature pairs, denoted as $\tau$. Correspondingly, the lower bound of separability score can be denoted as ($n-\tau$), where $n$ is the total number of objects $\hat{\oo}$. Given a feature pair $(f_i,f_j)$, we start to scan the object list until the number of mistakenly separated objects exceeds $\tau$, then terminate and abandom this feature pair since it can not be among the \topk feature pairs; otherwise, $(f_i,f_j)$ is added to the feature pair candidate set and we update $\tau$ accordingly.
 
-\stitle{Enhancement by Sample Ordering.} Furthermore, in order to terminate early, an intuitive method is to first examine the samples that are more problematic. In this way, given a bad feature pair, the number of mistakenly separated samples is likely to fast exceeds ($n-\tau$) by just looking at a few samples. Hence, we propose to order the samples in descending order in terms of "problematic". In our experiment, for each sample $s_k$, we quantify "problematic" by the number of single features $f_i$ that mistakendly separate this sample, i.e., $\widehat{\mm_{i,k}}<=0$.
+\stitle{Enhancement by object Ordering.} Furthermore, in order to terminate early, an intuitive method is to first examine the objects that are more problematic. In this way, given a bad feature pair, the number of mistakenly separated objects is likely to fast exceeds ($n-\tau$) by just looking at a few objects. Hence, we propose to order the objects in descending order in terms of "problematic". In our experiment, for each object $o_k$, we quantify "problematic" by the number of single features $f_i$ that mistakendly separate this object, i.e., $\widehat{\mm_{i,k}}<=0$.
 
-\begin{example}[\earlyT \& Sample Ordering]
-Figure~\ref{fig:earlyT} illustrates how early termination and sample ordering help reduce the running time. The upper part is $\widehat{\mm}$ after transformation. Assume the current error upper bound is $\tau=1$. We start scan the sample list from left to right and determine whether each sample is correctly separated or not based on Equation~\ref{eqn:s_sample_transform}. Sample $s_1$ is mistakenly separated since $\widehat{\mm_{i,1}}+\widehat{\mm_{j,1}}\leq0$, marked as blue color in Figure~\ref{fig:earlyT}. We can terminate at $s_5$ since the number of mistakenly separated samples exceeds $\tau=1$.
+\begin{example}[\earlyT \& object Ordering]
+Figure~\ref{fig:earlyT} illustrates how early termination and object ordering help reduce the running time. The upper part is $\widehat{\mm}$ after transformation. Assume the current error upper bound is $\tau=1$. We start scan the object list from left to right and determine whether each object is correctly separated or not based on Equation~\ref{eqn:s_object_transform}. object $o_1$ is mistakenly separated since $\widehat{\mm_{i,1}}+\widehat{\mm_{j,1}}\leq0$, marked as blue color in Figure~\ref{fig:earlyT}. We can terminate at $o_5$ since the number of mistakenly separated objects exceeds $\tau=1$.
 
-The lower part of Figure~\ref{fig:earlyT} shows the $\widehat{\mm}$ after sample reordering, where "problematic" samples are placed on the front. In this way, by only checking the first two samples, we can terminate and get rid of this feature pair.
+The lower part of Figure~\ref{fig:earlyT} shows the $\widehat{\mm}$ after object reordering, where "problematic" objects are placed on the front. In this way, by only checking the first two objects, we can terminate and get rid of this feature pair.
 \end{example}
 
 \subsection{Sampling-based Estimation} \label{ssec:sampling}
+We have proposed \earlyT modular in Section~\ref{ssec:earlyT} to reduce the number of objects checked (i.e., $n$). However, there is no guarantee for the running time performance since the termination point is very data-dependent. In this section, we propose a schochastic method to reduce the number of objects, called \sampling. Instead of calculating $\theta_{i,j}^{\hat{\ell}}$ over the whole object set $\hat{\oo}$, \sampling works on a sample set drawn from $\hat{\oo}$, denoted as $\sss$.
+
+\stitle{High Level Idea.} At a high level, \sampling mainly consists of two phases, called {\em candidate generation} and {\em candidate validation} respectively. At phase one, we first estimate $\theta_{i,j}^{\hat{\ell}}$ over a sample set $\sss$, and meanwhile generate the feature pair candidate set $\cc$ based on the confidence interval for each feature pair. At phase two, we recalculate $\theta_{i,j}^{\hat{\ell}}$ over the whole object set $\hat{\oo}$ for each feature pair in the candidate set $\cc$, and at last obtain the \topk feature pair. 
+\begin{figure}[h]
+  \centering
+  \vspace{-4mm}
+  \includegraphics[width=\linewidth]{fig/sampling.pdf}
+  \vspace{-6mm}
+\caption{\sampling (TOP-3 Feature Pair)}
+\label{fig:sampling}
+\end{figure} 
+% \begin{figure}[h]
+%   \centering
+%   \begin{subfigure}{0.235\textwidth}
+%     \centering
+%     \includegraphics[width=\linewidth]{fig/phase1.pdf}
+%     \vspace{-5mm}
+%     \caption{Candidate Generation}%{$\theta_{i,j}^{\ell}$ with Different Lines}
+%     \label{fig:phase1}
+%   \end{subfigure}
+%   \begin{subfigure}{.235\textwidth}
+%     \centering
+%     \includegraphics[width=\linewidth]{fig/phase2.pdf}
+%     \vspace{-5mm}
+%     \caption{Candidate Validation)}%{$\theta_{i,j}^{\hat{\ell}}$ with Representative Line}
+%     \label{fig:phase2}
+%   \end{subfigure}
+% \caption{\sampling (TOP-3)}
+% \label{fig:sampling}
+% \end{figure} 
+\subsubsection{Candidate Generation}
+%\stitle{Candidate Generation.}
+asd
+\subsubsection{Candidate Validation}
+%\stitle{Candidate Validation.}
+
+\stitle{Enhancement by Candidate Ordering.}  Whatever $n$
 Sampling-based Estimation
 \sampling Modular
-
-\stitle{High Level Idea.} 
-
-\stitle{Enhancement by Candidate Ordering.}
 
 \begin{example}[\sampling \& Candidate Ordering]
 \end{example}
