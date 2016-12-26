@@ -248,15 +248,15 @@ The lower part of Figure~\ref{fig:earlyT} shows the $\widehat{\mm}$ after object
 \end{example}
 
 \subsection{Sampling-based Estimation} \label{ssec:sampling}
-We have proposed \earlyT modular in Section~\ref{ssec:earlyT} to reduce the number of objects checked (i.e., $n$). However, there is no guarantee for the running time performance since the termination point is very data-dependent. In this section, we propose a schochastic method to reduce the number of objects, called \sampling. Instead of calculating $\theta_{i,j}^{\hat{\ell}}$ over the whole object set $\hat{\oo}$, \sampling works on a sample set drawn from $\hat{\oo}$, denoted as $\sss$.
+We have proposed \earlyT modular in Section~\ref{ssec:earlyT} to reduce the number of objects checked (i.e., $n$). However, there is no guarantee for the running time performance since the termination point is very data-dependent. In this section, we propose a schochastic method to reduce the number of objects, called \sampling. Instead of calculating $\theta_{i,j}^{\hat{\ell}}$ over the whole object set $\hat{\oo}$, \sampling works on a sample set drawing from $\hat{\oo}$.
 
-\stitle{High Level Idea.} At a high level, \sampling mainly consists of two phases, called {\em candidate generation} and {\em candidate validation} respectively. At phase one, we first estimate $\theta_{i,j}^{\hat{\ell}}$ over a sample set $\sss$, and meanwhile generate the feature pair candidate set $\cc$ based on the confidence interval for each feature pair. At phase two, we recalculate $\theta_{i,j}^{\hat{\ell}}$ over the whole object set $\hat{\oo}$ for each feature pair in the candidate set $\cc$, and at last obtain the \topk feature pair. 
-\begin{figure}[h]
+\stitle{High Level Idea.} At a high level, \sampling mainly consists of two phases, called {\em candidate generation} and {\em candidate validation} as shown in Figure~\ref{fig:sampling}. At phase one (i.e., Figure~\ref{fig:sampling}(a)), we first estimate $\theta_{i,j}$ over a sample set, and then generate the feature pair candidate set based on each feature pair's confidence interval. Next, at phase two (i.e., Figure~\ref{fig:sampling}(b)), we only re-evaluate the feature pairs in the candidate set, calculate $\theta_{i,j}$ over the whole object set $\hat{\oo}$, and then obtain the \topk feature pairs. We will describe in detail in Section~\ref{sssec:generate} and \ref{sssec:validate}.
+\begin{figure}[t!]
   \centering
-  \vspace{-4mm}
+  \vspace{-2mm}
   \includegraphics[width=\linewidth]{fig/sampling.pdf}
   \vspace{-6mm}
-\caption{\sampling (TOP-3 Feature Pair)}
+\caption{\sampling (TOP-3 Feature Pairs)}
 \label{fig:sampling}
 \end{figure} 
 % \begin{figure}[h]
@@ -278,43 +278,83 @@ We have proposed \earlyT modular in Section~\ref{ssec:earlyT} to reduce the numb
 % \caption{\sampling (TOP-3)}
 % \label{fig:sampling}
 % \end{figure} 
-\subsubsection{Candidate Generation}
-%\stitle{Candidate Generation.}
-asd
-\subsubsection{Candidate Validation}
-%\stitle{Candidate Validation.}
+\subsubsection{Candidate Generation}\label{sssec:generate}
+Let $\sss$ be the sample set, drawing uniformly from the object set $\hat{\oo}$. Given a feature pair $(f_i,f_j)$, let $\theta_{i,j}(\sss)$ be the number of correctly separated samples over $\sss$. Let $\tilde{\theta}_{i,j}$ be the estimated separating score based on the sample set $\sss$. First, we can estimate $\tilde{\theta}_{i,j}$ from $\theta_{i,j}(\sss)$ usinng Equation~\ref{eqn:est_score}: the ratio of correctly separated samples is the same as nthat in $\hat{\oo}$. 
 
-\stitle{Enhancement by Candidate Ordering.}  Whatever $n$
-Sampling-based Estimation
-\sampling Modular
+\begin{equation}\label{eqn:est_score}
+\tilde{\theta}_{i,j} = \frac{\theta_{i,j}(\sss)}{|\sss|} \cdot n
+\end{equation}
+
+Next, we will show that with a constant size of the sample set, $|\theta_{i,j}-\tilde{\theta}_{i,j}|$ is bounded by a small value with high probability. 
+
+\begin{theorem}[Estimation Accuracy~\cite{acharya2015fast}]\label{them:est}
+By considering $\Omega(\frac{1}{\epsilon^2}\cdot \log(\frac{1}{\delta}))$ samples, with probability at least $1-\delta$, we have $|\frac{\theta_{i,j}(\sss)}{|\sss|}-\frac{\theta_{i,j}}{n}| \leq \epsilon$, i.e., $|\tilde{\theta}_{i,j}-\theta_{i,j}|\leq \epsilon n$.
+\end{theorem}
+
+We can treat $log(1/\delta)$ as a constant, e.g., by setting $\delta = 0.05$.Thus, Theorem~\ref{them:est} essentially states that with only $\Omega(\frac{1}{\epsilon^2})$ samples, w.h.p. the confidence interval for $\theta_{i,j}$ is $[\tilde{\theta}_{i,j}-\epsilon n, \tilde{\theta}_{i,j}+\epsilon n]$. Note that the sample size $|\sss|$ only relies on $\epsilon$ and is independent of the object size $n$. Hence, the \sampling modular helps \genviz to scale to datasets with large $n$. 
+%For instance, when setting $\epsilon=0.05$, the sample size is fixed to be $400$. 
+
+With Theorem~\ref{them:est}, we can first calculate the confidence interval of $\theta_{i,j}$ for each feature pair $(f_i,f_j)$, as shown in Figure~\ref{fig:sampling}(a). Next, we compute the lower bound of $\theta_{i,j}$ for the \topk feature pairs, denoted as $\zeta$ as shown by the red dotted line in Figure~\ref{fig:sampling}(a). At last, we can prune away feature pairs whose upper bound is smaller than $\zeta$. Correspondingly, we can generate the feature pair, denoted as $\cc$ candidates as depicted by the blue intervals in Figure~\ref{fig:sampling}(a). These feature pairs $\cc$ will be further validated in phase two, i.e., candidate validation. Typically, $|\cc|$ is orders of magnitude smaller than $m^2$, the original search space for all feature pairs. We will verify this later in our experiments (Section~\ref{sec:exp}). 
+
+\begin{example}[Candidate Generation]
+Let us illustrate phase one using Figure~\ref{fig:sampling}(a). Set $\epsilon = 0.05$ and $K=3$. We sample $\Omega(\frac{1}{\epsilon^2})=400$ objects and compute the confidence interval of $\theta_{i,j}$ for each $(f_i,f_j)$. Next, we obtain the $3^{th}$ lower bound $\zeta$ (red dotted line) in ascending order among all the confidence intervals. At last, we generate the feature pair candidates $\cc$, whose upper bound is larger than the red dotted line.
+\end{example}
+
+\subsubsection{Candidate Validation}\label{sssec:validate}
+In phase two, we re-evaluate all the feature pair candidates generated from phase 1. The evaluation works on the whole object set $\hat{\oo}$. For each feature pair $(f_i,f_j)\in \cc$, we calculate the real separability score $\theta_{i,j}$, and find the \topk feature pairs as shown in Figure~\ref{fig:sampling}(b). 
+
 \begin{figure}[h]
   \centering
-  \vspace{-4mm}
   \includegraphics[width=\linewidth]{fig/candidate_ordering.pdf}
   \vspace{-6mm}
-\caption{\sampling (TOP-3 Feature Pair)}
-\label{fig:sampling}
+\caption{Enhancement by Candidate Ordering}
+\label{fig:candidate_ordering}
 \end{figure} 
 
-\begin{example}[\sampling \& Candidate Ordering]
+
+\stitle{Enhancement by Candidate Ordering.}  Instead of naively validating each feature pair candidate, we further propose to first order the candidates in descending order of the upper bound of each confidence interval. Then, we sequentially calculate the real separability score $\theta_{i,j}$ for each feature pair, and update $\zeta$ correspondingly. At last, we terminate when the feature pair's upper bound is even smaller than the current $\zeta$.
+
+
+\begin{example}[Candidate Ordering]
+We illustrate it using Figure~\ref{fig:candidate_ordering}. Initially, the lower bound of the \topthree feature pairs, i.e., $\zeta$, is depicted using the red dotted line  in Figure~\ref{fig:candidate_ordering}(a). We first sort the feature pair candidates in descending order of the upper bound (red line). Next, we calculate $\theta_{i,j}$ for the first feature pair, as shown by the blue ball in Figure~\ref{fig:candidate_ordering}(b), with $\zeta$ unchanged. Similarly, we calculate $\theta_{i,j}$ for the second and third feature pairs, as shown in Figure~\ref{fig:candidate_ordering}(c) and (d), and update $\zeta$ accordingly. Note that $\zeta$ (the red dotted line) is moved forward in Figure~\ref{fig:candidate_ordering}(d). Since $\zeta$ is already larger than the upper bound of the following feature pair, we can terminate.
 \end{example}
 
 \subsection{Search Space Traversal} \label{ssec:traversal}
-\traversal Modular
+In Section~\ref{ssec:earlyT} and \ref{ssec:sampling}, we have discussed how to reduce the number of objects checked (i.e., $n$). The question followed is that can we reduce the number of feature pair considered (i.e., $m^2$). In this section, we focus on how to smartly traverse the search space if allowed only a limited number of feature pairs, called \traversal Modular. 
+
+\stitle{High Level Idea.}  The basic idea is that instead of examining each possible feature pair, we only check a limited number of feature pairs, but in a {\em smarter traversal order}. The number of checked feature pairs determines a trade-off between the efficiency and the accuracy. In general, the less number of feature pairs checked, the faster in terms of the running time, however, at the cost of accuracy in terms of the output \topk feature pairs.
+
+The full search space for the feature pairs is the upper triangle in Figure~\ref{fig:traversal}(a), where each row represents $f_i$ and each column represents $f_j$. Let $\chi$ be the limited number of feature pairs allowed. We propose two different traversal order over the search space: horizontal traversal and vertical traversal. In the following, we will describe them in detail.
+\begin{itemize}
+\item \emph{Horizontal traversal (Figure~\ref{fig:traversal}(a)):} for each feature $f_i$, pair it with all other feature $f_j$, where $j\geq i$, and obtain $(f_i,f_j)$. Repeat it for each $f_i$, where $1 \leq i\leq m$.
+\item \emph{Vertical traversal (Figure~\ref{fig:traversal}(b)):} for each feature $f_j$, pair it with all other feature $f_i$, where $i\leq j$, and obtain $(f_i,f_j)$. Repeat it for each $f_j$, where $1 \leq j\leq m$.
+%\item \emph{Diagonal traversal (Figure~\ref{fig:traversal}(c)):} for a fixed value $v$, pair $(f_i,f_{v-i})$, where $1\leq i<v$. Repeat it for each $v$, where $2 \leq v\leq 2m$.
+\end{itemize}
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=\linewidth]{fig/traversal.pdf}
   \vspace{-6mm}
-\caption{\sampling (TOP-3 Feature Pair)}
-\label{fig:sampling}
+\caption{\traversal}
+\label{fig:traversal}
 \end{figure} 
 
-\stitle{High Level Idea.} 
+However, the traversal order does not convey any intuition if the feature set $\ff$ is in random order. Hence, we further propose to enhance \traversal by feature ordering in $\ff$.
 
-\stitle{Enhancement by Feature Ordering.}
+\stitle{Enhancement by Feature Ordering.} We propose to first sort features based on single feature's separability score. Single features performs good by their own, i.e., with high separability score, are ranked in the front. Let $\{f_1^{'} f_2^{'},\cdots,f_m^{'}\}$ be the sorted single feature set. First, we coarsely classify the sorted feature set into three categories based on the single feature separability score: {\em top, median,} and {\em bad}. Next, we discuss the intuition behind different traversal order:
 
-\begin{example}[\traversal \& Feature Ordering]
+\begin{itemize}
+\item \emph{Horizontal traversal:} the intuition is that there is at least one {\em top} or {\em median} single feature in each \topk feature pair $(f_i,f_j)$.
+\item \emph{Vertical traversal:}  the intuition is that both features in each \topk feature pair $(f_i,f_j)$ must rank {\em top} or {\em median} by their own.
+%\item \emph{Diagonal traversal:} 
+\end{itemize}
+
+
+%The intuition behind horizontal traversal is that there is at least one {\em top} or {\em median} single features in the \topk feature pairs $(f_i,f_j)$; while the intuition behind  horizontal traversal is that both features in \topk feature pairs $(f_i,f_j)$ must rank {\em top} or {\em median} by their own.
+
+%Typically, $K$ is not large, e.g., {\sc Top-1000}, while $m$ is large, e.g., {\sc 20000}. 
+\begin{example}[\traversal]
+Assume $m=2\times 10^4$ and $K=100$. Set $\chi=10^7$. Initially, the number of possible feature pairs is $\frac{m^2}{2}=2\times 10^8$; while now we reduce the whole search space to  $\frac{1}{20}$ of that,  i.e., $\chi=2\times 10^6$. First, single features are sorted in descending order of the separability score. Next, in horizontal traversal, the "worst" $f_i$ ranks around 500, while $f_j$ can be any feature in $\ff$. On the other hand, in vertical traversal, the "worst" $f_i$ (and $f_j$) ranks around 2000.
 \end{example}
 %==================================================================
 \section{Experiment}

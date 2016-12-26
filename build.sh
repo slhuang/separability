@@ -22,5 +22,5 @@ rm -rf *.blg
 rm -rf *.log
 rm -rf *.out
 #rm body.tex
-rm ref.bib
+#rm ref.bib
 echo "DONE"
