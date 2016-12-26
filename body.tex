@@ -38,6 +38,7 @@ As we will illustrate in Section~\ref{sec:exp}, two features that perform poorly
 
 
 
+
 % \slhuang{feature pair is }
 \begin{formulation}[Separability]\label{prob:separability}
 Given a feature-object matrix $\mm$ and two labeled object set $(\oo_+,\oo_-)$, \textbf{fast identify} \topk feature pairs $(f_i,f_j)$ separating $\oo_+$ from $\oo_-$ based on a given \textbf{separability metric}, and output a 2-D \textbf{visualization}.
@@ -51,10 +52,7 @@ There are three key aspects in Problem~\ref{prob:separability}. First, the outpu
 
 \stitle{Fast Identification.} Since \genviz serves as a data exploration tool before looking into more sophisticated machine learning algorithms, we in particular care more about the running time than the accuracy. For one thing, instead of complicated machine learning methods, we prefer light-weight separability metrics. In some sense, we try to solve Problem~\ref{prob:separability} in a "quick and dirty" way. For another, various optimization mechanisms are essential to further cut down the running time.
 
-In the following, we will first describe our selected separability metric in Section~\ref{sec:metric}, and then discuss different optimization techniques in Section~\ref{sec:opt}.
-
 \begin{table}[t!]
-\vspace{-10pt}
 \centering
 \small
 \begin{tabular}{c|c|c|c}
@@ -80,7 +78,7 @@ In the following, we will first describe our selected separability metric in Sec
     \hline
     $\theta_{i,j}^{\ell}$ & \# correctly separated $o_k$ & $\theta_{i,j}$ & separability score\\
     \hline
-    $\widehat{\mm}$ & $\mm$ after transformation &  \\
+    $\widehat{\mm}$ & $\mm$ after transformation &  $\tilde{\theta}_{i,j}$ & estimated $\theta_{i,j}$\\
     \hline
  \end{tabular}
 \vspace{-6pt}
@@ -88,6 +86,10 @@ In the following, we will first describe our selected separability metric in Sec
 \label{tbl:notation}
 \vspace{-18pt}
 \end{table}
+
+In the following, we will first describe our selected separability metric in Section~\ref{sec:metric}, and then discuss different optimization techniques in Section~\ref{sec:opt}.
+
+
 
 %==================================================================
 \section{Separability Metric}\label{sec:metric}
@@ -155,6 +157,7 @@ First, given a feature pair $(f_i, f_j)$ and a line $\ell$ in the 2-D plane, a o
 \end{figure} 
 
 
+
 \stitle{Brute Force.} As illustrated in Figure~\ref{fig:brute_force}, a brute force way to calculate $\theta_{i,j}$ is to first enumerate all possible separating lines $\ell$ and calculate each $\theta_{i,j}^\ell$. This is infeasible as there are infinite number of possible lines. However, we can easily trim down the search space to $O(n^2)$ lines by linking every two points in the 2-D plane. This is because the results of all other possible lines can be covered by these $O(n^2)$ lines. Nevertheless, it is still very time-consuming to consider $O(n^2)$ lines for each feature pair $(f_i,f_j)$. We further propose to use a {\em representative line} $\hat{\ell}$ to approximate $\theta_{i, j}$ as shown in Equation~\ref{eqn:s_viz_appr}, instead of considering all $O(n^2)$ possible lines and pick the best in Equation~\ref{eqn:s_viz}. Now, the search space is reduced to $O(1)$ from $O(n^2)$. The representative line is picked based on Rocchio's algorithm~\cite{rocchio1971relevance}. As we will show later in Section~\ref{sec:exp}, $\theta_{i,j}^{\hat{\ell}}$ is comparable to $\theta_{i,j}$ when using Rocchio-based representative line $\hat{\ell}$. Let us describe in detail about the Rocchio-based representative line.
 \begin{equation}\label{eqn:s_viz_appr}
 \theta_{i,j}  \approx \theta_{i,j}^{\hat{\ell}}
@@ -175,6 +178,7 @@ First, given a feature pair $(f_i, f_j)$ and a line $\ell$ in the 2-D plane, a o
 
 
 \stitle{Brute-force v.s. Rocchio-based.} Compared to brute force, Rocchio-based method is more light-weight in terms of running time, but at the cost of accuracy in calculating $\theta_{i,j}$. Intuitively, Rocchio-based representative line is a reasonable approxy to the best separating line since Rocchio-based method assigns each object to its nearest centroid and each centroid is calculated as the representative of each group. We will further experimentally demonstrate that $\theta_{i,j}-\theta_{i,j}^{\hat{\ell}}$ is small in Section~\ref{sec:exp}.
+
 
 %==================================================================
 \section{Proposed Optimizations}\label{sec:opt}
@@ -232,6 +236,16 @@ Figure~\ref{fig:transform} illustrates the transformation for two feature $f_i$ 
 \caption{Different Methods to Reduce Running Time}
 \label{fig:metric}
 \end{figure} 
+
+\stitle{Remark.} For a feature pair $(f_i,f_j)$ where $i=j$, we can treat the corresponding separability score $\theta_{i,i}$ as the single separability score for feature $f_i$. Equation~\ref{eqn:s_object_transform} can be further reduced to Equation~\ref{eqn:s_object_transform_single}. Hence, we can calculate the single separability score $\theta_{i,i}$ very efficiently based on the transformed matrix $\widehat{\mm}$.
+\begin{equation}\label{eqn:s_object_transform_single}
+\theta_{i,i}^{\hat{\ell},k}=\left\{
+                \begin{array}{ll}
+                  1 \textit{\hspace{2mm} if \hspace{2mm}} \sign(\widehat{\mm}_{i,k}) = 1\\
+                  0 \textit{\hspace{2mm} otherwise \hspace{2mm}} 
+                \end{array}
+              \right.
+\end{equation}
 
 
 \subsection{Early Termination} \label{ssec:earlyT}
@@ -333,15 +347,15 @@ The full search space for the feature pairs is the upper triangle in Figure~\ref
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=\linewidth]{fig/traversal.pdf}
-  \vspace{-6mm}
-\caption{\traversal}
+  \includegraphics[width=0.85\linewidth]{fig/traversal.pdf}
+  \vspace{-3mm}
+\caption{Different Traversal Ordering}
 \label{fig:traversal}
 \end{figure} 
 
 However, the traversal order does not convey any intuition if the feature set $\ff$ is in random order. Hence, we further propose to enhance \traversal by feature ordering in $\ff$.
 
-\stitle{Enhancement by Feature Ordering.} We propose to first sort features based on single feature's separability score. Single features performs good by their own, i.e., with high separability score, are ranked in the front. Let $\{f_1^{'} f_2^{'},\cdots,f_m^{'}\}$ be the sorted single feature set. First, we coarsely classify the sorted feature set into three categories based on the single feature separability score: {\em top, median,} and {\em bad}. Next, we discuss the intuition behind different traversal order:
+\stitle{Enhancement by Feature Ordering.} We propose to first sort features based on single feature's separability score $\theta_{i,i}$. Single features performs good by their own, i.e., with high separability score, are ranked in the front. Let $\{f_1^{'} f_2^{'},\cdots,f_m^{'}\}$ be the sorted single feature set. First, we coarsely classify the sorted feature set into three categories based on the single feature separability score $\theta_{i,i}$: {\em top, median,} and {\em bad}. Next, we discuss the intuition behind different traversal order:
 
 \begin{itemize}
 \item \emph{Horizontal traversal:} the intuition is that there is at least one {\em top} or {\em median} single feature in each \topk feature pair $(f_i,f_j)$.
