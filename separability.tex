@@ -1,58 +1,25 @@
-\documentclass{sigplanconf}
+\documentclass{bioinfo}
 \usepackage{latexsym, mathrsfs}
-\usepackage[usenames,dvipsnames]{color}
-\usepackage[linesnumbered,ruled,procnumbered]{algorithm2e}
-\usepackage{paralist}
+\usepackage{slantsc}
+%\usepackage[usenames,dvipsnames]{color}
+%\usepackage[linesnumbered,ruled,procnumbered]{algorithm2e}
+%\usepackage{paralist}
 \usepackage{xspace}
-\usepackage{url}
-\usepackage{graphicx}
-\usepackage{floatflt}
-\usepackage{times}
-\usepackage{balance}
-\usepackage{spverbatim}
-\usepackage{hyperref}
+%\usepackage{url}
+%\usepackage{graphicx}
+%\usepackage{floatflt}
+%\usepackage{times}
+%\usepackage{balance}
+%\usepackage{spverbatim}
+%\usepackage{hyperref}
 \usepackage{amsmath}
-\usepackage{subcaption} %{subfig}
+\usepackage{subfigure} %{subfig} {subcaption}
+\usepackage{multirow}
 
-\renewcommand*\ttdefault{cmvtt}
-%\renewcommand*\familydefault{\ttdefault} %% Only if the base font of the document is to be typewriter style
-\usepackage[T1]{fontenc}
+\copyrightyear{xxx} \pubyear{xxx}
+\access{} %Advance Access Publication Date: Day Month Year
+\appnotes{} %Manuscript Category
 
-\usepackage{cleveref}
-\crefname{section}{\S\!\!\!\;}{\S\S}
-\Crefname{section}{\S}{\S\S}
-
-\usepackage[utf8]{inputenc} % make sure your Latex source has this, for accented chars
-
-%COMPRESS
-\newcommand{\squeezeup}{\vspace{-2.5mm}}
-\DeclareMathOperator{\sign}{sign}
-
-
-\usepackage{etoolbox}
-\makeatletter
-\patchcmd{\maketitle}{\@copyrightspace}{}{}{}
-\makeatother
-
-\newcommand{\q}[1]{{\vspace{.1in}\noindent \em {\bf Research Question}}}
-\newenvironment{mydescription}{%
-   \begin{description}{
-           }
-}{%
-   \end{description}%
-}
-\newenvironment{denselist}{
-    \begin{list}{\small{$\bullet$}}%
-    {\setlength{\itemsep}{0ex} \setlength{\topsep}{0ex}
-    \setlength{\parsep}{0pt} \setlength{\itemindent}{0pt}
-    \setlength{\leftmargin}{1.5em}
-    \setlength{\partopsep}{0pt}}}%
-    {\end{list}}
-
-
-\makeatletter
-\def\@copyrightspace{\relax}
-\makeatother
 
 
 \newcommand{\topic}[1]{\vspace{1pt} \noindent \underline{\bf #1}}
@@ -75,12 +42,23 @@
 \newcommand{\cc}{\small{\mathcal{C}}\xspace}
 
 
-\newcommand{\topk}{{\sc Top-k}\xspace}
-\newcommand{\topthree}{{\sc Top-3}\xspace}
-\newcommand{\genviz}{{\sc Genvisage}\xspace}
-\newcommand{\earlyT}{{\sc EarlyTerm}\xspace}
-\newcommand{\sampling}{{\sc Sampling}\xspace}
-\newcommand{\traversal}{{\sc Traversal}\xspace}
+\newcommand{\topk}{{\sc T{\small OP-K}}\xspace}
+\newcommand{\topthree}{{\sc T{\small OP-3}}\xspace}
+\newcommand{\trans}{{\sc T{\small RANSFORMATION}}\xspace}
+\newcommand{\genviz}{{\sc G{\small ENVISAGE}}\xspace}
+\newcommand{\earlyT}{{\sc E{\small ARLY}T{\small ERM}}\xspace}
+\newcommand{\sampling}{{\sc S{\small AMPLING}}\xspace} %\hspace{.2mm}
+\newcommand{\traversal}{{\sc T{\small RAVERSAL}}\xspace}
+
+\newcommand{\baseline}{{\sc Baseline}\xspace}
+\newcommand{\early}{{\sc Early}\xspace}
+\newcommand{\earlyOrder}{{\sc EarlyOrdering}\xspace}
+\newcommand{\samp}{{\sc Sampling}\xspace}
+\newcommand{\sampOpt}{{\sc SampOpt}\xspace}
+\newcommand{\horiz}{{\sc HorizSampOpt}\xspace}
+\newcommand{\vertic}{{\sc VertSampOpt}\xspace}
+\newcommand{\msig}{{\sc MSigDB}\xspace}
+\newcommand{\lincs}{{\sc LINCs}\xspace}
 %\newcommand{\ss}[1]{\noindent{\textcolor{red}{[Saurabh: #1]}}}
 \newcommand{\agp}[1]{\noindent{\textcolor{RedOrange}{[Aditya: #1]}}}
 \newcommand{\cb}[1]{\noindent{\textcolor{magenta}{[Charles: #1]}}}
@@ -102,14 +80,35 @@
 \newcommand{\squishlist}{\begin{list}{$\bullet$}{\leftmargin=1.2em \topsep 1pt \itemsep -1pt \parsep 1pt}}
 \newcommand{\squishend}{\end{list}}
 \newcommand{\sampar}[1]{\vspace{3pt}\noindent{\bf #1}}
+% \begin{document}
+% \title{\genviz: Rapid Identification of Visually Explainable Features for Genomic Data Analysis}
+
+
+% \authorinfo{xxx}
+%        {University of Illinois (UIUC)}
+%         {\url{xxx@illinois.edu}}
+
 \begin{document}
-\title{\genviz: Rapid Identification of Visually Explainable Features for Genomic Data Analysis}
+\firstpage{1}
 
+\subtitle{} %Subject Section
+\title[short Title]{G{\large ENVISAGE}: Rapid Identification of Visually Explainable Features for Genomic Data Analysis}
+\author[]{} %[Sample \textit{et~al}.]{}
+\address{} %$^{\text{\sf 1}}$Computer Science, University of Illinois, Urbana-Champaign, 61802, US.
 
-\authorinfo{xxx}
-       {University of Illinois (UIUC)}
-        {\url{xxx@illinois.edu}}
+\corresp{} %$^\ast$To whom correspondence should be addressed.
 
+\history{} %Received on XXXXX; revised on XXXXX; accepted on XXXXX
+
+\editor{} %Associate Editor: XXXXXXX
+
+\abstract{}
+% \abstract{\textbf{Motivation:} \\
+% \textbf{Results:} \\
+% \textbf{Availability:} \\
+% \textbf{Contact:} \href{name@bio.com}{name@bio.com}\\
+% \textbf{Supplementary information:} Supplementary data are available at \textit{Bioinformatics}
+% online.}
 
 \maketitle
 
@@ -120,3 +119,5 @@
 \bibliography{ref}
 }
 \end{document}
+
+
