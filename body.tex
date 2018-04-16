@@ -336,7 +336,7 @@ Let us review the process of computing the separability  $\theta_{i,j}^{\lhat}$.
 \widehat{\mm}_{i,k} = \Big( (\mm_i^+-\mm_i^-)\cdot \mm_{i,k}-\frac{(\mm_i^+)^2-(\mm_i^-)^2}{2} \Big) \cdot l_k
 \end{equation}
 \noindent The basic idea is to decompose Equation~\ref{eqn:est_label} into two components, with each one only related to a single, individual feature. This pre-transformation incorporates the class centroids into the matrix values, obviating their integration later for every feature pair that involves the given feature. Equation~\ref{eqn:matrix_transform} also multiplies in the class label of the object, $l_k$, rather than repeating this multiplication every time the object is evaluated. With this transformation of the feature-object matrix, evaluating whether an object was correctly separated is simplified from Equation~\ref{eqn:s_object} into Equation~\ref{eqn:s_object_transform}:
-\agp{confusing because $L$ is not there in Equation~\ref{eqn:s_object}}
+\agp{confusing because $L$ is not there in Equation~\ref{eqn:s_object}}\silu{maybe add "Since our focus is on Rocchio-based measure, we replace the separating line $\ell$ in Equation~\ref{eqn:s_object} with the representing line $L$ in Equation~\ref{eqn:s_object_transform}."}
 %, and get rid of checking the real label $l_k$ in Equation~\ref{eqn:s_object}
 \begin{equation}\label{eqn:s_object_transform}
 \theta_{i,j}^{\lhat,k}=\left\{
@@ -368,7 +368,7 @@ Figure~\ref{fig:transform} illustrates the transformation for two features, $f_i
 \end{example}
 
 \sinha{at this point, write a summary of the time complexity of calculating $\theta_{i,j}^{\lhat}$ for a feature pair i,j using transformation (include preprocessing separately)}
-
+\silu{the big-O time complexity is not changed. More precisely, only with constant improvement. Preprocessing takes O(mn) as we discussed in Results section.}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%NEED TOGGLE%%%%%%%%%%%%%%%%%%%%%%
 % \begin{figure}[h]
 % \centering
@@ -390,7 +390,7 @@ Figure~\ref{fig:transform} illustrates the transformation for two features, $f_i
 % \label{fig:metric}
 % \end{figure}
 
-\agp{suggest delete next para; one line replacement: note that this approach can also be extended to the single feature case.}
+\agp{suggest delete next para; one line replacement: note that this approach can also be extended to the single feature case.} \silu{we can do that.}
 
 \stitle{Extension to Single Features.} For a feature pair $(f_i,f_j)$ where $i=j$, we can treat the corresponding $\theta_{i,i}$ as the separability score for a single feature $f_i$. Equation~\ref{eqn:s_object_transform} can be further reduced to Equation~\ref{eqn:s_object_transform_single}.
 
@@ -428,6 +428,7 @@ The bottom half of Figure~\ref{fig:earlyT} shows $\widehat{\mm}$ after object re
 One downside of the \earlyT module, which reduces the number of examined objects, is that the improvement in the running time is highly data-dependent. Here, we propose a stochastic method, called \sampling, that further reduces the number of examined objects. Instead of calculating $\theta_{i,j}$ over the whole object set $\hat{\oo}$, \sampling works on a sample set drawn from $\hat{\oo}$.
 \sinha{use $\theta_{i,j}^{\lhat}$ instead of $\theta_{i,j}$}
 \cb{we introduced this simplification at the end of Section \ref{sec:metric}}\agp{yes, but you used it in 2.3.1.}
+\silu{Maybe we can add one sentence here to remind the readers? "Recall that we use $\theta_{i,j}^{\lhat}$ and $\theta_{i,j}$ interchangeably throughout the paper."}
 
 \stitle{High Level Idea.} \sampling primarily consists of two phases, called {\em candidate generation} and {\em candidate validation} as shown in Figure~\ref{fig:sampling}. In phase one (Figure~\ref{fig:sampling}(a)), we estimate the confidence interval of $\theta_{i,j}$ for each feature pair using a sampled set of objects and generate the candidate feature pairs for full evaluation based on where their confidence intervals lie. If the confidence interval overlaps with the score range of the current \topk, then it is selected for evaluation. In phase two (Figure~\ref{fig:sampling}(b)), we evaluate only the feature pairs in the candidate set, calculating $\theta_{i,j}$ over the whole object set, $\hat{\oo}$, to obtain the final \topk feature pairs. Unlike our previous optimizations, \sampling returns an approximation of the \topk ranking feature pairs. In Section~\ref{sec:exp_comp}, we study how the greatly reduced running time of \sampling  affects the accuracy of the \topk pairs. %We will describe in detail in Section~\ref{sssec:generate} and \ref{sssec:validate}.
 
