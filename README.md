@@ -1,3 +1,0 @@
-# separability
-
-./build.sh
