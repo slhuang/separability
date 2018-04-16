@@ -1,0 +1,123 @@
+\documentclass{bioinfo}
+\usepackage{latexsym, mathrsfs}
+\usepackage{slantsc}
+%\usepackage[usenames,dvipsnames]{color}
+%\usepackage[linesnumbered,ruled,procnumbered]{algorithm2e}
+%\usepackage{paralist}
+\usepackage{xspace}
+%\usepackage{url}
+%\usepackage{graphicx}
+%\usepackage{floatflt}
+%\usepackage{times}
+%\usepackage{balance}
+%\usepackage{spverbatim}
+%\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{subfigure} %{subfig} {subcaption}
+\usepackage{multirow}
+
+\copyrightyear{xxx} \pubyear{xxx}
+\access{} %Advance Access Publication Date: Day Month Year
+\appnotes{} %Manuscript Category
+
+
+
+\newcommand{\topic}[1]{\vspace{1pt} \noindent \underline{\bf #1}}
+%\theoremstyle{slplain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{conjecture}{Conjecture}
+\newtheorem{example}{Example}
+\newtheorem{formulation}{Problem}
+\newtheorem{definition}{Definition}
+\newtheorem{observation}[theorem]{\textbf{Observation}}
+\newtheorem{claim}[lemma]{\textbf{Claim}}
+\newtheorem{problem}{\textbf{Problem}}
+\newcommand{\stitle}[1]{\vspace{0.5em}\noindent\textbf{#1}}
+
+\newcommand{\mm}{\small{\mathcal{M}}\xspace}
+\newcommand{\ff}{\small{\mathcal{F}}\xspace}
+\newcommand{\oo}{\small{\mathcal{O}}\xspace}
+\newcommand{\sss}{\small{\mathcal{S}}\xspace}
+\newcommand{\cc}{\small{\mathcal{C}}\xspace}
+
+
+\newcommand{\topk}{{\sc T{\small OP-K}}\xspace}
+\newcommand{\topthree}{{\sc T{\small OP-3}}\xspace}
+\newcommand{\trans}{{\sc T{\small RANSFORMATION}}\xspace}
+\newcommand{\genviz}{{\sc G{\small ENVISAGE}}\xspace}
+\newcommand{\earlyT}{{\sc E{\small ARLY}T{\small ERM}}\xspace}
+\newcommand{\sampling}{{\sc S{\small AMPLING}}\xspace} %\hspace{.2mm}
+\newcommand{\traversal}{{\sc T{\small RAVERSAL}}\xspace}
+
+\newcommand{\baseline}{{\sc Baseline}\xspace}
+\newcommand{\early}{{\sc Early}\xspace}
+\newcommand{\earlyOrder}{{\sc EarlyOrdering}\xspace}
+\newcommand{\samp}{{\sc Sampling}\xspace}
+\newcommand{\sampOpt}{{\sc SampOpt}\xspace}
+\newcommand{\horiz}{{\sc HorizSampOpt}\xspace}
+\newcommand{\vertic}{{\sc VertSampOpt}\xspace}
+\newcommand{\msig}{{\sc MSigDB}\xspace}
+\newcommand{\lincs}{{\sc LINCs}\xspace}
+%\newcommand{\ss}[1]{\noindent{\textcolor{red}{[Saurabh: #1]}}}
+\newcommand{\agp}[1]{\noindent{\textcolor{RedOrange}{[Aditya: #1]}}}
+\newcommand{\cb}[1]{\noindent{\textcolor{magenta}{[Charles: #1]}}}
+\newcommand{\silu}[1]{\noindent{\textcolor{blue}{[Silu: #1]}}}
+
+\newcommand{\expn}[1]{\noindent{\textcolor{blue}{[Expand?]: #1}}}
+\newcommand{\cut}[1]{}
+\newcommand{\todo}[1]{\noindent{\textcolor{red}{\textbf{[TODO]: #1}}}}
+\newcommand{\trim}[1]{\noindent{\textcolor{magenta}{[Reduce?]: #1}}}
+
+\newcommand{\eat}[1]{}
+
+\newcommand{\papertext}[1]{\noindent{\textcolor{blue}{PAPER: #1}}}
+%\newcommand{\tr}[1]{\noindent{\textcolor{red}{#1}}}
+\newcommand{\tr}[1]{}
+%\newcommand{\tleftout}[1]{\noindent{\textcolor{blue}{#1}}}
+\newcommand{\tleftout}[1]{}
+
+\newcommand{\squishlist}{\begin{list}{$\bullet$}{\leftmargin=1.2em \topsep 1pt \itemsep -1pt \parsep 1pt}}
+\newcommand{\squishend}{\end{list}}
+\newcommand{\sampar}[1]{\vspace{3pt}\noindent{\bf #1}}
+% \begin{document}
+% \title{\genviz: Rapid Identification of Visually Explainable Features for Genomic Data Analysis}
+
+
+% \authorinfo{xxx}
+%        {University of Illinois (UIUC)}
+%         {\url{xxx@illinois.edu}}
+
+\begin{document}
+\firstpage{1}
+
+\subtitle{} %Subject Section
+\title[short Title]{G{\large ENVISAGE}: Rapid Identification of Visually Explainable Features for Genomic Data Analysis}
+\author[]{} %[Sample \textit{et~al}.]{}
+\address{} %$^{\text{\sf 1}}$Computer Science, University of Illinois, Urbana-Champaign, 61802, US.
+
+\corresp{} %$^\ast$To whom correspondence should be addressed.
+
+\history{} %Received on XXXXX; revised on XXXXX; accepted on XXXXX
+
+\editor{} %Associate Editor: XXXXXXX
+
+\abstract{}
+% \abstract{\textbf{Motivation:} \\
+% \textbf{Results:} \\
+% \textbf{Availability:} \\
+% \textbf{Contact:} \href{name@bio.com}{name@bio.com}\\
+% \textbf{Supplementary information:} Supplementary data are available at \textit{Bioinformatics}
+% online.}
+
+\maketitle
+
+\input{body.tex}
+
+{\scriptsize
+\bibliographystyle{abbrv}
+\bibliography{ref}
+}
+\end{document}
+
+
