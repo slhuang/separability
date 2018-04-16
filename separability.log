@@ -1,0 +1,1779 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  15 APR 2018 22:34
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**separability.tex
+(./separability.tex
+LaTeX2e <2017-04-15>
+Babel <3.10> and hyphenation patterns for 84 language(s) loaded.
+(./bioinfo.cls
+Document Class: bioinfo 2003/02/08 0.1
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2015/03/17 v1.2c Input encoding file
+\inpenc@prehook=\toks14
+\inpenc@posthook=\toks15
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/crop/crop.sty
+Package: crop 2003/05/20 v1.9 crop marks (mf)
+\stockwidth=\dimen102
+\stockheight=\dimen103
+\CROP@index=\count79
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2016/07/10 v1.1e Standard LaTeX Color (DPC)
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package color Info: Driver file: pdftex.def on input line 147.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2017/01/12 v0.06k Graphics/color for pdfTeX
+
+(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
+)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count80
+))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2017/04/14 v1.1b Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 99.
+)
+\CROP@offset=\count81
+Package crop Info: Local config file crop.cfg used on input line 605.
+
+(/usr/local/texlive/2017/texmf-dist/tex/xelatex/xetexconfig/crop.cfg))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks16
+)
+\Gin@req@height=\dimen104
+\Gin@req@width=\dimen105
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2016/11/05 v2.16a AMS math features
+\@mathmargin=\skip41
+
+For additional information on amsmath, use the `?' option.
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01 AMS text
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks17
+\ex@=\dimen106
+))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen107
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count82
+LaTeX Info: Redefining \frac on input line 213.
+\uproot@=\count83
+\leftroot@=\count84
+LaTeX Info: Redefining \overline on input line 375.
+\classnum@=\count85
+\DOTSCASE@=\count86
+LaTeX Info: Redefining \ldots on input line 472.
+LaTeX Info: Redefining \dots on input line 475.
+LaTeX Info: Redefining \cdots on input line 596.
+\Mathstrutbox@=\box26
+\strutbox@=\box27
+\big@size=\dimen108
+LaTeX Font Info:    Redeclaring font encoding OML on input line 712.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
+\macc@depth=\count87
+\c@MaxMatrixCols=\count88
+\dotsspace@=\muskip10
+\c@parentequation=\count89
+\dspbrk@lvl=\count90
+\tag@help=\toks18
+\row@=\count91
+\column@=\count92
+\maxfields@=\count93
+\andhelp@=\toks19
+\eqnshift@=\dimen109
+\alignsep@=\dimen110
+\tagshift@=\dimen111
+\tagwidth@=\dimen112
+\totwidth@=\dimen113
+\lineht@=\dimen114
+\@envbody=\toks20
+\multlinegap=\skip42
+\multlinetaggap=\skip43
+\mathdisplay@stack=\toks21
+LaTeX Info: Redefining \[ on input line 2817.
+LaTeX Info: Redefining \] on input line 2818.
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/tools/array.sty
+Package: array 2016/10/06 v2.4d Tabular extension package (FMi)
+\col@sep=\dimen115
+\extrarowheight=\dimen116
+\NC@list=\toks22
+\extratabsurround=\skip44
+\backup@length=\skip45
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/sttools/flushend.sty
+Package: flushend 2017/03/27 v3.3 Balancing columns in twocolumn mode
+\flushend@@lastskip@a=\skip46
+\flushend@@lastskip@b=\skip47
+\flushend@@lastskip@c=\skip48
+\flushend@@penalty@a=\count94
+\flushend@@lastkern@a=\dimen117
+\var@@temp@spread=\dimen118
+\var@@temp@a=\dimen119
+\flushend@@page@rule=\dimen120
+\flushend@@varbox@a=\box28
+\flushend@@varbox@c=\box29
+\flushend@@tempbox@a=\box30
+\flushend@@tempbox@c=\box31
+\@viper=\box32
+\hold@viper=\box33
+\atColsBreak=\toks23
+\atColsEnd=\toks24
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2017/01/02 v2.4 e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count95
+))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/sttools/stfloats.sty
+Package: stfloats 2017/03/27 v3.3 Improve float mechanism and baselineskip sett
+ings
+\@dblbotnum=\count96
+\c@dblbotnumber=\count97
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amscls/amsthm.sty
+Package: amsthm 2015/03/04 v2.20.2
+\thm@style=\toks25
+\thm@bodyfont=\toks26
+\thm@headfont=\toks27
+\thm@notefont=\toks28
+\thm@headpunct=\toks29
+\thm@preskip=\skip49
+\thm@postskip=\skip50
+\thm@headsep=\skip51
+\dth@everypar=\toks30
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/changepage/chngpage.sty
+Package: chngpage 2009/10/20 v1.2b change page layout
+\c@cp@cnt=\count98
+\c@cp@tempcnt=\count99
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/psnfss/times.sty
+Package: times 2005/04/12 PSNFSS-v9.2a (SPQR) 
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2017/04/05 v2.0i Standard LaTeX package
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/ly1/ly1enc.def
+File: ly1enc.def 2009/07/22 v0.7 TeX 'n ANSI encoding (DPC/KB)
+)
+LaTeX Font Info:    Try loading font information for LY1+ptm on input line 105.
+
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/ly1/ly1ptm.fd
+File: ly1ptm.fd 2001/02/01 font definitions for LY1/ptm using Berry names.
+))
+\c@section=\count100
+\c@subsection=\count101
+\c@subsubsection=\count102
+\c@paragraph=\count103
+\c@subparagraph=\count104
+\c@figure=\count105
+\c@table=\count106
+\dropfromtop=\skip52
+\extraspace=\skip53
+\aboveskipchk=\skip54
+\abovecaptionskip=\skip55
+\belowcaptionskip=\skip56
+\rotdimen=\dimen121
+\tempdime=\dimen122
+\temptbox=\box34
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/natbib/natbib.sty
+Package: natbib 2010/09/13 8.31b (PWD, AO)
+\bibhang=\skip57
+\bibsep=\skip58
+LaTeX Info: Redefining \cite on input line 694.
+\c@NAT@ctr=\count107
+))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/latexsym.sty
+Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
+\symlasy=\mathgroup6
+LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
+(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 52.
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/jknapltx/mathrsfs.sty
+Package: mathrsfs 1996/01/01 Math RSFS package v1.0 (jk)
+\symrsfs=\mathgroup7
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/slantsc/slantsc.sty
+Package: slantsc 2012/01/01 v2.11 Provide Slanted an Italic Small Caps
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+LaTeX Info: Redefining \upshape on input line 35.
+LaTeX Info: Redefining \slshape on input line 45.
+LaTeX Info: Redefining \itshape on input line 55.
+LaTeX Info: Redefining \scshape on input line 65.
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/tools/xspace.sty
+Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/subfigure/subfigure.sty
+Package: subfigure 2002/03/15 v2.1.5 subfigure package
+
+
+Package subfigure Warning: Your document class has a bad definition
+ of \endfigure, most likely
+ \let\endfigure=\end@float
+ which has now been changed to
+ \def\endfigure{\end@float}
+ because otherwise subsequent changes to \end@float
+ (like done by several packages changing float behaviour)
+ can't take effect on \endfigure.
+ Please complain to your document class author.
+
+\subfigtopskip=\skip59
+\subfigcapskip=\skip60
+\subfigcaptopadj=\dimen123
+\subfigbottomskip=\skip61
+\subfigcapmargin=\dimen124
+\subfiglabelskip=\skip62
+\c@subfigure=\count108
+\c@lofdepth=\count109
+\c@subtable=\count110
+\c@lotdepth=\count111
+****************************************
+* Local config file subfigure.cfg used *
+****************************************
+(/usr/local/texlive/2017/texmf-dist/tex/latex/subfigure/subfigure.cfg)
+\subfig@top=\skip63
+\subfig@bottom=\skip64
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/multirow/multirow.sty
+Package: multirow 2016/11/25 v2.2 Span multiple rows of a table
+\multirow@colwidth=\skip65
+\multirow@cntb=\count112
+\multirow@dima=\skip66
+\bigstrutjot=\dimen125
+)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/ulem/ulem.sty
+\UL@box=\box35
+\UL@hyphenbox=\box36
+\UL@skip=\skip67
+\UL@hook=\toks31
+\UL@height=\dimen126
+\UL@pe=\count113
+\UL@pixel=\dimen127
+\ULC@box=\box37
+Package: ulem 2012/05/18
+\ULdepth=\dimen128
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip11
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+\c@theorem=\count114
+\c@lemma=\count115
+\c@conjecture=\count116
+\c@example=\count117
+\c@formulation=\count118
+\c@definition=\count119
+\c@problem=\count120
+ (./separability.aux)
+\openout1 = `separability.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for LY1/ptm/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+(/usr/local/texlive/2017/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count121
+\scratchdimen=\dimen129
+\scratchbox=\box38
+\nofMPsegments=\count122
+\nofMParguments=\count123
+\everyMPshowfont=\toks32
+\MPscratchCnt=\count124
+\MPscratchDim=\dimen130
+\MPnumerator=\count125
+\makeMPintoPDFobject=\count126
+\everyMPtoPDFconversion=\toks33
+) (/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2017/03/19 v0.25 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2017/03/15 v3.2 Provides the ifpdf switch
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
+
+(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
+Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
+))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
+
+(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
+
+(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+38.
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 456.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+Package crop Info: requested driver: `' on input line 108.
+Package crop Info: detected driver: `pdftex' on input line 108.
+Package crop Info: using `pdftex' graphics driver on input line 108.
+LaTeX Font Info:    Try loading font information for LY1+phv on input line 131.
+
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/ly1/ly1phv.fd
+File: ly1phv.fd 2001/02/01 scalable font definitions for LY1/phv using Berry na
+mes.
+)
+Package epstopdf Info: Source file: <OUP_First_SBk_Bot_8401.eps>
+(epstopdf)                    date: 2018-03-31 01:03:52
+(epstopdf)                    size: 407286 bytes
+(epstopdf)             Output file: <OUP_First_SBk_Bot_8401-eps-converted-to.pd
+f>
+(epstopdf)                    date: 2018-03-31 01:03:56
+(epstopdf)                    size: 9125 bytes
+(epstopdf)             Command: <repstopdf --outfile=OUP_First_SBk_Bot_8401-eps
+-converted-to.pdf OUP_First_SBk_Bot_8401.eps>
+(epstopdf)             \includegraphics on input line 131.
+Package epstopdf Info: Output file is already uptodate.
+
+<OUP_First_SBk_Bot_8401-eps-converted-to.pdf, id=1, 54.2025pt x 54.2025pt>
+File: OUP_First_SBk_Bot_8401-eps-converted-to.pdf Graphic file (type pdf)
+
+<use OUP_First_SBk_Bot_8401-eps-converted-to.pdf>
+Package pdftex.def Info: OUP_First_SBk_Bot_8401-eps-converted-to.pdf used on in
+put line 131.
+(pdftex.def)             Requested size: 54.20236pt x 54.20236pt.
+LaTeX Font Info:    Font shape `LY1/phv/bx/n' in size <8> not available
+(Font)              Font shape `LY1/phv/b/n' tried instead on input line 131.
+LaTeX Font Info:    Font shape `LY1/phv/bx/n' in size <18> not available
+(Font)              Font shape `LY1/phv/b/n' tried instead on input line 131.
+LaTeX Font Info:    Font shape `LY1/phv/bx/n' in size <11.5> not available
+(Font)              Font shape `LY1/phv/b/n' tried instead on input line 131.
+LaTeX Font Info:    Font shape `LY1/phv/bx/n' in size <12> not available
+(Font)              Font shape `LY1/phv/b/n' tried instead on input line 131.
+LaTeX Font Info:    Try loading font information for U+msa on input line 131.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 131.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+LaTeX Font Info:    Try loading font information for U+lasy on input line 131.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/ulasy.fd
+File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
+)
+LaTeX Font Info:    Try loading font information for U+rsfs on input line 131.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/jknapltx/ursfs.fd
+File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
+)
+LaTeX Font Info:    Font shape `LY1/phv/bx/n' in size <10> not available
+(Font)              Font shape `LY1/phv/b/n' tried instead on input line 131.
+LaTeX Font Info:    Font shape `LY1/phv/m/it' in size <9> not available
+(Font)              Font shape `LY1/phv/m/sl' tried instead on input line 131.
+
+
+LaTeX Font Warning: Font shape `LY1/ptm/m/sc' undefined
+(Font)              using `LY1/ptm/m/n' instead on input line 131.
+
+
+Underfull \hbox (badness 10000) detected at line 131
+[]
+ []
+
+(./body.tex
+LaTeX Font Info:    Font shape `LY1/ptm/bx/n' in size <8> not available
+(Font)              Font shape `LY1/ptm/b/n' tried instead on input line 11.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+<fig/workflow2.pdf, id=2, 1422.31375pt x 311.1625pt>
+File: fig/workflow2.pdf Graphic file (type pdf)
+ <use fig/workflow2.pdf>
+Package pdftex.def Info: fig/workflow2.pdf used on input line 82.
+(pdftex.def)             Requested size: 437.39703pt x 95.6902pt.
+LaTeX Font Info:    Try loading font information for LY1+phb on input line 85.
+LaTeX Font Info:    No file LY1phb.fd. on input line 85.
+
+
+LaTeX Font Warning: Font shape `LY1/phb/m/n' undefined
+(Font)              using `LY1/ptm/m/n' instead on input line 85.
+
+LaTeX Font Info:    Font shape `LY1/phv/bx/n' in size <6.5> not available
+(Font)              Font shape `LY1/phv/b/n' tried instead on input line 85.
+
+Underfull \hbox (badness 1484) in paragraph at lines 91--103
+\LY1/ptm/m/sc/8 enables G\LY1/ptm/m/sc/7 ENVISAGE \LY1/ptm/m/sc/8 to offer sepa
+rability analysis in a responsive
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Font Info:    Font shape `LY1/phv/bx/n' in size <7> not available
+(Font)              Font shape `LY1/phv/b/n' tried instead on input line 103.
+
+Overfull \hbox (1.12001pt too wide) has occurred while \output is active
+ []
+ []
+
+[1{/Users/adityagp/Library/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdfte
+x.map}
+
+
+
+ <./OUP_First_SBk_Bot_8401-eps-converted-to.pdf>]
+LaTeX Font Info:    Font shape `LY1/ptm/bx/it' in size <8> not available
+(Font)              Font shape `LY1/ptm/b/it' tried instead on input line 115.
+LaTeX Font Info:    Try loading font information for LY1+pcr on input line 136.
+
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/ly1/ly1pcr.fd
+File: ly1pcr.fd 2001/02/01 font definitions for LY1/pcr using Berry names.
+)
+Underfull \hbox (badness 2644) in paragraph at lines 136--139
+\LY1/pcr/m/n/8 knoweng . org : 9581$ []\LY1/ptm/m/sc/8 [Charles: change][] and 
+is open-sourced at
+ []
+
+
+Overfull \hbox (10.51482pt too wide) in paragraph at lines 136--139
+\LY1/pcr/m/n/8 https : / / github . com / KnowEnG / Genvisage$\LY1/ptm/m/sc/8 .
+ [][Silu: add screenshot][] 
+ []
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 152.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 152.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 152.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 152.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 152.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 155.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 155.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 155.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 155.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 155.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 155.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 155.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 155.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 155.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 155.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 155.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 155.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 155.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 155.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 155.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 155.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 155.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 155.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 155.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 157.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 157.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 157.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 157.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 157.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 161.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 161.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 161.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 161.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 161.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 171.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 171.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 171.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 171.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 171.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 171.
+
+LaTeX Font Info:    Font shape `LY1/phv/m/it' in size <8> not available
+(Font)              Font shape `LY1/phv/m/sl' tried instead on input line 180.
+
+Overfull \hbox (252.0pt too wide) has occurred while \output is active
+[][] 
+ []
+
+[2 <./fig/workflow2.pdf>]
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 181.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 181.
+
+LaTeX Font Info:    Calculating math sizes for size <> on input line 182.
+
+LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <> not available
+(Font)              size <5> substituted on input line 182.
+
+
+LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <0.7> not available
+(Font)              size <5> substituted on input line 182.
+
+
+LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <0.5> not available
+(Font)              size <5> substituted on input line 182.
+
+
+LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <> not available
+(Font)              size <5> substituted on input line 182.
+
+
+LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <0.7> not available
+(Font)              size <5> substituted on input line 182.
+
+
+LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <0.5> not available
+(Font)              size <5> substituted on input line 182.
+
+
+LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <> not available
+(Font)              size <5> substituted on input line 182.
+
+
+LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <0.7> not available
+(Font)              size <5> substituted on input line 182.
+
+
+LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <0.5> not available
+(Font)              size <5> substituted on input line 182.
+
+
+LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <> not available
+(Font)              size <5> substituted on input line 182.
+
+
+LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <0.7> not available
+(Font)              size <5> substituted on input line 182.
+
+
+LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <0.5> not available
+(Font)              size <5> substituted on input line 182.
+
+
+LaTeX Font Warning: Font shape `U/lasy/m/n' in size <> not available
+(Font)              size <5> substituted on input line 182.
+
+
+LaTeX Font Warning: Font shape `U/lasy/m/n' in size <0.7> not available
+(Font)              size <5> substituted on input line 182.
+
+
+LaTeX Font Warning: Font shape `U/lasy/m/n' in size <0.5> not available
+(Font)              size <5> substituted on input line 182.
+
+
+LaTeX Font Warning: Font shape `U/rsfs/m/n' in size <> not available
+(Font)              size <5> substituted on input line 182.
+
+
+LaTeX Font Warning: Font shape `U/rsfs/m/n' in size <0.7> not available
+(Font)              size <5> substituted on input line 182.
+
+
+LaTeX Font Warning: Font shape `U/rsfs/m/n' in size <0.5> not available
+(Font)              size <5> substituted on input line 182.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 193.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 193.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 193.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 193.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 250.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 250.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 250.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 252.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 252.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 254.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 254.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 254.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 256.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 256.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 258.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 258.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 258.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 258.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 260.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 260.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 268.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 268.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 268.
+
+
+LaTeX Font Warning: Font shape `LY1/phb/bx/n' undefined
+(Font)              using `LY1/phb/m/n' instead on input line 271.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 285.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 285.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 285.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 285.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 285.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 285.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 285.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 285.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 285.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 285.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 292.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 292.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 292.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 292.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 292.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 292.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 292.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 292.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 292.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 292.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 292.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 292.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 292.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 292.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 292.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 292.
+
+<fig/metric.pdf, id=58, 347.2975pt x 318.18875pt>
+File: fig/metric.pdf Graphic file (type pdf)
+ <use fig/metric.pdf>
+Package pdftex.def Info: fig/metric.pdf used on input line 303.
+(pdftex.def)             Requested size: 114.2103pt x 104.63846pt.
+
+<fig/rocchio.pdf, id=59, 347.2975pt x 318.18875pt>
+File: fig/rocchio.pdf Graphic file (type pdf)
+ <use fig/rocchio.pdf>
+Package pdftex.def Info: fig/rocchio.pdf used on input line 304.
+(pdftex.def)             Requested size: 114.2103pt x 104.63846pt.
+LaTeX Font Info:    Calculating math sizes for size <6.5> on input line 306.
+
+
+LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <6.5> not available
+(Font)              size <6> substituted on input line 306.
+
+
+LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <4.54997> not available
+(Font)              size <5> substituted on input line 306.
+
+
+LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <3.25> not available
+(Font)              size <5> substituted on input line 306.
+
+
+LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <6.5> not available
+(Font)              size <6> substituted on input line 306.
+
+
+LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <4.54997> not available
+(Font)              size <5> substituted on input line 306.
+
+
+LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <3.25> not available
+(Font)              size <5> substituted on input line 306.
+
+
+LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <6.5> not available
+(Font)              size <6> substituted on input line 306.
+
+
+LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <4.54997> not available
+(Font)              size <5> substituted on input line 306.
+
+
+LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <3.25> not available
+(Font)              size <5> substituted on input line 306.
+
+
+LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <6.5> not available
+(Font)              size <6> substituted on input line 306.
+
+
+LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <4.54997> not available
+(Font)              size <5> substituted on input line 306.
+
+
+LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <3.25> not available
+(Font)              size <5> substituted on input line 306.
+
+
+LaTeX Font Warning: Font shape `OT1/cmr/m/it' in size <6.5> not available
+(Font)              size <6> substituted on input line 306.
+
+
+LaTeX Font Warning: Font shape `OT1/cmr/m/it' in size <4.54997> not available
+(Font)              size <5> substituted on input line 306.
+
+
+LaTeX Font Warning: Font shape `OT1/cmr/m/it' in size <3.25> not available
+(Font)              size <5> substituted on input line 306.
+
+
+LaTeX Font Warning: Font shape `U/lasy/m/n' in size <6.5> not available
+(Font)              size <6> substituted on input line 306.
+
+
+LaTeX Font Warning: Font shape `U/lasy/m/n' in size <4.54997> not available
+(Font)              size <5> substituted on input line 306.
+
+
+LaTeX Font Warning: Font shape `U/lasy/m/n' in size <3.25> not available
+(Font)              size <5> substituted on input line 306.
+
+
+LaTeX Font Warning: Font shape `U/rsfs/m/n' in size <6.5> not available
+(Font)              size <6> substituted on input line 306.
+
+
+LaTeX Font Warning: Font shape `U/rsfs/m/n' in size <4.54997> not available
+(Font)              size <5> substituted on input line 306.
+
+
+LaTeX Font Warning: Font shape `U/rsfs/m/n' in size <3.25> not available
+(Font)              size <5> substituted on input line 306.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 320.
+
+
+Overfull \hbox (12.55336pt too wide) in paragraph at lines 320--321
+[]\LY1/ptm/m/sc/8 The first optimization module within the first category, T\LY
+1/ptm/m/n/7 RANSFORMATION
+ []
+
+
+Overfull \hbox (252.0pt too wide) has occurred while \output is active
+[][] 
+ []
+
+[3 <./fig/metric.pdf> <./fig/rocchio.pdf
+
+pdfTeX warning: pdflatex (file ./fig/rocchio.pdf): PDF inclusion: multiple pdfs
+ with page group included in a single page
+>]
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 329.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 329.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 332.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 334.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 334.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 334.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 334.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 334.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 336.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 336.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 336.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 336.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 336.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 336.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 336.
+
+
+LaTeX Font Warning: Font shape `OT1/cmr/m/it' in size <> not available
+(Font)              size <5> substituted on input line 337.
+
+
+LaTeX Font Warning: Font shape `OT1/cmr/m/it' in size <0.7> not available
+(Font)              size <5> substituted on input line 337.
+
+
+LaTeX Font Warning: Font shape `OT1/cmr/m/it' in size <0.5> not available
+(Font)              size <5> substituted on input line 337.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 344.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 344.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 344.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 344.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 352.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 352.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 352.
+
+<fig/transformation.pdf, id=106, 505.89pt x 433.62pt>
+File: fig/transformation.pdf Graphic file (type pdf)
+
+<use fig/transformation.pdf>
+Package pdftex.def Info: fig/transformation.pdf used on input line 358.
+(pdftex.def)             Requested size: 114.2103pt x 97.89111pt.
+ <fig/earlyT.pdf, id=107, 505.89pt x 433.62pt>
+File: fig/earlyT.pdf Graphic file (type pdf)
+
+<use fig/earlyT.pdf>
+Package pdftex.def Info: fig/earlyT.pdf used on input line 359.
+(pdftex.def)             Requested size: 114.2103pt x 97.89111pt.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 361.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 361.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 361.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 367.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 367.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 367.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 367.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 367.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 367.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 367.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 367.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 367.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 367.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 367.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 367.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 400.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 400.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 406.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 406.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 413.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 413.
+
+
+Overfull \hbox (252.0pt too wide) has occurred while \output is active
+[][] 
+ []
+
+[4 <./fig/transformation.pdf> <./fig/earlyT.pdf
+
+pdfTeX warning: pdflatex (file ./fig/earlyT.pdf): PDF inclusion: multiple pdfs 
+with page group included in a single page
+>]
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 415.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 415.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 418.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 418.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 418.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 418.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 418.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 418.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 420.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 420.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 428.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 428.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 428.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 428.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 432.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 432.
+
+<fig/sampling.pdf, id=154, 491.8375pt x 293.095pt>
+File: fig/sampling.pdf Graphic file (type pdf)
+ <use fig/sampling.pdf>
+Package pdftex.def Info: fig/sampling.pdf used on input line 437.
+(pdftex.def)             Requested size: 234.0pt x 139.44518pt.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 439.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 439.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 439.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 445.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 445.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 445.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 445.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 445.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 445.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 445.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 445.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 445.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 445.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 447.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 447.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 449.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 452.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 452.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 457.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 457.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 457.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 458.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 460.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 460.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 463.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 466.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 466.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 466.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 470.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 474.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 474.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 474.
+
+
+Overfull \hbox (252.0pt too wide) has occurred while \output is active
+[][] 
+ []
+
+[5 <./fig/sampling.pdf>]
+<fig/candidate_ordering.pdf, id=181, 491.8375pt x 130.4875pt>
+File: fig/candidate_ordering.pdf Graphic file (type pdf)
+
+<use fig/candidate_ordering.pdf>
+Package pdftex.def Info: fig/candidate_ordering.pdf used on input line 481.
+(pdftex.def)             Requested size: 234.0pt x 62.08174pt.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 504.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 504.
+
+<fig/traversal.pdf, id=182, 505.89pt x 216.81pt>
+File: fig/traversal.pdf Graphic file (type pdf)
+ <use fig/traversal.pdf>
+Package pdftex.def Info: fig/traversal.pdf used on input line 519.
+(pdftex.def)             Requested size: 198.90143pt x 85.24367pt.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 548.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 548.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 548.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 548.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 548.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 548.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 548.
+
+LaTeX Font Info:    Calculating math sizes for size <7.5> on input line 555.
+
+LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <7.5> not available
+(Font)              size <7> substituted on input line 555.
+
+
+LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <3.75> not available
+(Font)              size <5> substituted on input line 555.
+
+
+LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <7.5> not available
+(Font)              size <7> substituted on input line 555.
+
+
+LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <3.75> not available
+(Font)              size <5> substituted on input line 555.
+
+
+LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <7.5> not available
+(Font)              size <7> substituted on input line 555.
+
+
+LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <3.75> not available
+(Font)              size <5> substituted on input line 555.
+
+
+LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <7.5> not available
+(Font)              size <7> substituted on input line 555.
+
+
+LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <3.75> not available
+(Font)              size <5> substituted on input line 555.
+
+
+LaTeX Font Warning: Font shape `OT1/cmr/m/it' in size <7.5> not available
+(Font)              size <7> substituted on input line 555.
+
+
+LaTeX Font Warning: Font shape `OT1/cmr/m/it' in size <3.75> not available
+(Font)              size <5> substituted on input line 555.
+
+
+LaTeX Font Warning: Font shape `U/lasy/m/n' in size <7.5> not available
+(Font)              size <7> substituted on input line 555.
+
+
+LaTeX Font Warning: Font shape `U/lasy/m/n' in size <3.75> not available
+(Font)              size <5> substituted on input line 555.
+
+
+LaTeX Font Warning: Font shape `U/rsfs/m/n' in size <7.5> not available
+(Font)              size <7> substituted on input line 555.
+
+
+LaTeX Font Warning: Font shape `U/rsfs/m/n' in size <3.75> not available
+(Font)              size <5> substituted on input line 555.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 555.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 555.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 555.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 555.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 555.
+
+
+Overfull \hbox (252.0pt too wide) has occurred while \output is active
+[][] 
+ []
+
+[6 <./fig/candidate_ordering.pdf> <./fig/traversal.pdf
+
+pdfTeX warning: pdflatex (file ./fig/traversal.pdf): PDF inclusion: multiple pd
+fs with page group included in a single page
+>]
+Underfull \hbox (badness 2790) in paragraph at lines 565--566
+[]\LY1/ptm/m/sc/8 In the LINCS application, the feature-object matrix contains
+ []
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 576.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 576.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 576.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 576.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 597.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 597.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 599.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 599.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 601.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 601.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 603.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 603.
+
+
+Overfull \hbox (5.21532pt too wide) in paragraph at lines 585--606
+ [][] 
+ []
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 606.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 606.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 615.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 615.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 615.
+
+<fig/rocchio_brute_ratio.pdf, id=224, 542.48296pt x 432.54567pt>
+File: fig/rocchio_brute_ratio.pdf Graphic file (type pdf)
+
+<use fig/rocchio_brute_ratio.pdf>
+Package pdftex.def Info: fig/rocchio_brute_ratio.pdf used on input line 628.
+(pdftex.def)             Requested size: 114.2103pt x 91.06168pt.
+
+<fig/rocchio_brute_score.pdf, id=225, 542.23201pt x 432.54567pt>
+File: fig/rocchio_brute_score.pdf Graphic file (type pdf)
+
+<use fig/rocchio_brute_score.pdf>
+Package pdftex.def Info: fig/rocchio_brute_score.pdf used on input line 629.
+(pdftex.def)             Requested size: 114.2103pt x 91.10127pt.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 638.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 638.
+
+
+Overfull \hbox (252.0pt too wide) has occurred while \output is active
+[][] 
+ []
+
+[7 <./fig/rocchio_brute_ratio.pdf> <./fig/rocchio_brute_score.pdf
+
+pdfTeX warning: pdflatex (file ./fig/rocchio_brute_score.pdf): PDF inclusion: m
+ultiple pdfs with page group included in a single page
+>] <fig/msig_time.pdf, id=293, 708.69902pt x 462.83168pt>
+File: fig/msig_time.pdf Graphic file (type pdf)
+
+<use fig/msig_time.pdf>
+Package pdftex.def Info: fig/msig_time.pdf used on input line 648.
+(pdftex.def)             Requested size: 114.2103pt x 74.58424pt.
+
+<fig/lincs_time.pdf, id=294, 708.69902pt x 448.77917pt>
+File: fig/lincs_time.pdf Graphic file (type pdf)
+
+<use fig/lincs_time.pdf>
+Package pdftex.def Info: fig/lincs_time.pdf used on input line 649.
+(pdftex.def)             Requested size: 114.2103pt x 72.31972pt.
+
+Underfull \hbox (badness 1527) in paragraph at lines 659--661
+\LY1/ptm/m/sc/8 algorithms. For MSigDB, the Baseline takes more than 2 hours,
+ []
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 665.
+
+<fig/msig_accuracy.pdf, id=295, 693.23813pt x 515.57248pt>
+File: fig/msig_accuracy.pdf Graphic file (type pdf)
+
+<use fig/msig_accuracy.pdf>
+Package pdftex.def Info: fig/msig_accuracy.pdf used on input line 673.
+(pdftex.def)             Requested size: 114.2103pt x 84.93991pt.
+
+<fig/lincs_accuracy.pdf, id=296, 693.23813pt x 515.57248pt>
+File: fig/lincs_accuracy.pdf Graphic file (type pdf)
+
+<use fig/lincs_accuracy.pdf>
+Package pdftex.def Info: fig/lincs_accuracy.pdf used on input line 674.
+(pdftex.def)             Requested size: 114.2103pt x 84.93991pt.
+
+Underfull \hbox (badness 2809) in paragraph at lines 683--684
+\LY1/ptm/b/n/8 Separability Quality. \LY1/ptm/m/sc/8 Recall that the E\LY1/phb/
+m/n/7 ARLY\LY1/ptm/m/sc/8 S\LY1/phb/m/n/7 TOP \LY1/ptm/m/sc/8 module is a
+ []
+
+
+Overfull \hbox (252.0pt too wide) has occurred while \output is active
+[][] 
+ []
+
+[8 <./fig/msig_time.pdf> <./fig/lincs_time.pdf
+
+pdfTeX warning: pdflatex (file ./fig/lincs_time.pdf): PDF inclusion: multiple p
+dfs with page group included in a single page
+> <./fig/msig_accuracy.pdf
+
+pdfTeX warning: pdflatex (file ./fig/msig_accuracy.pdf): PDF inclusion: multipl
+e pdfs with page group included in a single page
+> <./fig/lincs_accuracy.pdf
+
+pdfTeX warning: pdflatex (file ./fig/lincs_accuracy.pdf): PDF inclusion: multip
+le pdfs with page group included in a single page
+>] <fig/msig_singleF.pdf, id=507, 381.35599pt x 498.15643pt>
+File: fig/msig_singleF.pdf Graphic file (type pdf)
+
+<use fig/msig_singleF.pdf>
+Package pdftex.def Info: fig/msig_singleF.pdf used on input line 697.
+(pdftex.def)             Requested size: 77.76178pt x 101.57544pt.
+
+<fig/lincs_singleF.pdf, id=508, 647.8987pt x 417.01108pt>
+File: fig/lincs_singleF.pdf Graphic file (type pdf)
+
+<use fig/lincs_singleF.pdf>
+Package pdftex.def Info: fig/lincs_singleF.pdf used on input line 698.
+(pdftex.def)             Requested size: 150.65881pt x 96.9668pt.
+
+<fig/msig_FP.pdf, id=509, 381.35599pt x 484.5509pt>
+File: fig/msig_FP.pdf Graphic file (type pdf)
+ <use fig/msig_FP.pdf>
+Package pdftex.def Info: fig/msig_FP.pdf used on input line 714.
+(pdftex.def)             Requested size: 77.76178pt x 98.80124pt.
+
+<fig/lincs_FP.pdf, id=510, 647.8987pt x 417.01108pt>
+File: fig/lincs_FP.pdf Graphic file (type pdf)
+ <use fig/lincs_FP.pdf>
+Package pdftex.def Info: fig/lincs_FP.pdf used on input line 715.
+(pdftex.def)             Requested size: 150.65881pt x 96.9668pt.
+
+<fig/histogram_msig_diff_pval.pdf, id=511, 647.17725pt x 445.3278pt>
+File: fig/histogram_msig_diff_pval.pdf Graphic file (type pdf)
+
+<use fig/histogram_msig_diff_pval.pdf>
+Package pdftex.def Info: fig/histogram_msig_diff_pval.pdf used on input line 73
+1.
+(pdftex.def)             Requested size: 114.2103pt x 78.58586pt.
+
+<fig/histogram_lincs_diff_pval.pdf, id=512, 647.17725pt x 445.3278pt>
+File: fig/histogram_lincs_diff_pval.pdf Graphic file (type pdf)
+
+<use fig/histogram_lincs_diff_pval.pdf>
+Package pdftex.def Info: fig/histogram_lincs_diff_pval.pdf used on input line 7
+32.
+(pdftex.def)             Requested size: 114.2103pt x 78.58586pt.
+
+Overfull \hbox (252.0pt too wide) has occurred while \output is active
+[][] 
+ []
+
+[9 <./fig/msig_singleF.pdf> <./fig/lincs_singleF.pdf
+
+pdfTeX warning: pdflatex (file ./fig/lincs_singleF.pdf): PDF inclusion: multipl
+e pdfs with page group included in a single page
+> <./fig/msig_FP.pdf
+
+pdfTeX warning: pdflatex (file ./fig/msig_FP.pdf): PDF inclusion: multiple pdfs
+ with page group included in a single page
+> <./fig/lincs_FP.pdf
+
+pdfTeX warning: pdflatex (file ./fig/lincs_FP.pdf): PDF inclusion: multiple pdf
+s with page group included in a single page
+> <./fig/histogram_msig_diff_pval.pdf
+
+pdfTeX warning: pdflatex (file ./fig/histogram_msig_diff_pval.pdf): PDF inclusi
+on: multiple pdfs with page group included in a single page
+> <./fig/histogram_lincs_diff_pval.pdf
+
+pdfTeX warning: pdflatex (file ./fig/histogram_lincs_diff_pval.pdf): PDF inclus
+ion: multiple pdfs with page group included in a single page
+>]
+Underfull \hbox (badness 2073) in paragraph at lines 785--785
+\LY1/phb/bx/n/7.5 in MCF7 cell line that were performed with that drug (NumExpr
+s),
+ []
+
+
+Underfull \hbox (badness 1331) in paragraph at lines 785--785
+\LY1/phb/bx/n/7.5 and statistics for the top1000 feature pairs for that drug in
+clding the
+ []
+
+
+Overfull \hbox (3.02937pt too wide) in paragraph at lines 793--794
+\LY1/ptm/m/sc/8 db.org/cgi/network.pl?taskId=oggKTi2cKPAc][] Furthermore, in Se
+ction 3.4[]
+ []
+
+
+Overfull \hbox (22.14142pt too wide) in paragraph at lines 795--796
+[]\LY1/ptm/m/sc/8 In Supplementary Table [][Charles: in google spreadsheet http
+s://goo.gl/Z5jJ6Q
+ []
+
+<fig/better_rank_20.pdf, id=725, 885.43922pt x 560.43442pt>
+File: fig/better_rank_20.pdf Graphic file (type pdf)
+
+<use fig/better_rank_20.pdf>
+Package pdftex.def Info: fig/better_rank_20.pdf used on input line 810.
+(pdftex.def)             Requested size: 187.20071pt x 118.48143pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<fig/ratioHist_msig_1.png, id=726, 180.675pt x 180.675pt>
+File: fig/ratioHist_msig_1.png Graphic file (type png)
+
+<use fig/ratioHist_msig_1.png>
+Package pdftex.def Info: fig/ratioHist_msig_1.png used on input line 822.
+(pdftex.def)             Requested size: 114.2103pt x 114.2118pt.
+
+<fig/ratioHist_newlincs_1.png, id=727, 180.675pt x 180.675pt>
+File: fig/ratioHist_newlincs_1.png Graphic file (type png)
+
+<use fig/ratioHist_newlincs_1.png>
+Package pdftex.def Info: fig/ratioHist_newlincs_1.png used on input line 823.
+(pdftex.def)             Requested size: 114.2103pt x 114.2118pt.
+
+Overfull \hbox (252.0pt too wide) has occurred while \output is active
+[][] 
+ []
+
+[10]) (./separability.bbl)
+- LAST -
+Extra skip:17.98557pt
+Left:490.74957pt/1.736pt
+Right:474.5pt/0.0pt
+Output:486.12479pt
+
+Overfull \hbox (252.0pt too wide) has occurred while \output is active
+[][] 
+ []
+
+[11 <./fig/better_rank_20.pdf> <./fig/ratioHist_msig_1.png (PNG copy)> <./fig/r
+atioHist_newlincs_1.png (PNG copy)>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Overfull \hbox (252.0pt too wide) has occurred while \output is active
+[][] 
+ []
+
+[12] (./separability.aux)
+
+LaTeX Font Warning: Size substitutions with differences
+(Font)              up to 4.5pt have occurred.
+
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 5066 strings out of 492995
+ 67770 string characters out of 6132704
+ 154416 words of memory out of 5000000
+ 8444 multiletter control sequences out of 15000+600000
+ 59235 words of font info for 112 fonts, out of 8000000 for 9000
+ 1145 hyphenation exceptions out of 8191
+ 40i,17n,33p,3284b,309s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/ly1/texnansi.enc}</usr/lo
+cal/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7.pfb></usr
+/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></
+usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></us
+r/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/
+local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/lo
+cal/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/loca
+l/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/t
+exlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texl
+ive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive
+/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/20
+17/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2017
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2017/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2017/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2017/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2017/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmti7.pfb></usr/local/texlive/2017/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive/2017/texmf-dist/
+fonts/type1/public/amsfonts/latxfont/lcircle1.pfb></usr/local/texlive/2017/texm
+f-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2017/
+texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2017/texmf-di
+st/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2017/texmf-dist/font
+s/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1
+/urw/helvetic/uhvr8ac.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/h
+elvetic/uhvro8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/helveti
+c/uhvro8ac.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/times/utmb8a
+.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></us
+r/local/texlive/2017/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/te
+xlive/2017/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on separability.pdf (12 pages, 899600 bytes).
+PDF statistics:
+ 874 PDF objects out of 1000 (max. 8388607)
+ 313 compressed objects within 4 object streams
+ 0 named destinations out of 1000 (max. 500000)
+ 121 words of extra memory for PDF output out of 10000 (max. 10000000)
+

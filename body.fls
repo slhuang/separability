@@ -1,0 +1,11 @@
+PWD /Users/adityagp/Dropbox/VisualizationProj/Genvisage/genvisage_180330
+INPUT /usr/local/texlive/2017/texmf.cnf
+INPUT /usr/local/texlive/2017/texmf-dist/web2c/texmf.cnf
+INPUT /usr/local/texlive/2017/texmf-var/web2c/pdftex/pdflatex.fmt
+INPUT body.tex
+OUTPUT body.log
+INPUT /usr/local/texlive/2017/texmf-dist/fonts/map/fontname/texfonts.map
+INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmti10.tfm
+INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm
+OUTPUT body.pdf
+INPUT /Users/adityagp/Library/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map
