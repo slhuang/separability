@@ -369,8 +369,10 @@ After pre-transformation, we are now ready to compute the separability score $\t
 Figure~\ref{fig:transform} illustrates the transformation for two features, $f_i$ and $f_j$. The top half depicts $\mm_{i,k}$ and $\mm_{j,k}$ before transformation, where green color represents a positive label and red color represents a negative label. In this example, the centroids of the positive and negative objects are $\mu_{i,j}^+=(5,7)$ and $\mu_{i,j}^-=(3,5)$ respectively. Hence, we can rewrite Equation~\ref{eqn:matrix_transform} as $\widehat{\mm}_{i,k} = (2\mm_{i,k}-8)\cdot l_k$ and $\widehat{\mm}_{j,k} = (2\mm_{i,k}-12)\cdot l_k$ for features $f_i$ and $f_j$ respectively. After calculation, we can obtain the values for $\widehat{\mm}_{i,k}$ and $\widehat{\mm}_{j,k}$ shown in the bottom half of Figure~\ref{fig:transform}.
 \end{example}
 
+\tr{
 \sinha{at this point, write a summary of the time complexity of calculating $\theta_{i,j}^{\lhat}$ for a feature pair i,j using transformation (include preprocessing separately)}
 \silu{the big-O time complexity is not changed. More precisely, only with constant improvement. Preprocessing takes O(mn) as we discussed in Results section.}
+}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%NEED TOGGLE%%%%%%%%%%%%%%%%%%%%%%
 % \begin{figure}[h]
 % \centering
@@ -392,8 +394,8 @@ Figure~\ref{fig:transform} illustrates the transformation for two features, $f_i
 % \label{fig:metric}
 % \end{figure}
 
-\agp{suggest delete next para; one line replacement: note that this approach can also be extended to the single feature case.} \silu{we can do that.}
-
+\agp{suggest delete next para; one line replacement: note that this approach can also be extended to the single feature case.} 
+\tr{
 \stitle{Extension to Single Features.} For a feature pair $(f_i,f_j)$ where $i=j$, we can treat the corresponding $\theta_{i,i}$ as the separability score for a single feature $f_i$. Equation~\ref{eqn:s_object_transform} can be further reduced to Equation~\ref{eqn:s_object_transform_single}.
 
 \begin{equation}\label{eqn:s_object_transform_single}
@@ -406,6 +408,7 @@ Figure~\ref{fig:transform} illustrates the transformation for two features, $f_i
 \end{equation}
 
 Hence, we can calculate the separability score $\theta_{i,i}$ very efficiently for each single feature, based on the transformed matrix $\widehat{\mm}$.
+}
 
 %==================================================================
 \subsubsection{Early Termination} \label{ssec:earlyT}
@@ -536,7 +539,21 @@ Assume $m=2\times 10^4$. Initially, the number of possible feature pairs is roug
 %==================================================================
 \section{Results}
 \label{sec:exp}
-In this section, we will illustrate that \genviz can rapidly identify meaningful feature pairs for the separability problem in real biological datasets to provide significant and interesting insights. First, we describe the datasets and algorithms used in our evaluations. Each algorithm that we evaluate represents a combination of optimization modules for ranking \topk feature pairs using our Rocchio-based separability measure. We report the running time and accuracy of the selected algorithms. Finally, we enumerate and visualize the \topk feature pairs returned by \genviz, compare them to the corresponding \topk single features, and examine their significance and support in existing publications.
+In this section, we  illustrate that \genviz rapidly identifies meaningful, significant, and interesting 
+separating feature pairs in real biological datasets. 
+First, we describe the datasets and the algorithms used 
+in our evaluation. 
+Each algorithm that we evaluate 
+represents a combination of optimization modules 
+for ranking \topk feature pairs using our 
+Rocchio-based measure. 
+We report the running time and accuracy 
+of these algorithms. 
+Finally, we enumerate and visualize 
+the \topk feature pairs returned by \genviz, 
+compare them to the corresponding \topk single features, 
+and examine their significance and 
+support in existing publications.
 
 %==================================================================
 \subsection{Evaluation Setup}
@@ -559,7 +576,17 @@ In this section, we will illustrate that \genviz can rapidly identify meaningful
 \label{tbl:dataset}
 \vspace{-18pt}
 \end{table}
-\stitle{Datasets.} We conducted our tests on two different biological applications. In the first application, which we call \msig, we find pathways and other gene annotations that separate the differentially expressed genes from the undisturbed genes in specific cancer studies. In the other application, called \lincs, we find genes whose expression levels can distinguish experiments in which specific drug treatments were administered from others.
+\stitle{Datasets.} We consider datasets from two  
+biological applications: 
+in the first, 
+which we call \msig, 
+we find pathways and other gene annotations 
+that separate the differentially expressed genes 
+from the undisturbed genes in specific cancer studies. 
+In the second, 
+called \lincs, 
+we find genes whose expression levels 
+can distinguish experiments in which specific drug treatments were administered from others.
 
 More specifically, in the \msig application, we are given a feature-object matrix with genes as the objects and different gene properties as the features. A natural way to construct this matrix is to define a collection of properties such as Gene Ontology terms~\cite{gene2014gene}, PFam domains~\cite{finn2015pfam}, and KEGG pathways~\cite{kanehisa2016kegg}, and use a binary representation to indicate whether each gene is known to have a property. This is equivalent to constructing a network with gene and property nodes, with edges representing known annotations, and recording adjacency information on each gene as its feature values. We generalized this notion of gene-property relationships by adding homology edges (connecting homologous gene pairs based on BLAST scores~\cite{altschul1990basic}) to the above network, and used the DRaWR algorithm~\cite{blatti2016characterizing} to perform a random walk with restarts on the heterogeneous network, thereby scoring the connectivity of each property node to each gene node. This resulted in the assignment of a numeric value for each gene-property pair ($g$, $r$), representing not only whether the gene is annotated with that property but also whether other genes closely related to gene $g$ are annotated with property $r$. We thus obtained a feature-object matrix describing each gene (object) as a vector of its strength of association with each property (feature) in light of prior biological knowledge.
 %The values in this matrix correspond to the network connectivity between the node representing the feature gene set annotation and the node representing the object gene in a heterogeneous network of prior biological knowledge. To calculate these network connectivity scores we perform a random walk on the heterogeneous network that restarts at the feature gene set annotation node \needcite{DRAWR} and then observe the stationary probabilities of being at each gene node. The heterogeneous network here was constructed with information from BLAST, Gene Ontology, Pfam, and Pathway \needcite{each of these sources}.
@@ -567,7 +594,7 @@ More specifically, in the \msig application, we are given a feature-object matri
 
 In the \lincs application, the feature-object matrix contains expression values for different genes (features) across many drug treatment experiments (objects) conducted on the MCF7 cell line by the LINCS L1000 project~\cite{subramanian2017next}. The values of the matrix are gene expression quantities as reported by the ``level-4' imputed z-scores measured in the L1000 project. In each dataset, the positive object set includes multiple experiments that used the same drug, at varying dosages and for varying durations. We applied \genviz on each dataset so as to find the top pairs of genes (feature pairs) whose expression values separates the \lincs experiments relating to a single drug from all other \lincs experiments.
 
-See Table~\ref{tbl:dataset} for further details of datasets used in the two applications just introduced. Note that the average number of positive objects in a dataset is far fewer than the average number of negative objects. In order to address this imbalance, we adjust Equation~\ref{eqn:s_line} to a weighted sum form as shown in Equation~\ref{eqn:s_line_weighted}.
+See Table~\ref{tbl:dataset} for further details of the aforementioned datasets. Note that the average number of positive objects in a dataset is far fewer than the average number of negative objects. In order to address this imbalance, we adjust Equation~\ref{eqn:s_line} to a weighted sum form as shown in Equation~\ref{eqn:s_line_weighted}.
 
 \sinha{why did we chose the number of object sets, 10 and 40} \cb{this is an artifact of how we began. silu was going one or two \msig at the beginning and then expanded to 10 out of the ~50 that I created for Greg. For LINCS we started with 40 because those experiment sets were ones with >~100 samples}
 
@@ -579,6 +606,28 @@ See Table~\ref{tbl:dataset} for further details of datasets used in the two appl
 
 %\stitle{Metrics.} We focus on two major metrics in our test: separability score and time. Specifically, each algorithm outputs $k$ feature pairs with highest separability score, i.e., \topk feature pairs, and we call the smallest separability score among the \topk feature pairs as \topk separability score.
 %, where $m$ and $n$ are constants depending on the size of the feature-object matrix, $|\sss|$ and $\chi$ are the predetermined sampled set size and limit on the number of feature pairs considered, and $|\cc|$, the number of feature pair candidates is variable and is generated during the algorithm
+
+
+\stitle{Algorithms.} In our evaluation, we experimented with six different selected combinations of the optimization modules introduced in Section~\ref{sec:opt}, as listed in Table~\ref{tbl:alg}. Other combinations that were not selected were always inferior to the ones shown, e.g., the unlisted algorithm with only \trans and \earlyT modules always has a worse running time and outputs the \topk feature pairs with the same separability score as the selected \earlyOrder combination. For our baseline, \agp{if we are using this for our baseline than I propose we discard its description if we are lacking in space...let's discuss} we use the algorithm with only the feature-object matrix pre-transformation optimization module (\trans). The last column in Table~\ref{tbl:alg} shows the running time complexity of different algorithms. Take \horiz as an example on how the running times are calculated. First, the \trans module takes $O(mn)$ time. \cb{ note, scoring single features takes O(mn) time and uses only transformation optimization.} Then, the \traversal module requires a sorting over the feature set, taking $O(m\log m)$\footnote{Since $m\log m < nm$, we omit term $m\log m$ from the overall complexity.} time. Finally, using the \sampling module over $\chi$ feature pairs, the running time is reduced from $O(m^2n)$ time to $O(\chi|\sss|+|\cc|n)$ time, where the first and second term represent the time for candidate generation and candidate validation respectively. Note that $|\cc|$ is typically orders of magnitude smaller than $\chi$ in \horiz, as discussed in Section~\ref{ssec:sampling}.
+
+\stitle{Evaluation Setup.} We implemented the algorithms in C++, and conduct the evaluations on a machine with 16 CPUs and 61.9 GB of RAM.
+
+%==================================================================
+\subsection{Comparison of Different Algorithms}
+\label{sec:exp_comp}
+
+In this section, we first justify that Rocchio-based measure is a good proxy for the best possible separating score, i.e., $\theta_{i,j}$, computed by a brute force method Then we compare the performance of the various selected algorithms in terms of the running time and the separability scores of their \topthousand reported feature pairs.
+
+\begin{figure}[h]
+\centering %%% not \center
+\vspace{-2mm}
+\subfigure[Best Feature Pair Comparison]{\label{fig:brute_rocchio_ratio}\includegraphics[width=.235\textwidth]{fig/rocchio_brute_ratio.pdf}}
+\subfigure[Measure Comparison]{\label{fig:brute_rocchio_score}\includegraphics[width=.235\textwidth]{fig/rocchio_brute_score.pdf}}
+\vspace{-5mm}
+\caption{Comparison of Brute Force-based and Rocchio-based separability score. (a) For each of 10 datasets, we display the ratio of the true separability score between the best feature pair chosen by brute force and by the Rocchio-based method. (b) For each dataset, we display the ratio of the true separability score and the Rocchio-based separability score for the best feature pair selected using Rocchio-based method.}
+\vspace{-5mm}
+\label{fig:brute_rocchio}
+\end{figure}
 
 \begin{table*}[t]
 \centering
@@ -613,26 +662,6 @@ See Table~\ref{tbl:dataset} for further details of datasets used in the two appl
 \sinha{describe table as tree?}
 \agp{add approximate column}
 
-\stitle{Algorithms.} In our evaluation, we experimented with six different selected combinations of the optimization modules introduced in Section~\ref{sec:opt}, as listed in Table~\ref{tbl:alg}. Other combinations that were not selected were always inferior to the ones shown, e.g., the unlisted algorithm with only \trans and \earlyT modules always has a worse running time and outputs the \topk feature pairs with the same separability score as the selected \earlyOrder combination. For our baseline, \agp{if we are using this for our baseline than I propose we discard its description if we are lacking in space...let's discuss} we use the algorithm with only the feature-object matrix pre-transformation optimization module (\trans). The last column in Table~\ref{tbl:alg} shows the running time complexity of different algorithms. Take \horiz as an example on how the running times are calculated. First, the \trans module takes $O(mn)$ time. \cb{ note, scoring single features takes O(mn) time and uses only transformation optimization.} Then, the \traversal module requires a sorting over the feature set, taking $O(m\log m)$\footnote{Since $m\log m < nm$, we omit term $m\log m$ from the overall complexity.} time. Finally, using the \sampling module over $\chi$ feature pairs, the running time is reduced from $O(m^2n)$ time to $O(\chi|\sss|+|\cc|n)$ time, where the first and second term represent the time for candidate generation and candidate validation respectively. Note that $|\cc|$ is typically orders of magnitude smaller than $\chi$ in \horiz, as discussed in Section~\ref{ssec:sampling}.
-
-\stitle{Evaluation Setup.} We implemented the algorithms in C++, and conduct the evaluations on a machine with 16 CPUs and 61.9 GB of RAM.
-
-%==================================================================
-\subsection{Comparison of Different Algorithms}
-\label{sec:exp_comp}
-
-In this section, we first justify that Rocchio-based measure is a good proxy for the best possible separating score, i.e., $\theta_{i,j}$, computed by a brute force method Then we compare the performance of the various selected algorithms in terms of the running time and the separability scores of their \topthousand reported feature pairs.
-
-\begin{figure}[h]
-\centering %%% not \center
-\vspace{-2mm}
-\subfigure[Best Feature Pair Comparison]{\label{fig:brute_rocchio_ratio}\includegraphics[width=.235\textwidth]{fig/rocchio_brute_ratio.pdf}}
-\subfigure[Measure Comparison]{\label{fig:brute_rocchio_score}\includegraphics[width=.235\textwidth]{fig/rocchio_brute_score.pdf}}
-\vspace{-5mm}
-\caption{Comparison of Brute Force-based and Rocchio-based separability score. (a) For each of 10 datasets, we display the ratio of the true separability score between the best feature pair chosen by brute force and by the Rocchio-based method. (b) For each dataset, we display the ratio of the true separability score and the Rocchio-based separability score for the best feature pair selected using Rocchio-based method.}
-\vspace{-5mm}
-\label{fig:brute_rocchio}
-\end{figure}
 
 \stitle{Brute Force vs. Rocchio-based.} As we have discussed in Section~\ref{sec:metric}, when using brute force, we need to consider $O(n^2)$ lines in order to find the best separating line $\ell^* \leftarrow \arg_\ell \max \{\theta_{i,j}^{\ell}\}$, leading to a total running time complexity $O(n^2m^2)$ when considering all feature pairs. An alternative is to use Rocchio-based representative separating line $L$, dramatically reducing $O(n^2)$ lines considered to $O(1)$. Since the brute force method becomes computationally infeasible for datasets with large $n$, we compared the Rocchio-based measure to the brute force-based measure using
 %a small $\widehat{\oo}$ for
