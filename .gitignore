@@ -4,6 +4,7 @@
 *.dvi
 *.log
 *.blg
+*.pdf
 .DS_Store
 tex/*.aux
 tex/*.bbl
