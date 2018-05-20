@@ -12,13 +12,13 @@ contrasting tumor versus normal tissue \needcite{},
 studying the differences in molecular effects
 of two competing drug treatments \needcite{},
 or characterizing differentially expressed genes
-compared to genes with unaltered gene expression
+versus genes with unaltered gene expression
 in a carefully designed experiment \needcite{}.
 As is often the case with genomics, these
 biological objects (e.g., tissue samples or drug experiments)
 are frequently represented by high dimensional numeric feature vectors (e.g., tens of thousands of transcript abundance measurements).
-To understand the mechanisms that lead to or
-explain these two object classes,
+To understand the mechanisms that determine 
+these two object classes,
 researchers often employ statistical and
 machine learning tools to identify a
 manageable subset of features that
@@ -28,15 +28,18 @@ Often, researchers address this problem
 by ranking each individual feature
 using statistical tests \needcite{}
 and univariate classifiers \needcite{}.
-These approaches are fast
-and scale linearly in the number of features,
+These approaches scale linearly in the number of features,
 but do not offer insight into the interplay
 between important features that can provide a better
-explanation or characterization of the factors or features
-that separate the two object classes.
+explanation or characterization of what
+distinguishes the two object classes.
 Alternatively, larger subsets of separating
-features can be identified by more complex machine learning approaches, such as multivariate regression with LASSO regularization \needcite{} or pattern mining from random forest models \needcite{Han paper}.
-However, running these machine learning methods on datasets with tens of thousands of features is extremely time-intensive.
+features can be identified by more complex 
+machine learning approaches, such as multivariate 
+regression with LASSO regularization \needcite{} 
+or pattern mining from random forest models \needcite{Han}.
+However, running such methods on datasets with 
+tens of thousands of features is extremely time-intensive.
 Motivated by these observations,
 we sought to build a tool that strikes a balance between the
 two above-mentioned ``extreme''
@@ -65,15 +68,14 @@ first, the number of feature pairs can be large;
 second, the feature-object matrix must be examined
 multiple times to evaluate the separability of
 each feature pair;
-and third, any precomputation to reduce latency
-would be useless, given that
+and third, we cannot compute the result in advance, since
 object sets may be provided on-the-fly.
 For example, if objects corresponded to experimental
 conditions, and features were gene expression measurements,
 having about $20K$ gene features
 means that we need to evaluate nearly $200M$ feature pairs,
-and for each feature pair we need to at least scan all of the objects,
-say $100K$ objects, if using a naive approach.
+and for each feature pair we need to at least scan all the objects,
+($\sim100K$), if using a naive approach.
 Therefore, sophisticated methods are required
 to make the task of ranking feature pairs interactive.
 
