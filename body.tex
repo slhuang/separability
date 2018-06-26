@@ -18,8 +18,8 @@ in a carefully designed experiment \needcite{}.
 As is often the case with genomics, these
 biological objects (e.g., tissue samples or drug experiments)
 are frequently represented by high dimensional numeric feature vectors (e.g., tens of thousands of transcript abundance measurements).
-To understand the mechanisms that determine 
-these two object classes,
+To understand the mechanisms that determine
+these object classes,
 researchers often employ statistical and
 machine learning tools to identify a
 manageable subset of features that
@@ -35,11 +35,11 @@ between important features that can provide a better
 explanation or characterization of what
 distinguishes the two object classes.
 Alternatively, larger subsets of separating
-features can be identified by more complex 
-machine learning approaches, such as multivariate 
-regression with LASSO regularization \needcite{} 
+features can be identified by more complex
+machine learning approaches, such as multivariate
+regression with LASSO regularization \needcite{}
 or pattern mining from random forest models \needcite{Han}.
-However, running such methods on datasets with 
+However, running such methods on datasets with
 tens of thousands of features is extremely time-intensive.
 Motivated by these observations,
 we sought to build a tool that strikes a balance between the
@@ -53,17 +53,18 @@ and two labeled object sets, \genviz rapidly identifies
 the top ranking pairs of features
 that most clearly separate the objects of
 the different classes.
-We demonstrate that the feature pairs identified by \genviz more significantly
+We demonstrate that the feature pairs identified by \genviz often more significantly
 discriminate between the object classes than the corresponding
-best ranking individual features.
+best ranking individual features even after accounting for the larger search space.
 Thus, by focusing on separating feature pairs, \genviz
 offers researchers the ability to gain additional
 insight beyond singular features, without the prolonged waiting time
 needed to train a complex machine learning model.
 Moreover, the identified feature pairs can be effortlessly
-visualized in a two-dimensional interface, \silu{which is the most intuitive visualization to human perception. 
-Thus, users can easily interpret how one object class is separated from the other object class, by looking at how these two classes of objects are scattered across the two-dimensional visualization.}
-However, quickly identifying top feature pairs
+visualized in a two-dimensional interface, which with its intuitive layout users
+can easily interpret the different relationships among the features between the two classes of objects.
+
+Quickly identifying top feature pairs
 in typical biological datasets with many features
 is a challenging task due to some fundamental limitations:
 first, the number of feature pairs can be large;
@@ -77,7 +78,7 @@ conditions, and features were gene expression measurements,
 having about $20K$ gene features
 means that we need to evaluate nearly $200M$ feature pairs,
 and for each feature pair we need to at least scan all the objects,
-($\sim100K$), if using a naive approach.
+($\sim100K$), if using a na\"ive approach.
 Therefore, sophisticated methods are required
 to make the task of ranking feature pairs interactive.
 
@@ -100,16 +101,16 @@ optimization techniques for enabling rapid
 computation of feature pair rankings, while at
 the same time providing an intuitive way to interpret
 the resulting visualizations.
-Satisfying both of these requirements 
-enables \genviz to support interactive separability analysis 
-in a manner that promotes the generation and prioritization 
-of hypotheses for further investigation. 
-Specifically, we develop a suite of novel 
-optimizations to make \genviz interactive, 
-targeting: {\em (a)} how to eliminate repeated computation; 
-{\em (b)} how to prune feature pairs during early execution; 
-{\em (c)} how to use sampling techniques to further reduce running time; 
-and {\em (d)} how to traverse the search space 
+Satisfying both of these requirements
+enables \genviz to support interactive separability analysis
+in a manner that promotes the generation and prioritization
+of hypotheses for further investigation.
+With a separability measure in hand, we then develop a suite of novel
+optimizations to make \genviz interactive for realistic data set sizes,
+targeting: {\em (a)} how to eliminate repeated computation;
+{\em (b)} how to prune feature pairs during early execution;
+{\em (c)} how to use sampling techniques to further reduce running time;
+and {\em (d)} how to traverse the search space
 of feature pairs for improved efficiency.
 \tr{While similar optimizations have been used in other settings,
 e.g., sampling for approximate computation\needcite{},
@@ -118,42 +119,42 @@ the techniques need to be adapted for the separability problem.}
 We applied our \genviz tool to two genomic datasets.
 In one, called \lincs, we find pairs of genes
 whose expression discriminates between perturbagen experiments
-of different drugs, and in the other, called \msig,
+involving different drugs, and in the other, called \msig,
 we find pairs of annotations (such as pathway membership)
-that separates differentially expressed 
+that separate differentially expressed
 cancer genes from others.
-Both of these applications are on 
+Both of these applications are on
 objects with high-dimensional feature vectors,
 so it is computationally expensive to score the separability
 for all possible feature pairs.
-With the \genviz tool, its carefully designed 
+With the \genviz tool, its carefully designed
 linear separability metric,
-and its suite of sophisticated optimizations 
+and its suite of sophisticated optimizations
 that accelerate the process of feature pair evaluation,
-we are able to {\bf \em accurately return the 
+we are able to {\bf \em accurately return the
 highest ranking separating
 feature pairs for both datasets  within two minutes}.
-This reflects a {\bf \em 180X} and {\bf \em 400X} speedup
-over a competitive baseline for the \msig and \lincs data sets respectively.
-With this speedup, \genviz enables researchers to quickly explore their data,
+This reflects a {\bf \em 180X} and {\bf \em 400X} speedup \sinha{I dont think journals allow bolding. Even italicizing is allowed only for terminology and definitions, I believe, not for added emphasis.}
+over a competitive baseline for the \msig and \lincs data sets (respectively).
+With such speedups, \genviz enables researchers to quickly explore their data,
 identify the strongest, most compelling features,
 and form hypotheses about the interplay between them and with the object classes.
 It also allows researchers to investigate different definitions
 of the object classes on the fly, interactively,
 and investigate alternative hypotheses,
 as well as set up more in-depth,
-longer machine learning-based analysis 
+longer machine learning-based analysis
 that builds upon the \genviz results.
 
 We further performed an in-depth analysis
 for nine disctinct drugs in the \lincs dataset and
-found 1070 feature pairs which had significant separability scores and outperformed
+found 1070 feature (gene) pairs that had significant separability scores and outperformed
 their corresponding single features.  These gene pairs were enriched
 in literature support for known relationships between the genes and the drug,
 as well as known interactions between the genes themselves.
 
 \genviz is available as a web-based tool at \url{knowcluster03.knoweng.org:9581}
-\cb{change} and is open-sourced at \url{https://github.com/KnowEnG/Genvisage}.
+\cb{move to permanent/accessible location/domain} and is open-sourced at \url{https://github.com/KnowEnG/Genvisage}.
 \silu{add screenshot}
 
 
@@ -168,48 +169,48 @@ the rapid identification of the best separating feature pairs.
 %==================================================================
 \subsection{Problem Definition}\label{sec:prob}
 
-Let $\mm$ be a feature-object matrix of size $m\times N$, 
-where each row is a feature and each column is an 
-object as shown in Figure~\ref{fig:workflow}(a). 
-An example feature-object matrix is one where 
-each object corresponds to a tissue sample 
-from a cancer patient and each feature corresponds to a gene, 
-where the $(i,j)^{th}$ entry represents the 
-expression level of the $i^{th}$ gene in the $j^{th}$ 
-tissue sample. 
-We denote the $m$ features as $\ff=\{f_1,f_2,\cdots,f_m\}$ 
-and $N$ objects as $\oo=\{o_1,o_2,\cdots,o_N\}$. 
+Let $\mm$ be a feature-object matrix of size $m\times N$,
+where each row is a feature and each column is an
+object as shown in Figure~\ref{fig:workflow}(a).
+An example feature-object matrix is one where
+each object corresponds to a tissue sample
+from a cancer patient and each feature corresponds to a gene,
+where the $(i,j)^{th}$ entry represents the
+expression level of the $i^{th}$ gene in the $j^{th}$
+tissue sample.
+We denote the $m$ features as $\ff=\{f_1,f_2,\cdots,f_m\}$
+and $N$ objects as $\oo=\{o_1,o_2,\cdots,o_N\}$.
 Each entry $\mm_{i,j}$ in $\mm$ corresponds
 to the value of feature $f_i$ for object $o_j$ as illustrated in Figure~\ref{fig:workflow}(a).
 
-We are also given two non-overlapping sets of objects, 
-one with a positive label, $\oo_+$ and the other with a negative label, $\oo_-$. 
-Both sets are disjoint subsets of all objects, 
-i.e., $\oo_+, \oo_-\subset \oo$, and $\oo_+\cap \oo_- = \emptyset$. 
-In our example, tumor samples, $\oo_+$, 
-may be assigned the positive label, 
-and the healthy tissue samples, $\oo_-$, 
-may be assigned the negative label. 
+We are also given two non-overlapping sets of objects,
+one with a positive label, $\oo_+$ and the other with a negative label, $\oo_-$.
+Both sets are disjoint subsets of all objects,
+i.e., $\oo_+, \oo_-\subset \oo$, and $\oo_+\cap \oo_- = \emptyset$.
+In our example, tumor samples, $\oo_+$,
+may be assigned the positive label,
+and the healthy tissue samples, $\oo_-$,
+may be assigned the negative label.
 Let $\widehat{\oo}$ be the union of positive and negative objects and $n$ be the total number of labeled objects, i.e., $\widehat{\oo}=\oo_+\cup \oo_-$, $n=|\widehat{\oo}|$; $n\leq N$. Also, let $l_k$ be the label of object $o_k\in \widehat{\oo}$, i.e., $l_k=1$ if $o_k$ is positive and $l_k=-1$ if $o_k$ is negative.
 
-Now, given $\mm$ and sets 
-$\oo_+$ and $\oo_-$ as depicted in Figure~\ref{fig:workflow}(a), 
-\genviz aims to find feature pairs that 
-offer the best separation of objects 
-in $\oo_+$ from those in $\oo_-$ represented by only those two features, 
-and then output a visualization that demonstrates the separability 
-as shown in Figure~\ref{fig:workflow}(c). 
-(We will define the metric for separability subsequently.) 
-A feature pair that leads to a good ``visual'' separation 
-between the positive and the negative sets may be able 
-to explain or characterize the differences 
-between the two via a interesting, 
-complex relationship of the features. 
+Now, given $\mm$ and sets
+$\oo_+$ and $\oo_-$ as depicted in Figure~\ref{fig:workflow}(a),
+\genviz aims to find feature pairs that
+offer the best separation of objects
+in $\oo_+$ from those in $\oo_-$ represented by only those two features,
+and then output a visualization that demonstrates the separability
+as shown in Figure~\ref{fig:workflow}(c).
+(We will define the metric for separability subsequently.)
+A feature pair that leads to a good ``visual'' separation
+between the positive and the negative sets may be able
+to explain or characterize the differences
+between the two via a interesting,
+complex relationship of the features.
 The overall workflow is depicted in Figure~\ref{fig:workflow}.
 % Since we intend \genviz to be an interactive data exploration tool to be employed before more time-consuming machine learning methods, we allow for minor sacrifices to its accuracy in exchange for substantial improvements in its running time.
 We formally define the separability problem as follows.
 \begin{formulation}[Separability]\label{prob:separability}
-Given a feature-object matrix $\mm$ and two labeled object sets $(\oo_+,\oo_-)$, rapidly identify the \topk feature pairs $(f_i,f_j)$ that separate $\oo_+$ from $\oo_-$ based on a given separability metric, and produce their corresponding {visualizations}.
+Given a feature-object matrix $\mm$ and two labeled object sets $(\oo_+,\oo_-)$, identify the \topk feature pairs $(f_i,f_j)$ that separate $\oo_+$ from $\oo_-$ based on a given separability metric.
 \end{formulation}
 \noindent %Here a separability metric is a scoring function for any given feature pair, and \topk feature pairs refer to the $k$ feature pairs with the highest score under the separability metric.
 We will describe our separability metric in Section~\ref{sec:metric}, and then discuss optimization techniques in Section~\ref{sec:opt}. Table~\ref{tbl:notation} summarizes our notation.
@@ -219,7 +220,7 @@ We will describe our separability metric in Section~\ref{sec:metric}, and then d
 %==================================================================
 \subsection{Separability Metric}\label{sec:metric}
 
-Given a feature pair $(f_i,f_j)$ as axes, we can visualize the object sets $\oo_+$ and $\oo_-$ in a 2-D space, where each object corresponds to a point with x-value and y-value as the object's value on feature $f_i$ and $f_j$ respectively. A desirable (i.e., both interesting and interpretable) visualization would be one in which the objects are {\em linearly separated}, defined as follows. Two sets of objects, i.e., $\oo_+$ and $\oo_-$, are said to be \emph{linearly separable} if there exists at least one straight line in the 2-D space such that all points from $\oo_+$ are on one side of the line while all points from $\oo_-$ are on the other side.
+Given a feature pair $(f_i,f_j)$ as axes, we can visualize the object sets $\oo_+$ and $\oo_-$ in a 2-D space, where each object corresponds to a point with x-value and y-value as the object's value on feature $f_i$ and $f_j$ respectively. A desirable (i.e., both interesting and interpretable) visualization would be one in which the objects are {\em linearly separated}, defined as follows. Two sets of objects, i.e., $\oo_+$ and $\oo_-$, are said to be \emph{linearly separable} \needcite{cite a textbook, since linear separability is a standard topic and we're only introducing it for clarity of subsequent text.} if there exists at least one straight line in the 2-D space such that all points from $\oo_+$ are on one side of the line while all points from $\oo_-$ are on the other side.
 We focus on metrics that capture this linear separation, since it corresponds to an intuitive 2-D visualization.
 Given a feature pair $(f_i,f_j)$, we can represent a line $\ell$ as follows, where $x$ and $y$ represent an object's value on feature $f_i$ and $f_j$ respectively, and $w_0$, $w_i$ and $w_j$ are coefficients, where $w_j>0$.
 \begin{equation}\label{eqn:line}
@@ -325,7 +326,7 @@ Given a feature pair $(f_i, f_j)$ and a line $\ell$, the separability score of t
 \end{table}
 
 
-\stitle{Rocchio-based Measure.} Rather than enumerating through the $O(n^2)$ possible lines to find the one with maximum $\theta_{i,j}^{\ell}$, we propose to speed up the process by intelligently selecting a single {\em representative line} $\lhat$ that will provide us with an estimated separability score, $\theta_{i,j}^{\lhat}$ that approximates the true linear separability score $\theta_{i, j}$.
+\stitle{Rocchio-based Measure.} Rather than enumerating through the $O(n^2)$ possible lines to find the one with maximum $\theta_{i,j}^{\ell}$, we propose to speed up the process by intelligently selecting a single {\em representative line} $\lhat$ that will provide us with an estimated separability score, $\theta_{i,j}^{\lhat}$, that approximates the true linear separability score $\theta_{i, j}$.
 %as shown in Equation~\ref{eqn:s_viz_appr}, .
 %\begin{equation}\label{eqn:s_viz_appr}
 %\theta_{i,j} \leftarrow \theta_{i,j}^{\lhat} %\approx
@@ -342,7 +343,7 @@ Let us denote the centroids of positive objects $\oo_+$ and negative objects $\o
 & w_0 = -(\frac{(\mm_i^+)^2-(\mm_i^-)^2}{2}+\frac{(\mm_j^+)^2-(\mm_j^-)^2}{2})
 \end{split}
 \end{equation}
-\noindent In Figure~\ref{fig:rocchio}, the "Rocchio-based" measure with the representative separating line $\theta_{i,j}^{\lhat}$ equals $13$ with one negative object (red point) mis-predicted as positive, while the true $\theta_{i,j}$ also equals $13$.
+\noindent In Figure~\ref{fig:rocchio}, the ``Rocchio-based'' measure with the representative separating line $\theta_{i,j}^{\lhat}$ equals $13$ with one negative object (red point) mis-predicted as positive, while the true $\theta_{i,j}$ also equals $13$.
 
 \stitle{Brute-force vs. Rocchio-based.} Compared to the brute force calculation, the Rocchio-based measure is much more light-weight, but at the cost of accuracy in calculating $\theta_{i,j}$. Intuitively, the representative line is a reasonable proxy to the best separating line since the Rocchio-based measure computes the centroids of the two classes as their representatives and assigns each object to its nearest centroid. We will further empirically demonstrate that $\theta_{i,j}^{\lhat}$ is a good proxy for $\theta_{i,j}$ in Section~\ref{sec:exp_comp}. Thus, we will focus on the Rocchio-based measure in the remainder of the manuscript, removing $\lhat$ (or $\ell$) from the superscripts where it appears, and using $\theta_{i,j}$ and $\theta_{i,j}^{\lhat}$ interchangeably.
 % \xagp{you have used Rocchio's alg/measure/representative line. Maybe avoid some of them for consistency.}
@@ -354,7 +355,7 @@ Let us denote the centroids of positive objects $\oo_+$ and negative objects $\o
 \subfigure[Brute Force]{\label{fig:brute_force}\includegraphics[width=.235\textwidth]{fig/metric.pdf}}
 \subfigure[Rocchio-Based]{\label{fig:rocchio}\includegraphics[width=.235\textwidth]{fig/rocchio.pdf}}
 \vspace{-5mm}
-\caption{Calculating Separability Score $\theta_{i,j}$. The scored separating line can be defined using (a) brute force or (b) the representative line from a Rocchio-based measure based on the object class centroids (white circles).}
+\caption{Calculating Separability Score $\theta_{i,j}$. The scored separating line can be defined using (a) brute force (few sample lines are shown) or (b) the representative line from a Rocchio-based measure based on the object class centroids (white circles).}
 \vspace{-5mm}
 \label{fig:metric}
 \end{figure}
@@ -367,19 +368,19 @@ In this section, we first analyze the time complexity of identifying the \topk f
 since $m$ and $n$ are typically large.
 
 \stitle{Optimizations: Overview.} To reduce the time complexity, we introduce two categories of optimizations:
-those that reduce the amount of time  
-for fully evaluating a given feature pair (Section~\ref{ssec:trans},~\ref{ssec:earlyT}). 
-Second, those that reduce the number of feature pairs 
-that require full evaluation without 
+those that reduce the amount of time
+for fully evaluating a given feature pair (Section~\ref{ssec:trans},~\ref{ssec:earlyT}).
+Second, those that reduce the number of feature pairs
+that require full evaluation without
 sacrificing accuracy (Section~\ref{ssec:sampling},~\ref{ssec:traversal}).
 
 The first optimization module within the first category, \trans (Section~\ref{ssec:trans}), reduces redundant calculations across feature pairs by mapping the original feature-object matrix $\mm$ into a new space that enables faster evaluation of object labeling, and thus faster calculation of separability score. The second optimization module, \earlyT (Section~\ref{ssec:earlyT}), takes advantage of the fact that evaluation of a poorly separating feature pair can be terminated early without having to evaluate the separability of all $n$ objects.
 
-The first optimization module within the second category, \sampling 
-(Section~\ref{ssec:sampling}) first identifies likely \topk feature pair candidates by evaluating their separability on a sampled subset of all objects, and then conducts full evaluations only on these feature pair candidates. 
-Finally, \traversal (Section~\ref{ssec:traversal}) 
-reduces the number of feature pairs checked by greedily 
-choosing feature pairs based on the separability of the 
+The first optimization module within the second category, \sampling
+(Section~\ref{ssec:sampling}) first identifies likely \topk feature pair candidates by evaluating their separability on a sampled subset of all objects, and then conducts full evaluations only on these feature pair candidates.
+Finally, \traversal (Section~\ref{ssec:traversal})
+reduces the number of feature pairs checked by greedily
+choosing feature pairs based on the separability of the
 corresponding single features. These optimization modules can be used on their own or combined with each other.
 
 In Section~\ref{sec:exp}, we will show how these optimizations modules greatly reduce the running time of finding the \topk separating feature pairs without significantly affecting the accuracy.
@@ -396,16 +397,16 @@ Let us review the process of computing the separability $\theta_{i,j}$. Given a 
 \begin{equation}\label{eqn:matrix_transform}
 \widehat{\mm}_{i,k} = \Big( (\mm_i^+-\mm_i^-)\cdot \mm_{i,k}-\frac{(\mm_i^+)^2-(\mm_i^-)^2}{2} \Big) \cdot l_k
 \end{equation}
-\noindent The basic idea is to decompose 
-Equation~\ref{eqn:est_label} into two components, 
-with each one only related to a single feature. 
-This transformation incorporates 
-the class centroids into the matrix values, 
-obviating their integration later 
-for every feature pair that involves the given feature. 
-Equation~\ref{eqn:matrix_transform} also multiplies 
-in the class label of the object, $l_k$, 
-rather than repeating this multiplication every time the object is evaluated. With this transformation of the feature-object matrix, 
+\noindent The basic idea is to decompose
+Equation~\ref{eqn:est_label} into two components,
+with each one only related to a single feature.
+This transformation incorporates
+the class centroids into the matrix values,
+obviating their integration later
+for every feature pair that involves the given feature.
+Equation~\ref{eqn:matrix_transform} also multiplies
+in the class label of the object, $l_k$,
+rather than repeating this multiplication every time the object is evaluated. With this transformation of the feature-object matrix,
 evaluating whether an object was correctly separated is simplified from Equation~\ref{eqn:s_object} into Equation~\ref{eqn:s_object_transform}:
 % \agp{confusing because $L$ is not there in Equation~\ref{eqn:s_object}}\silu{maybe add "Since our focus is on Rocchio-based measure, we replace the separating line $\ell$ in Equation~\ref{eqn:s_object} with the representing line $L$ in Equation~\ref{eqn:s_object_transform}."}
 %, and get rid of checking the real label $l_k$ in Equation~\ref{eqn:s_object}
@@ -420,20 +421,20 @@ evaluating whether an object was correctly separated is simplified from Equation
 %\begin{equation}\label{eqn:est_label_transform}
 %\eta_{i,j}^{\lhat,k}=\sign(\widehat{\mm}_{i,k} + \widehat{\mm}_{j,k})
 %\end{equation}
-After pre-transformation, we are now ready 
-to compute the separability score $\theta_{i,j}$. 
-Given a feature pair $(f_i,f_j)$, we can compute $\theta_{i,j}^{k}$ 
-for each object $o_k$ based on Equation~\ref{eqn:s_object_transform}. 
-Note that this step only involves one addition and one comparison. 
-Next, we can calculate overall separability score $\theta_{i,j} = \sum_{k}{\theta_{i,j}^{k}}$ like in Equation~\ref{eqn:s_line} 
-without the pre-transformation. Overall, 
-we not only eliminate the steps of computing 
-$w_0$, $w_i$ and $w_j$ for every feature pair, 
-but also reduce the cost of calculating 
-$\eta_{i,j}^{k}$ in Equation~\ref{eqn:est_label}. 
-In the following sections, 
-we will consider $\widehat{\mm}$ instead of $\mm$, 
-and Equation~\ref{eqn:s_object_transform} instead of 
+After pre-transformation, we are now ready
+to compute the separability score $\theta_{i,j}$.
+Given a feature pair $(f_i,f_j)$, we can compute $\theta_{i,j}^{k}$
+for each object $o_k$ based on Equation~\ref{eqn:s_object_transform}.
+Note that this step only involves one addition and one comparison.
+Next, we can calculate overall separability score $\theta_{i,j} = \sum_{k}{\theta_{i,j}^{k}}$ like in Equation~\ref{eqn:s_line}
+without the pre-transformation. Overall,
+we not only eliminate the steps of computing
+$w_0$, $w_i$ and $w_j$ for every feature pair,
+but also reduce the cost of calculating
+$\eta_{i,j}^{k}$ in Equation~\ref{eqn:est_label}.
+In the following sections,
+we will consider $\widehat{\mm}$ instead of $\mm$,
+and Equation~\ref{eqn:s_object_transform} instead of
 Equation~\ref{eqn:est_label} and~\ref{eqn:s_object}.
 %Hence, by conducting transformation in Equation~\ref{eqn:matrix_transform} and~\ref{eqn:s_object_transform}, we have mapped our problem to a new space.
 
@@ -496,35 +497,35 @@ Hence, we can calculate the separability score $\theta_{i,i}$ very efficiently f
 %==================================================================
 \subsubsection{Early Termination} \label{ssec:earlyT}
 
-Given a feature pair $(f_i,f_j)$, 
-we need to scan all the objects 
-to compute the separability score $\theta_{i,j}$ according to Equation~\ref{eqn:s_line}. 
+Given a feature pair $(f_i,f_j)$,
+we need to scan all the objects
+to compute the separability score $\theta_{i,j}$ according to Equation~\ref{eqn:s_line}.
 However, since we only need to identify the \topk feature pairs,
 we can stop as soon as we can make that determination, without
 scanning all the objects, denoted as the \earlyT module in Figure~\ref{fig:workflow}.
 
-\stitle{High Level Idea.} We maintain a upper bound 
-for the separability error $err_{i,j}$ of the \topk feature pairs, 
-denoted as $\tau$. 
-Then, the lower bound of the separability 
-score can be denoted as ($n-\tau$), 
-where $n$ is the total number of objects $\hat{\oo}$. 
-Given a feature pair $(f_i,f_j)$, we start to scan the object list until the number of incorrectly classified objects exceeds $\tau$. If so, we can terminate early and prune this feature pair since it cannot be among the \topk. 
+\stitle{High Level Idea.} We maintain a upper bound
+for the separability error $err_{i,j}$ of the \topk feature pairs,
+denoted as $\tau$.
+Then, the lower bound of the separability
+score can be denoted as ($n-\tau$),
+where $n$ is the total number of objects $\hat{\oo}$.
+Given a feature pair $(f_i,f_j)$, we start to scan the object list until the number of incorrectly classified objects exceeds $\tau$. If so, we can terminate early and prune this feature pair since it cannot be among the \topk.
 Otherwise, $(f_i,f_j)$ is added to the \topk feature pair set and we update $\tau$ accordingly. Although \earlyT has the potential to always reduce the running time, its benefits are sensitive to the ordering of the objects for evaluation. Since we terminate as soon as we find $\tau$ incorrectly classified objects, we can improve our running time if we examine ``problematic'' objects that are unlikely to be correctly classified relatively early.
 
-\stitle{Enhancement by Object Ordering.} 
-To evaluate ``problematic'' objects earlier, 
-we order the objects in descending order of 
-the number of single features $f_i$ that incorrectly 
-classify the object $o_k$, i.e., $\widehat{\mm}_{i,k}\leq0$. 
-Thus, the first object evaluated is the one that is incorrectly 
-classified by the most single features. 
+\stitle{Enhancement by Object Ordering.}
+To evaluate ``problematic'' objects earlier,
+we order the objects in descending order of
+the number of single features $f_i$ that incorrectly
+classify the object $o_k$, i.e., $\widehat{\mm}_{i,k}\leq0$.
+Thus, the first object evaluated is the one that is incorrectly
+classified by the most single features.
 We study the impact of this strategy in Section~\ref{sec:exp}.
 
 \begin{example}[\earlyT \& Object Ordering]
 Figure~\ref{fig:earlyT} illustrates how early termination and object ordering help reduce the running time. The top half depicts the $\widehat{\mm}$ after transformation. Say the current error upper bound is $\tau=1$. We start scanning the object list from left to right and determine whether each object is correctly separated based on Equation~\ref{eqn:s_object_transform}. Incorrectly classified objects are marked in blue, such as $o_1$, since $\widehat{\mm}_{i,1}+\widehat{\mm}_{j,1}\leq0$. We can terminate after evaluating $o_5$ since the number of incorrectly classified objects exceeds $\tau=1$.
 
-The bottom half of Figure~\ref{fig:earlyT} shows $\widehat{\mm}$ after object reordering where "problematic" objects are placed on the left. In this way, after checking only the first two objects, we can terminate and eliminate this feature pair from further consideration.
+The bottom half of Figure~\ref{fig:earlyT} shows $\widehat{\mm}$ after object reordering where ``problematic'' objects are placed on the left. In this way, after checking only the first two objects, we can terminate and eliminate this feature pair from further consideration.
 \end{example}
 
 \tr{\cb{note, 0's are treated as mis-labels and ties are broken randomly.}\agp{Probably not super important to clarify this.}}
@@ -532,12 +533,12 @@ The bottom half of Figure~\ref{fig:earlyT} shows $\widehat{\mm}$ after object re
 %==================================================================
 \subsubsection{Sampling-based Estimation} \label{ssec:sampling}
 
-One downside of the \earlyT module 
-is that the improvement in the running time is highly data-dependent. 
-Here, we propose a stochastic method, called \sampling, 
-that further reduces the number of examined objects. 
-Instead of calculating $\theta_{i,j}$ over the 
-whole object set $\hat{\oo}$, \sampling works on a 
+One downside of the \earlyT module
+is that the improvement in the running time is highly data-dependent.
+Here, we propose a stochastic method, called \sampling,
+that further reduces the number of examined objects.
+Instead of calculating $\theta_{i,j}$ over the
+whole object set $\hat{\oo}$, \sampling works on a
 sample set drawn from $\hat{\oo}$.
 \tr{
 \sinha{use $\theta_{i,j}^{\lhat}$ instead of $\theta_{i,j}$}
@@ -545,23 +546,23 @@ sample set drawn from $\hat{\oo}$.
 \silu{Maybe we can add one sentence here to remind the readers? "Recall that we use $\theta_{i,j}^{\lhat}$ and $\theta_{i,j}$ interchangeably throughout the paper."}
 }
 
-\stitle{High Level Idea.} \sampling primarily consists of two phases, 
-called {\em candidate generation} and {\em validation} 
-as shown in Figure~\ref{fig:sampling}. 
-In phase one (Figure~\ref{fig:sampling}(a)), 
-we estimate the confidence interval of $\theta_{i,j}$ 
-for each feature pair using a sampled set of objects and 
-generate the candidate feature pairs for full evaluation 
-based on where their confidence intervals lie. 
-If the confidence interval overlaps with the 
-score range of the current \topk, then it is selected for evaluation. 
-In phase two (Figure~\ref{fig:sampling}(b)), 
-we evaluate only the feature pairs in the candidate set, 
-calculating $\theta_{i,j}$ over the whole object set, $\hat{\oo}$, 
-to obtain the final \topk feature pairs. 
-Unlike our previous optimizations, \sampling returns 
-an approximation of the \topk ranking feature pairs. 
-In Section~\ref{sec:exp_comp}, we study how the greatly 
+\stitle{High Level Idea.} \sampling primarily consists of two phases,
+called {\em candidate generation} and {\em validation}
+as shown in Figure~\ref{fig:sampling}.
+In phase one (Figure~\ref{fig:sampling}(a)),
+we estimate the confidence interval of $\theta_{i,j}$
+for each feature pair using a sampled set of objects and
+generate the candidate feature pairs for full evaluation
+based on where their confidence intervals lie.
+If the confidence interval overlaps with the
+score range of the current \topk, then it is selected for evaluation.
+In phase two (Figure~\ref{fig:sampling}(b)),
+we evaluate only the feature pairs in the candidate set,
+calculating $\theta_{i,j}$ over the whole object set, $\hat{\oo}$,
+to obtain the final \topk feature pairs.
+Unlike our previous optimizations, \sampling returns
+an approximation of the \topk ranking feature pairs.
+In Section~\ref{sec:exp_comp}, we study how the greatly
 reduced running time of \sampling affects the accuracy of the \topk pairs. %We will describe in detail in Section~\ref{sssec:generate} and \ref{sssec:validate}.
 
 \begin{figure}[t!]
@@ -604,23 +605,23 @@ We illustrate phase one using Figure~\ref{fig:sampling}(a). Set $\epsilon = 0.05
 \end{example}
 
 \stitle{Candidate Validation.} %\label{sssec:validate}
-Since we only estimated the separability scores $\theta_{i,j}$ for our feature pair candidates in phase one, we re-evaluate all of the candidates generated from phase one to produce our final feature pair ranking. This phase two evaluation is performed using the whole object set $\hat{\oo}$. 
+Since we only estimated the separability scores $\theta_{i,j}$ for our feature pair candidates in phase one, we re-evaluate all of the candidates generated from phase one to produce our final feature pair ranking. This phase two evaluation is performed using the whole object set $\hat{\oo}$.
 \tr{\sinha{are we using early termination and object ordering in phase two?} \silu{no. We tried both and found that early termination is not helping most of time since 1) the feature pair candidates, which perform well in phase 1, are indeed the ones that are hard to prune and 2) \earlyT incurs some overhead itself.}
 }
  For each feature pair $(f_i,f_j)\in \cc$, we calculate the separability score $\theta_{i,j}$ and find the \topk feature pairs (Figure~\ref{fig:sampling}(b)).
 
-\stitle{Enhancement by Candidate Ordering.} 
-In Section~\ref{ssec:earlyT} we proposed an enhancement 
-that allows us to terminate computation early by 
-manipulating the order of the objects; 
-here we similarly found a way to reduce the running 
-time by changing the order in which feature pair candidates 
-are validated in phase two. 
-Instead of directly validating each feature pair candidate, 
-we first order the candidates in descending order according to the upper bound of each candidate's confidence interval. 
-Then, we sequentially calculate the full separability 
-score $\theta_{i,j}$ for each feature pair, and update $\zeta$ correspondingly. 
-Recall that $\zeta$ is the current estimate of the lower bound of $\theta_{i,j}$ for the \topk feature pairs. Finally, we terminate our feature 
+\stitle{Enhancement by Candidate Ordering.}
+In Section~\ref{ssec:earlyT} we proposed an enhancement
+that allows us to terminate computation early by
+manipulating the order of the objects;
+here we similarly found a way to reduce the running
+time by changing the order in which feature pair candidates
+are validated in phase two.
+Instead of directly validating each feature pair candidate,
+we first order the candidates in descending order according to the upper bound of each candidate's confidence interval.
+Then, we sequentially calculate the full separability
+score $\theta_{i,j}$ for each feature pair, and update $\zeta$ correspondingly.
+Recall that $\zeta$ is the current estimate of the lower bound of $\theta_{i,j}$ for the \topk feature pairs. Finally, we terminate our feature
 pair validation when the next feature pair's upper bound smaller than the current value of $\zeta$ (Figure~\ref{fig:candidate_ordering}).
 
 \begin{figure}[h]
@@ -638,11 +639,11 @@ pair validation when the next feature pair's upper bound smaller than the curren
 %==================================================================
 \subsubsection{Search Space Traversal} \label{ssec:traversal}
 
-The optimizations discussed so far check fewer 
-than $n$ objects for each feature pair and reduce 
-the number of feature pairs 
-for full evaluation. Our \traversal module 
-aims to reduce the number of feature pairs 
+The optimizations discussed so far check fewer
+than $n$ objects for each feature pair and reduce
+the number of feature pairs
+for full evaluation. Our \traversal module
+aims to reduce the number of feature pairs
 considered from $m^2$ to a smaller number.
 
 \stitle{High Level Idea.} Instead of examining each feature pair, we only examine a limited number of feature pairs, but in an optimized traversal order. The number of examined feature pairs determines a trade-off between efficiency and accuracy. In general, fewer feature pairs checked will result in faster running times, though at the cost of accuracy.
@@ -684,26 +685,26 @@ Assume $m=2\times 10^4$. Initially, the number of possible feature pairs is roug
 
 
 %==================================================================
-\section{Experimental Results}
+\section{Results}
 \label{sec:exp}
-In this section, we  illustrate that \genviz 
-rapidly identifies meaningful, significant, and interesting 
-separating feature pairs in real biological datasets. 
-First, we describe the datasets and the algorithms used 
-in our evaluation. 
-Each algorithm that we evaluate 
-represents a combination of optimization modules 
-for ranking \topk feature pairs using our 
-Rocchio-based measure---we report the running time 
-and accuracy 
-of the algorithms. 
-Second, we compare the \topk feature pairs returned by \genviz with the corresponding \topk single features, 
+In this section, we  illustrate that \genviz
+rapidly identifies meaningful, significant, and interesting
+separating feature pairs in real biological datasets.
+First, we describe the datasets and the algorithms used
+in our evaluation.
+Each algorithm that we evaluate
+represents a combination of optimization modules
+for ranking \topk feature pairs using our
+Rocchio-based measure---we report the running time
+and accuracy
+of the algorithms.
+Second, we compare the \topk feature pairs returned by \genviz with the corresponding \topk single features,
 and examine their significance and support in existing publications.
-Last, we present some sampled visualizations to illustrate the separability of the object classes. 
-%Finally, we enumerate and visualize 
-% the \topk feature pairs returned by \genviz, 
-% compare them to the corresponding \topk single features, 
-% and examine their significance and 
+Last, we present some sample visualizations to illustrate the separability of the object classes.
+%Finally, we enumerate and visualize
+% the \topk feature pairs returned by \genviz,
+% compare them to the corresponding \topk single features,
+% and examine their significance and
 % support in existing publications.
 
 %==================================================================
@@ -727,83 +728,82 @@ Last, we present some sampled visualizations to illustrate the separability of t
 \label{tbl:dataset}
 \vspace{-18pt}
 \end{table}
-\stitle{Datasets.} We consider datasets from two  
-biological applications: 
-in the first, 
-called \msig, 
-we find pathways and other gene annotations 
-that separate the differentially expressed genes 
-from the undisturbed genes in specific cancer studies. 
-In the second, 
-called \lincs, 
-we find genes whose expression levels 
+\stitle{Datasets.} We consider datasets from two
+biological applications:
+in the first,
+called \msig,
+we find gene annotations such as pathways and biological processes
+that separate the differentially expressed genes
+from the undisturbed genes in specific cancer studies.
+In the second,
+called \lincs,
+we find genes whose expression levels
 can distinguish experiments in which specific drug treatments were administered from others.
 
-In \msig, 
-we are given a feature-object 
-matrix with genes as the objects 
-and gene properties as the features. 
-A natural way to construct this matrix 
-is to define a collection of properties 
-such as Gene Ontology terms~\cite{gene2014gene}, 
-PFam domains~\cite{finn2015pfam}, 
-and KEGG pathways~\cite{kanehisa2016kegg}, 
-and with a boolean value 
-to indicate whether each gene is known to have a property. 
-This is equivalent to constructing a network 
-with gene and property nodes, with edges representing 
-known annotations, and recording adjacency information 
-on each gene as its feature values. 
-We generalized this notion of gene-property 
-relationships by adding homology edges 
-(connecting homologous gene pairs based on BLAST scores~\cite{altschul1990basic}) 
-to the above network, and used the DRaWR algorithm~\cite{blatti2016characterizing} 
-to perform a random walk with restarts 
-on the heterogeneous network, 
-thereby scoring the connectivity of each property node 
-to each gene node. 
-This resulted in the assignment of a numeric value 
-for each gene-property pair ($g$, $r$), 
-representing not only whether the gene is 
-annotated with that property, 
-but also whether other genes closely 
-related to gene $g$ are annotated with property $r$. 
-We thus obtained a feature-object matrix describing 
-each gene (object) as a vector of its strength of 
-association with each property (feature) 
+In the \msig application,
+we are given a feature-object
+matrix with genes as the objects
+and gene properties as the features.
+A natural way to construct this matrix
+is to define a collection of properties
+such as Gene Ontology terms~\cite{gene2014gene},
+PFam domains~\cite{finn2015pfam},
+and KEGG pathways~\cite{kanehisa2016kegg},
+and use a Boolean value
+to indicate whether each gene is known to have a property.
+This is equivalent to constructing a network
+with gene and property nodes, with edges representing
+known annotations, and recording adjacency information
+on each gene as its feature values.
+We generalized this notion of gene-property
+relationships by adding homology edges
+(connecting homologous gene pairs based on BLAST scores~\cite{altschul1990basic})
+to the above network, and used the DRaWR algorithm~\cite{blatti2016characterizing}
+to perform a random walk with restarts
+on the heterogeneous network,
+thereby scoring the connectivity of each property node
+to each gene node.
+This resulted in the assignment of a numeric value
+for each gene-property pair ($g$, $r$),
+representing not only whether the gene is
+annotated with that property,
+but also whether other genes closely
+related to gene $g$ are annotated with property $r$.
+We thus obtained a feature-object matrix describing
+each gene (object) as a vector of its strength of
+association with each property (feature)
 in light of prior biological knowledge.
 %The values in this matrix correspond to the network connectivity between the node representing the feature gene set annotation and the node representing the object gene in a heterogeneous network of prior biological knowledge. To calculate these network connectivity scores we perform a random walk on the heterogeneous network that restarts at the feature gene set annotation node \needcite{DRAWR} and then observe the stationary probabilities of being at each gene node. The heterogeneous network here was constructed with information from BLAST, Gene Ontology, Pfam, and Pathway \needcite{each of these sources}.
-\cb{still need to be certain on the steps required to create this matrix, also may want to mention restart prob, etc} 
-The positive genes for each dataset in \msig 
-are the set of differentially expressed genes (DEGs) 
-in a specific cancer study, 
-as per Molecular Signatures Database~\cite{subramanian2005gene}. 
-Each of our tests is an application of 
-\genviz to such a dataset, 
-reporting pairs of properties 
-that separate DEGs of that cancer study (the ``positive'' set) 
+\tr{\cb{still need to be certain on the steps required to create this matrix, also may want to mention restart prob, etc}
+\sinha{About the details: providing them here might be a distraction, but the Methods section is also not appropriate because it has a nice narrative structure to it rather than the usual dump of methodological details. Maybe the citation to DRaWR is sufficient for details?}}
+The positive genes for each dataset in \msig
+are the set of differentially expressed genes (DEGs)
+in a specific cancer study,
+as per Molecular Signatures Database (MSigDB)~\cite{subramanian2005gene}.
+Each of our tests is an application of
+\genviz to such a dataset,
+reporting pairs of properties
+that separate DEGs of that cancer study (the ``positive'' set)
 from all other genes (the ``negative'' set).
 
-In \lincs, the feature-object matrix 
-contains expression values for different genes 
-(features) across many drug treatment experiments 
-(objects) conducted on the MCF7 cell line by the LINCS L1000 project~\cite{subramanian2017next}. 
-The values of the matrix are gene expression quantities as reported by the ``level-4' imputed z-scores measured in the L1000 project. 
-In each dataset, the positive object set includes 
-multiple experiments that used the same drug, at varying dosages and for varying durations. We applied \genviz on each dataset 
-so as to find the top pairs of genes (feature pairs) 
-whose expression values separates the \lincs experiments 
+In \lincs, the feature-object matrix
+contains expression values for different genes
+(features) across many drug treatment experiments
+(objects) conducted on the MCF7 cell line by the LINCS L1000 project~\cite{subramanian2017next}.
+The values of the matrix are gene expression values as reported by the ``level-4' imputed z-scores measured in the L1000 project.
+In each dataset, the positive object set includes
+multiple experiments that used the same drug, at varying dosages and for varying durations. We applied \genviz on each dataset
+so as to find the top pairs of genes (feature pairs)
+whose expression values separate the \lincs experiments
 relating to a single drug from all other \lincs experiments.
 
-See Table~\ref{tbl:dataset} for further details 
-of the aforementioned datasets. 
-Note that the average number of positive objects 
-in any dataset is far fewer than the average number 
-of negative objects. To address this imbalance, 
-we adjust Equation~\ref{eqn:s_line} 
+See Table~\ref{tbl:dataset} for further details
+of the aforementioned datasets.
+Note that the average number of positive objects
+in any dataset is far fewer than the average number
+of negative objects. To address this imbalance,
+we adjust Equation~\ref{eqn:s_line}
 to a weighted sum form as shown in Equation~\ref{eqn:s_line_weighted}.
-
-\sinha{why did we chose the number of object sets, 10 and 40} \cb{this is an artifact of how we began. silu was going one or two \msig at the beginning and then expanded to 10 out of the ~50 that I created for Greg. For LINCS we started with 40 because those experiment sets were ones with >~100 samples}
 
 %For each of the two applications, the numbers of features $m$, objects $N$, sample size $|\sss|$, and the examined feature pairs $\chi$ are shown in Table~\ref{tbl:dataset}. We tested on 10 different datasets for \msig and 40 different datasets for \lincs. For each positive object set, we treat all of the remaining objects as the negative set and list the average number of positive and negative objects in Table~\ref{tbl:dataset}.
 
@@ -815,22 +815,22 @@ to a weighted sum form as shown in Equation~\ref{eqn:s_line_weighted}.
 %, where $m$ and $n$ are constants depending on the size of the feature-object matrix, $|\sss|$ and $\chi$ are the predetermined sampled set size and limit on the number of feature pairs considered, and $|\cc|$, the number of feature pair candidates is variable and is generated during the algorithm
 
 
-\stitle{Algorithms.} 
-We evaluated six combinations of our optimization modules 
-from Section~\ref{sec:opt}, as listed in Table~\ref{tbl:alg}. 
-Other combinations that were not selected were always 
-inferior to the ones shown, e.g., 
-the unlisted algorithm with only \trans and \earlyT modules 
-always has a worse running time and 
-outputs the \topk feature pairs with the same separability score as the selected \earlyOrder combination. 
-For our baseline, we use the algorithm 
-with only the matrix pre-transformation optimization module (\trans). 
-The last column in Table~\ref{tbl:alg} shows the running time complexity 
-of different algorithms. Take \horiz as an example. 
-First,  \trans takes $O(mn)$ time. 
-\tr{\cb{ note, scoring single features takes O(mn) time and uses only transformation optimization.}} 
-Then, \traversal requires a sorting over the feature set, taking $O(m\log m)$\tr{\footnote{Since $m\log m < nm$, we omit term $m\log m$ from the overall complexity.}} time. Finally, with \sampling over $\chi$ feature pairs, 
+\stitle{Algorithms.}
+We evaluated six combinations of our optimization modules \sinha{"modules" is somewhat misleading since it suggests separation during combination, while in reality I believe a combination of modules can weave together two ideas to the point that they are no longer "modular". Maybe add a clarification here that what we call modules really are "strategies" for optimization. Or replace "modules" with "strategies" throughout. This is under the assumption that I am right about modularity being lost during some combinations.}
+from Section~\ref{sec:opt}, as listed in Table~\ref{tbl:alg}.
+For our baseline, we use the algorithm
+with only the matrix pre-transformation optimization module (\trans).
+The last column in Table~\ref{tbl:alg} shows the running time complexity
+of different algorithms. Take \horiz as an example.
+First,  \trans takes $O(mn)$ time.
+\tr{\cb{ note, scoring single features takes O(mn) time and uses only transformation optimization.}}
+Then, \traversal requires a sorting over the feature set, taking $O(m\log m)$\tr{\footnote{Since $m\log m < nm$, we omit term $m\log m$ from the overall complexity.}} time. Finally, with \sampling over $\chi$ feature pairs,
 the running time is reduced from $O(m^2n)$ time to $O(\chi|\sss|+|\cc|n)$ time, where the first and second term represent the time for candidate generation and candidate validation respectively. Note that $|\cc|$ is typically orders of magnitude smaller than $\chi$ in \horiz, as discussed in Section~\ref{ssec:sampling}.
+Other combinations beyond the six that are not reported on were always
+inferior to the ones shown, e.g.,
+the unlisted algorithm with only \trans and \earlyT modules
+always has a worse running time and
+outputs the \topk feature pairs with the same separability score as the selected \earlyOrder combination.
 
 \stitle{Evaluation Setup.} We implemented the algorithms in C++, and conduct the evaluations on a machine with 16 CPUs and 61.9 GB of RAM.
 
@@ -838,12 +838,12 @@ the running time is reduced from $O(m^2n)$ time to $O(\chi|\sss|+|\cc|n)$ time, 
 \subsection{Comparison of Different Algorithms}
 \label{sec:exp_comp}
 
-In this section, we first 
-justify that Rocchio-based measure 
-is a good proxy for the best possible separating score 
-computed by a brute force method. 
-Then we compare the performance of the 
-various selected algorithms in terms of the 
+In this section, we first
+justify that Rocchio-based measure
+is a good proxy for the best possible separating score
+computed by a brute force method.
+Then we compare the performance of the
+various selected algorithms in terms of the
 running time and the separability scores of their \topthousand reported feature pairs.
 
 \begin{figure}[h]
@@ -881,7 +881,7 @@ running time and the separability scores of their \topthousand reported feature 
  \vertic   & no & yes & yes & Vertical  & yes(heuristic) & $O(mn+\chi|\sss|+|\cc|n)$ \\
  \hline
  \end{tabular}
-\caption{Selected Algorithms Using Different Optimization Modules. All algorithms, including the \baseline, are using \trans. In addition, \earlyT and \traversal are coupled with object ordering and feature ordering by default, respectively. For each algorithm (row), shows which optimization modules are employed, whether the algorithm is returning the exact answer or an approximation answer, and the running time complexity for that combination. The term "guarantee" ("heuristic", resp.) indicates that the returned answer is with (without, resp.) stochastic guarantee. In addition, $m$ and $n$ are the number of features and objects, $\sss$ is the sampled set size, $\chi$ is the limit on the number of feature pairs considered, and $\cc$ is the number of generated feature pair candidates.}
+\caption{Selected Algorithms Using Different Optimization Modules. All algorithms, including the \baseline, are using \trans. In addition, \earlyT and \traversal are coupled with object ordering and feature ordering by default, respectively. For each algorithm (row), shows which optimization modules are employed, whether the algorithm is returning the exact answer or an approximation answer, and the running time complexity for that combination. The term ``guarantee'' (``heuristic'', resp.) indicates that the returned answer is with (without, resp.) stochastic guarantee. In addition, $m$ and $n$ are the number of features and objects, $\sss$ is the sampled set size, $\chi$ is the limit on the number of feature pairs considered, and $\cc$ is the number of generated feature pair candidates.}
 \label{tbl:alg}
 \vspace{-18pt}
 \end{table*}
@@ -892,12 +892,8 @@ running time and the separability scores of their \topthousand reported feature 
 }
 
 
-\stitle{Brute Force vs. Rocchio-based.} As we have discussed in Section~\ref{sec:metric}, when using brute force, we need to consider $O(n^2)$ lines in order to find the best separating line $\ell^* \leftarrow \arg_\ell \max \{\theta_{i,j}^{\ell}\}$, leading to a total running time complexity $O(n^2m^2)$ when considering all feature pairs. An alternative is to use Rocchio-based representative separating line $L$, dramatically reducing $O(n^2)$ lines considered to $O(1)$. Since the brute force method becomes computationally infeasible for datasets with large $n$, we compared the Rocchio-based measure to the brute force-based measure using
-a small $\widehat{\oo}$ for
-the 10 datasets in \msig, for which the average number of positive \silu{total} objects was 295.
-\sinha{Is the notation correct? Isnt 295 the average number of *positive* objects? } \cb{silu, I am also slightly confused. did we do the brute force comparison with pos vs neg msig or pos vs all msig?} \silu{pos vs neg msig}
-We call the brute force-based separability score the {\em true} separability score, since it examines all possible separating lines. We first find the best feature pair using Rocchio-based measure and the brute force based measure separately (potentially different feature pairs) and then calculate the ratio of the true separability scores of the Rocchio versus the brute force best feature pairs (Figure~\ref{fig:brute_rocchio_ratio}). We observe that the Rocchio-based method picks a best feature pair that has true separability score similar to the best pair picked by brute force, with the ratio of the two scores being better than 0.94 in all ten datasets. Second, for the best feature pair identified by Rocchio-based method, we calculate the ratio of the brute force-based separability score and Rocchio-based separability score (Figure~\ref{fig:brute_rocchio_score}), and find the difference to be small.
-\agp{odd to have this here when this section is mostly about algo comparison. maybe bring it up later?}
+\stitle{Accuracy of Rocchio-based approximation.} As we have discussed in Section~\ref{sec:metric}, when using brute force, we need to consider $O(n^2)$ lines in order to find the best separating line $\ell^* \leftarrow \arg_\ell \max \{\theta_{i,j}^{\ell}\}$, leading to a total running time complexity $O(n^2m^2)$ when considering all feature pairs. An alternative is to use Rocchio-based representative separating line $L$, dramatically reducing $O(n^2)$ lines considered to $O(1)$. Since the brute force method becomes computationally infeasible for datasets with large $n$, we compared the Rocchio-based measure to the brute force-based measure using
+specially defined small object sets, $\widehat{\oo}$, for the 10 datasets in \msig.  For this comparison, the up-regulated genes in each \msig test was defined as the set of positive objects and the down-regulated genes as the set of negative objects, resulting in an average number of 295 objects for each comparison. We call the brute force-based separability score the {\em true} separability score, since it examines all possible separating lines. We first find the best feature pair using Rocchio-based measure and the brute force based measure separately (potentially different feature pairs) and then calculate the ratio of the true separability scores of the Rocchio versus the brute force best feature pairs (Figure~\ref{fig:brute_rocchio_ratio}). We observe that the Rocchio-based method picks a best feature pair that has true separability score similar to the best pair picked by brute force, with the ratio of the two scores being better than 0.94 in all ten datasets. Second, for the best feature pair identified by Rocchio-based method, we calculate the ratio of the brute force-based separability score and Rocchio-based separability score (Figure~\ref{fig:brute_rocchio_score}), and find the difference to be small.
 
 \begin{figure}[h]
 \centering %%% not \center
@@ -917,7 +913,7 @@ First, let us compare the median running times among different algorithms. For \
 {\em (c) \traversal:} the modules \horiz and \vertic achieve an additional $6\times$ speed-up compared to \sampOpt by terminating after only considering $\chi=10^7$ feature pairs, approximately $\frac{1}{20}$ (see Example~\ref{examp:traversal}) of all possible feature pairs. This speedup of \horiz and \vertic is approaching the limit set by the feature ordering overhead (around $6s$) and the time for the \trans module (around $8s$). (Supplementary Table~\ref{tbl:supplement}). The improvement over \sampOpt is not stronger because the candidate generation phase of \sampOpt is able to remove a vast number of the feature pairs from full evaluation that would be also be ignored by \horiz and \vertic (see Supplementary Table~\ref{tbl:supplement}).
 
 Next, let us examine the log-scale interquartile range (IQR) of the running times for the different selected algorithms (Figure~\ref{fig:time}). We observe that \earlyOrder has the largest interquartile range, indicating that the \earlyT module used by this algorithm, which tries to reduce the number of objects evaluated for each feature pair, is very dependent on the object set and feature values. As we discussed in Section~\ref{ssec:earlyT}, \earlyT has no guarantee on improving the running time. In fact, the algorithm can occasionally be worse than the \baseline as shown in Figure~\ref{fig:lincs_time} because \earlyT incurs additional overhead for checking the criteria for pruning and early termination when scanning the object list for each feature pair.
-\cb{we need more clarity (maybe in the discussion) why the early termination is included if it is not performing well, i.e. cases where we would recommend using it } \silu{in most cases, it is performing better than the baseline. If in comparison with other algorithms, early termination has better separability quality.}
+\tr{\cb{we need more clarity (maybe in the discussion) why the early termination is included if it is not performing well, i.e. cases where we would recommend using it } \silu{in most cases, it is performing better than the baseline. If in comparison with other algorithms, early termination has better separability quality.}}
 
 Similar results can be found in Figure~\ref{fig:lincs_time} for \lincs. Here, we observe over $400\times$ average decrease in the running time of finding the \topk feature pairs that separate the \lincs experiments of a single perturbagen from others. The greatest speedup comes with adding the \sampling module. In this setting, only $100K$ feature pair candidates, i.e., $|\cc|$, are checked out of all $250M$ feature pairs (Supplementary Table~\ref{tbl:supplement}). For the selected algorithms with best running times, \horiz and \vertic, the pre-transformation and feature ordering overhead account for an average of $45+35=80s$ of the overall 104 and 94 median seconds respectively.
 
@@ -935,12 +931,10 @@ Similar results can be found in Figure~\ref{fig:lincs_time} for \lincs. Here, we
 \label{fig:separability}
 \end{figure}
 
-\sinha{alignment of algorithm names not ok in figure}
-
-\stitle{Separability Quality.}  Recall that the \earlyT module is deterministic and will produce the same \topk feature pairs as the baseline method. The \sampling module, on the other hand, is stochastic and can only provide an approximate estimate of the \topk feature pair ranking. Finally, the \traversal module is heuristic and may output \topk feature pairs that are very different from the ranking produced by the \baseline algorithm. 
+\stitle{Separability Quality.}  In Figure~\ref{fig:brute_rocchio_ratio} above, we found the the accuracy of the baseline method which computes the Rocchio-based estimate of top-k features to be high. The \earlyT module is deterministic and produces the same \topk feature pairs as the baseline method only with optimized computation.  The \sampling module, on the other hand, is stochastic and can only provide an approximation of the \topk feature pair ranking. Finally, the \traversal module is heuristic and may output \topk feature pairs that are very different from the ranking produced by the \baseline algorithm.
 and since \baseline returns the true Rocchio-based separability score of each feature pair, we measured the quality of each selected algorithm by counting the number of common feature pairs returned in the \tophundred between the \baseline and the given algorithm. Figure~\ref{fig:separability} shows this separability quality comparison. Let us first focus on \msig. \earlyOrder, as expected, has exactly the same separability quality as the \baseline. We also observe that the \samp and \sampOpt rankings are nearly identical to the \tophundred feature pairs of the \baseline, owing to the probabilistic guarantee as stated in Theorem~\ref{them:est}. The \horiz and \vertic algorithms output a median of 92 and 48 feature pairs in common with \baseline, respectively, because of the heuristic \traversal module. In the \msig results, \horiz performs much better than \vertic, with the median much higher and the interquartile range much narrower, as shown in Figure~\ref{fig:msig_separability}. This suggests, as we hypothesized, that interesting separating feature pairs exist outside of only the combinations of the top single features as in \vertic. We repeated this quality analysis for  \lincs and found that the \sampling based algorithms returned identical \tophundred feature pairs for all 40 datasets. The quality of the \traversal based algorithms was again lower, though there the separation in the performance of the \horiz and the \vertic algorithms was not as large as for \msig.
 
-\stitle{Takeaways.} If the accuracy is paramount to the user, 
+\stitle{Takeaways.} If the accuracy is paramount to the user,
 \sampOpt is the suggested algorithm; while if the running time is paramount to the user, \horiz is the desired algorithm.
 
 %The p-value from Fisher's exact test represents the significance of deviation from the null hypothesis, i.e., the predicted label is independent of the real label. This significance test is frequently used to characterize gene sets \needcite{}.
@@ -956,7 +950,7 @@ In this section, we quantify how statistically significant the top ranking resul
 \subfigure[\msig]{\label{fig:msig_singleF}\includegraphics[width=.16\textwidth]{fig/msig_singleF.pdf}}
 \subfigure[\lincs]{\label{fig:lincs_singleF}\includegraphics[width=.31\textwidth]{fig/lincs_singleF.pdf}}
 \vspace{-5mm}
-\caption{Single Feature Corrected P-value Distribution \sinha{Experiment ID -> Dataset ID}. For each experiment (x-axis), shows the significance ($-\log_{10} (corrected\_pval)$) of the \tophundred best single features (blue dots) for the (a) \msig and (b) \lincs datasets. We order the datasets by their best corrected single feature p-value, and discard the datasets where no single feature has corrected p-value better than $10^{-5}$.}
+\caption{Single Feature Corrected P-value Distribution \sinha{Change Experiment ID -> Dataset ID}. For each test (x-axis), shows the significance ($-\log_{10} (corrected\_pval)$) of the \tophundred best single features (blue dots) for the (a) \msig and (b) \lincs datasets. We order the datasets by their best corrected single feature p-value, and discard the datasets where no single feature has corrected p-value better than $10^{-5}$.}
 \vspace{-5mm}
 \label{fig:singleF}
 \end{figure}
@@ -973,7 +967,7 @@ In this section, we quantify how statistically significant the top ranking resul
 \subfigure[\msig]{\label{fig:msig_FP}\includegraphics[width=.16\textwidth]{fig/msig_FP.pdf}}
 \subfigure[\lincs]{\label{fig:lincs_FP}\includegraphics[width=.31\textwidth]{fig/lincs_FP.pdf}}
 \vspace{-5mm}
-\caption{Feature Pairs' Corrected P-value Distribution. Plotted significance for the \tophundred best feature pairs (blue dots) for each experiment in the (a) \msig and (b) \lincs datasets.}
+\caption{Feature Pairs' Corrected P-value Distribution. Plotted significance for the \tophundred best feature pairs (blue dots) for each test in the (a) \msig and (b) \lincs datasets. \sinha{Change Experiment ID -> Dataset ID} }
 \vspace{-5mm}
 \label{fig:FP}
 \end{figure}
@@ -997,7 +991,7 @@ In the following, we further illustrate that feature pairs can also provide bett
 
 %Remember that the correction factors for single feature and feature pair are different: $mn$ vs. $m^2n^2$.
 
-\stitle{Improvement from Single Feature to Feature Pair.} We have computed the corrected p-value for each single feature and feature pair. Now let us examine the improvement of each feature pair from its two corresponding single features in terms of p-value. For each feature pair $(f_i,f_j)$, we define the improvement quotient \xsinha{can we call improved p-value something else? It is grammatically incorrect. Not sure what though.} as the ratio between the corrected p-value of $(f_i,f_j)$ and the better of the corrected p-value of $f_i$ or $f_j$, i.e., $improv\_quot = \frac{corrected\_pval(f_i,f_j)}{\min(corrected\_pval(f_i),corrected\_pval(f_j))}$. In this set of results, we will focus on \toptwenty feature pairs for each dataset to improve the clarity of the presentation. In Figure~\ref{fig:histogram_diff}, we plot the histogram of $improv\_quot$ for 10 runs in \msig and 32 runs in \lincs. In both datasets, there are many feature pairs (to the right of the red dotted line) in the top 20 that are more significant than their corresponding single features, e.g., on average 8 among \toptwenty feature pairs with $-\log_{10} improv\_quot > 5$ for \lincs. This shows that there is a improvement from single features to some feature pairs in terms of the separability significance, at least for several datasets in our evaluations. In the next section, we will more carefully explore improved feature pairs like these commenting on their redundancy, reliability, and relevance. \xsinha{note here about possibility of redundant feature pairs contributing to the histogram.}
+\stitle{Improvement from Single Feature to Feature Pair.} Having computed the corrected p-value for each single feature and feature pair in the \tophundred of our datasets, we now examine the improvement of each feature pair from its two corresponding single features in terms of p-value. For each feature pair $(f_i,f_j)$, we define the improvement quotient as the ratio between the corrected p-value of $(f_i,f_j)$ and the better of the corrected p-value of $f_i$ or $f_j$, i.e., $improv\_quot = \frac{corrected\_pval(f_i,f_j)}{\min(corrected\_pval(f_i),corrected\_pval(f_j))}$. In this set of results, we will focus on \toptwenty feature pairs for each dataset to improve the clarity of the presentation. In Figure~\ref{fig:histogram_diff}, we plot the histogram of $improv\_quot$ for 10 runs in \msig and 32 runs in \lincs. In both datasets, there are many feature pairs (to the right of the red dotted line) in the top 20 that are more significant than their corresponding single features, e.g., on average 8 among \toptwenty feature pairs have $-\log_{10} improv\_quot > 5$ for \lincs. This shows that there is a improvement from single features to some feature pairs in terms of the separability significance, at least for several datasets in our evaluations. In the next section, we will more carefully explore improved feature pairs like these, commenting on their redundancy, reliability, and relevance.
 
 
 % \begin{figure}[h]
@@ -1008,11 +1002,9 @@ In the following, we further illustrate that feature pairs can also provide bett
 % \label{fig:FP}
 % \end{figure}
 
-\stitle{New Insight from Feature Pairs.} In order to assess the quality of the top ranking feature pairs, we focused on the \lincs data set where the objects were experimental treatments on the MCF7 breast cancer cell line with the same {\em drug} and the features were expression values for different {\em genes}. For the evaluations above, we used object sets for the 40 drugs with the largest number of LINCS experiments. For the following analysis, we refine our list to common drugs
-\sinha{how did you arrive at this designation Charles?} \cb{this is done by manually looking at the list and flagging ones with short, common names based on lincs description that were in multiple databases}
-and have at least 60 LINCS experiments on the MCF7 cell line. These nine drugs are vorinostat, trichostatin, estradiol, tamoxifen, doxorubicin, gemcitabine, daunorubicin, idarubicin, and pravastatin. For each chosen drug, we ran the \sampOpt algorithm of \genviz to rank the \topthousand feature (gene) pairs for separating the LINCS experiments of the drug from all other MCF7 experiments.
+\stitle{New Insights from Feature Pairs.} In order to assess the quality of the top ranking feature pairs, we focused on the \lincs data set where the objects were experimental treatments on the MCF7 breast cancer cell line with the same {\em drug} and the features were expression values for different {\em genes}. For the evaluations above, we used object sets for the 40 drugs with the largest number of LINCS experiments. For the following analysis, we refine our list to common drugs and have at least 60 LINCS experiments on the MCF7 cell line. These nine drugs are vorinostat, trichostatin, estradiol, tamoxifen, doxorubicin, gemcitabine, daunorubicin, idarubicin, and pravastatin. For each chosen drug, we ran the \sampOpt algorithm of \genviz to rank the \topthousand feature (gene) pairs for separating the LINCS experiments of the drug from all other MCF7 experiments.
 
-For all drugs, except pravastatin, all of the \topthousand ranked feature pairs were found to be significant ($-\log_{10} corrected\_pval > 5$). The average log significance of the \topthousand feature pairs correlated with the number of experiments ($r=0.91$) in the drug's positive object set (see Table~\ref{tbl:selected_fps}), suggesting that \genviz algorithms requires a minimum number of example objects to learn a meaningful separator between the two classes. \sinha{I dont see this as the suggestion/inference. This is expected because p-values for data from the alternative hypothesis tend to be smaller for greater sample sizes.} As described in the Section~\ref{sec:FPvSF}, we are especially interested in feature pairs where its corrected p-value is better than the corrected p-values of its corresponding single features ($-\log_{10} improv\_quot > 0$). We found 1070 "improved" feature pairs with improved separability over their single feature among the top1000 of these evaluation drugs sets. One drug, trichostatin, had especially strong performing single features and showed no feature pairs that significantly improved on them. The remaining seven drugs, however, benefited from the feature pair analysis and had as few as 9 (tamoxifen) and as many as 369 (doxorubicin) improved feature pairs (Table~\ref{tbl:selected_fps}). \xsinha{revisit this sentence. Doesnt make sense.}
+For all drugs, except pravastatin, all of the \topthousand ranked feature pairs were found to be significant ($-\log_{10} corrected\_pval > 5$). The average log significance of the \topthousand feature pairs correlated with the number of experiments ($r=0.91$) in the drug's positive object set (see Table~\ref{tbl:selected_fps}), as expected. As described in the Section~\ref{sec:FPvSF}, we are especially interested in feature pairs whose corrected p-value is better than the corrected p-values of their corresponding single features ($-\log_{10} improv\_quot > 0$). We found 1070 ``improved'' feature pairs with improved separability over their single feature among the top1000 of these evaluation drugs sets. One drug, trichostatin, had especially strong single features and showed no feature pairs that significantly improved on them. The remaining seven drugs, however, benefited from the feature pair analysis yielding between 9 (tamoxifen) and 369 (doxorubicin) improved feature pairs (Table~\ref{tbl:selected_fps}).
 
 \begin{table}[t!]
 \centering
@@ -1048,11 +1040,11 @@ Grand Total & & 43.1 & 9068 & 1070\\
 \end{table}
 
 
-Many of the above-mentioned 1070 significantly improved feature pairs are partially redundant, in the sense that they comprise a common best-ranked single feature (gene). An example of this is with the object set for the drug (compound) estradiol. We found the gene PRSS23 as the single feature with the highest separability and many feature pairs containing PRSS23 and a second gene as having an improved corrected p-value, for example (PRSS23, RAP1GAP), (PRSS23, TSC22D3), and (PRSS23, BAMBI). We looked for evidence of the relationship between the drug estradiol and these feature pair genes in the Comparative Toxicogenomics Database~\cite{grondin2018accessing} (CTD) and with our own literature survey. From this search, we found evidence for the pronounced effect of estradiol in increasing expression levels of PRSS23, RAP1GAP, and BAMBI \needcite{CTD pubmeds 22291950,	15598610, 19619570}, and decreasing expression of TSC22D3 \needcite{CTD pubmeds 23373633}. So although the top single feature (gene PRSS23) reoccurred in multiple top feature pairs, each secondary feature gene was also meaningfully related to the administered drug in this case.
+Many of the above-mentioned 1070 significantly improved feature pairs are partially redundant, in the sense that they comprise a common best-ranked single feature (gene). An example of this is with the object set for the drug (small molecule) estradiol. We found the gene PRSS23 as the single feature with the highest separability and many feature pairs containing PRSS23 and a second gene as having an improved corrected p-value, for example (PRSS23, RAP1GAP), (PRSS23, TSC22D3), and (PRSS23, BAMBI). We looked for evidence of the relationship between the drug estradiol and these feature pair genes in the Comparative Toxicogenomics Database~\cite{grondin2018accessing} (CTD) and with our own literature survey. From this search, we found evidence for the pronounced effect of estradiol in increasing expression levels of PRSS23, RAP1GAP, and BAMBI \needcite{CTD pubmeds 22291950,	15598610, 19619570}, and decreasing expression of TSC22D3 \needcite{CTD pubmeds 23373633}. So although the top single feature (gene PRSS23) reoccurred in multiple top feature pairs, each secondary feature gene was also meaningfully related to the administered drug in this case.
 
-We next examined the 1070 improved feature pairs to determine their consistency with existing biological knowledge sets. For our biological knowledge sets, we downloaded gene interaction datasets that had been derived from the databases of STRING~\cite{szklarczyk2014string}, Reactome~\cite{croft2013reactome}, Pathway Commons~\cite{cerami2010pathway}, HumanNet~\cite{lee2011prioritizing}, BioGRID~\cite{chatr2017biogrid}, Intact~\cite{orchard2013mintact}, DIP~\cite{salwinski2004database}, and BLAST \cb{may want supplementary methods/tables?}. These downloaded interaction networks covered 23,167 genes and had at least one known interaction between $2.17\%$ of all possible gene pairs. Of the 996 unique feature pairs with significant $improv\_quot$ where both genes mapped onto the genes covered by the interaction networks, 133 gene pairs ($13.4\%$) were found to have at least one known interaction. This six-fold enrichment demonstrates that \genviz more often finds feature pairs of genes that have a known relationship than is expected by chance. One example of such a feature pair is (GLRX, NME7), which is especially good for separating vorinostat experiments from all others. Not only are both of these genes known to have increased mRNA expression in response to vorinostat \needcite{CTD pubmeds: 22083351, 27188386}, but the two genes are annotated by STRING to both be in database pathways of nucleotide biosynthesis, co-express with each other in other model organisms, and mentioned together often in literature abstracts. \cb{link to STRING interface: https://string-db.org/cgi/network.pl?taskId=oggKTi2cKPAc} Furthermore, in Section~\ref{ssec:viz} we will demonstrate that the positive objects and negative objects are visually separated under this feature pair, as shown in Figure~\ref{fig:viz}.
+We next examined the 1070 improved feature pairs, found over the 9 \lincs datasets, to determine their consistency with existing biological knowledge sets. For our biological knowledge sets, we downloaded gene interaction datasets that had been derived from the databases of STRING~\cite{szklarczyk2014string}, Reactome~\cite{croft2013reactome}, Pathway Commons~\cite{cerami2010pathway}, HumanNet~\cite{lee2011prioritizing}, BioGRID~\cite{chatr2017biogrid}, Intact~\cite{orchard2013mintact}, DIP~\cite{salwinski2004database}, and BLAST. These downloaded interaction networks covered 23,167 genes and had at least one known interaction between $2.17\%$ of all possible gene pairs. Of the 996 unique feature pairs with significant $improv\_quot$ where both genes mapped onto the genes covered by the interaction networks, 133 gene pairs ($13.4\%$) were found to have at least one known interaction. This six-fold enrichment demonstrates that \genviz more often finds pairs of genes that have a known relationship than is expected by chance. One example of such a feature pair is (GLRX, NME7), which is especially good for separating vorinostat experiments from all others. Not only are both of these genes known to have increased mRNA expression in response to vorinostat \needcite{CTD pubmeds: 22083351, 27188386}, but the two genes are annotated by STRING to both be in database pathways of nucleotide biosynthesis, co-express with each other in other model organisms, and mentioned together often in literature abstracts. \cb{link to STRING interface: https://string-db.org/cgi/network.pl?taskId=oggKTi2cKPAc} Furthermore, in Section~\ref{ssec:viz} we will demonstrate that the positive objects and negative objects are visually separated under this feature pair, as shown in Figure~\ref{fig:viz}.
 
-In Supplementary Table \cb{in google spreadsheet https://goo.gl/Z5jJ6Q for now}, we examine several of the "improved" feature gene pairs reported by this \genviz analysis. Of twenty-nine feature pairs in this table, six of them have three types of accompanying evidence: 1) literature-based relationship between the drug and the first gene, 2) literature-based relationship between the drug and the second gene, and 3) interaction network relationship between the pair of genes. Thirteen have just two of the three types of evidence and there are only eight with no evidence at all \cb{this may improve when I finish additional manual search}. Particularly interesting are the top improved feature pairs in which neither of the single gene features ranked well alone. An example is the gene pair CDKN1A and CEBPB for separating doxorubicin experiments. Either gene feature alone is not within the top 600 genes for separating doxorubicin experiments from others. However, the combination of the pair is significant at a corrected p-value of $2\times10^{-25}$ and is the second most improved feature pair for doxorubicin. This feature pair also has all three types of accompanying evidence; doxorubicin is known to increase expression of CDKN1A and CEBPB \needcite{CTD pubmeds 25896364}, and the pair of genes are annotated in STRING to have evidence for co-expression and text mining relationships. \cb{STRING link https://string-db.org/cgi/network.pl?taskId=6L40K8DVTkDJ} This feature pair can be used to form an interesting hypothesis for further analysis or experiment. The potential for finding more significant and previously unidentified features is the reason we designed \genviz to recover top ranking feature pairs instead of just single features.
+In Supplementary Table \cb{in google spreadsheet https://goo.gl/Z5jJ6Q for now}, we examine several of the ``improved'' feature gene pairs reported by \genviz analysis for the \lincs nine drug datasets. Of twenty-nine feature pairs in this table, six of them have three types of accompanying evidence: 1) literature-based relationship between the drug and the first gene, 2) literature-based relationship between the drug and the second gene, and 3) interaction network relationship between the pair of genes. Thirteen have just two of the three types of evidence and there are only eight with no evidence at all \cb{this may improve when I finish additional manual search}. Particularly interesting are the top improved feature pairs in which neither of the single gene features ranked well alone. An example is the gene pair CDKN1A and CEBPB for separating doxorubicin experiments from others. Either gene feature alone is not within the top 600 genes for separating doxorubicin experiments from others. However, the combination of the pair is significant at a corrected p-value of $2\times10^{-25}$ and is the second most improved feature pair for doxorubicin. This feature pair also has all three types of accompanying evidence; doxorubicin is known to increase expression of CDKN1A and CEBPB \needcite{CTD pubmeds 25896364}, and the pair of genes are annotated in STRING to have evidence for co-expression and text mining relationships. \cb{STRING link https://string-db.org/cgi/network.pl?taskId=6L40K8DVTkDJ} This feature pair can be used to form an interesting hypothesis for further analysis or experiment. The potential for finding more significant and previously unidentified features is the reason we designed \genviz to recover top ranking feature pairs instead of just single features.
 
 % \begin{figure}[h]
 % \centering %%% not \center
@@ -1089,9 +1081,7 @@ In Supplementary Table \cb{in google spreadsheet https://goo.gl/Z5jJ6Q for now},
 \vspace{-5mm}
 \label{fig:viz}
 \end{figure}
-\cb{silu, i think the colors in the figure are reversed from the legend. if so, can you change the figure? red for negative is more natural of bioinformatics} \silu{updated, please check}
-
-As discussed in Section~\ref{sec:intro}, the output of \genviz is not simply a ranking of the top feature pairs with their separability scores, but also a visualization that helps users to interpret the separability of the object classes. In Figure~\ref{fig:viz}, we depict sample output visualizations from the \msig and \lincs runs. For \msig, we select the feature pair with the highest improved p-value, i.e., $improv\_quot$, using the \sampOpt algorithm. For our \lincs representative, we visualize the gene feature pair (GLRX, NME7) for the drug vorinostat as described in the previous section. We use a heatmap to illustrate the distribution of positive objects (in blue) and negative objects (in red) under the selected feature pair $(f_i,f_j)$, where $f_i$ is x-axis, $f_j$ is y-axis. The color represents the difference between the weighted number of positive objects and negative objects. If the number of positive objects is larger than negative objects in the cell, the cell is colored as blue, otherwise, it is red. For the ease of interpretation, we also add the centroids of positive and negative objects using blue circle and red circle respectively. For the \msig example (Figure~\ref{fig:viz}(a)) \cb{relates (DELYS\_THYROID\_CANCER\_DN, response to reactive oxygen species, cell adhesion) which consistent with role of cell adhesion in cancer prognosis}, we observe that the feature values for negative objects is clustered around zero, while positive objects have larger values overall, indicating stronger network relationships to the feature Gene Ontology terms. For the \lincs example (Figure~\ref{fig:viz}(b)), positive objects mostly have elevated expression for the selected gene significantly different from the negative objects with zero-mean Gaussian distribution. The direction of this differential gene expression for both genes is consistent with literature for vorinostat experiments \needcite{CTD pubmeds: 22083351, 27188386}. These above two examples illustrate how visualization of significant feature pairs can be a useful way to explain the separability of object sets and understand the data.
+As discussed in Section~\ref{sec:intro}, the output of \genviz is not simply a ranking of the top feature pairs with their separability scores, but also a visualization that helps users to interpret the separability of the object classes. In Figure~\ref{fig:viz}, we depict sample output visualizations from the \msig and \lincs runs. For \msig, we select the feature pair with the highest improved p-value, i.e., $improv\_quot$, using the \sampOpt algorithm. For our \lincs representative, we visualize the gene feature pair (GLRX, NME7) for the drug vorinostat as described in the previous section. We use a heatmap to illustrate the distribution of positive objects (in blue) and negative objects (in red) under the selected feature pair $(f_i,f_j)$, where $f_i$ is x-axis, $f_j$ is y-axis. The color represents the difference between the weighted number of positive objects and negative objects. If the number of positive objects is larger than negative objects in the cell, the cell is colored as blue, otherwise, it is red. For the ease of interpretation, we also add the centroids of positive and negative objects using blue circle and red circle respectively. For the \msig example (Figure~\ref{fig:viz}(a)), we observe that the feature values for negative objects are clustered around zero, while the genes differentially expressed in papillary thyroid carcinomas from this \msig study have larger values overall, indicating stronger connections to the two Gene Ontology terms features, cell adhesion and response to reactive oxygen species. This is consistent with studies that have highlighted the over expression of important cell adhesion genes in thyroid cancer \cite{gorka2007nrcam}. For the \lincs example (Figure~\ref{fig:viz}(b)), positive objects mostly have elevated expression for the two reported genes (GLRX and NME7) compared to the negative objects. The direction of this differential gene expression for both genes is consistent with literature for vorinostat experiments \needcite{CTD pubmeds: 22083351, 27188386}. These above two examples illustrate how visualization of significant feature pairs can be a useful way to explain the separability of object sets and understand the data.
 
 
 
