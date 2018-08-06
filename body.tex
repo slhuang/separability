@@ -27,8 +27,8 @@ accentuate or explain the differences between them.
 We term this the {\em separability problem}.
 Often, researchers address this problem
 by ranking each individual feature
-using statistical tests \needcite{}
-and univariate classifiers \needcite{}.
+using statistical tests \cite{dudoit2002statistical}
+and univariate classifiers \cite{lai2006comparison}.
 These approaches scale linearly in the number of features,
 but do not offer insight into the interplay
 between important features that can provide a better
@@ -37,8 +37,8 @@ distinguishes the two object classes.
 Alternatively, larger subsets of separating
 features can be identified by more complex
 machine learning approaches, such as multivariate
-regression with LASSO regularization \needcite{}
-or pattern mining from random forest models \needcite{Han}.
+regression with LASSO regularization \cite{peng2010regularized}
+or pattern mining from random forest models \cite{breiman2001random}.
 However, running such methods on datasets with
 tens of thousands of features is extremely time-intensive.
 Motivated by these observations,
@@ -153,8 +153,8 @@ their corresponding single features.  These gene pairs were enriched
 in literature support for known relationships between the genes and the drug,
 as well as known interactions between the genes themselves.
 
-\genviz is available as a web-based tool at \url{knowcluster03.knoweng.org:9581}
-\cb{move to permanent/accessible location/domain} and is open-sourced at \url{https://github.com/KnowEnG/Genvisage}.
+\genviz is available as a web-based tool at \url{http://128.174.244.49:5000}
+\cb{move to permanent/accessible location/domain}\silu{seems like this can only be accessed via campus network..} and is open-sourced at \url{https://github.com/KnowEnG/Genvisage}.
 \silu{add screenshot}
 
 
@@ -220,7 +220,7 @@ We will describe our separability metric in Section~\ref{sec:metric}, and then d
 %==================================================================
 \subsection{Separability Metric}\label{sec:metric}
 
-Given a feature pair $(f_i,f_j)$ as axes, we can visualize the object sets $\oo_+$ and $\oo_-$ in a 2-D space, where each object corresponds to a point with x-value and y-value as the object's value on feature $f_i$ and $f_j$ respectively. A desirable (i.e., both interesting and interpretable) visualization would be one in which the objects are {\em linearly separated}, defined as follows. Two sets of objects, i.e., $\oo_+$ and $\oo_-$, are said to be \emph{linearly separable} \needcite{cite a textbook, since linear separability is a standard topic and we're only introducing it for clarity of subsequent text.} if there exists at least one straight line in the 2-D space such that all points from $\oo_+$ are on one side of the line while all points from $\oo_-$ are on the other side.
+Given a feature pair $(f_i,f_j)$ as axes, we can visualize the object sets $\oo_+$ and $\oo_-$ in a 2-D space, where each object corresponds to a point with x-value and y-value as the object's value on feature $f_i$ and $f_j$ respectively. A desirable (i.e., both interesting and interpretable) visualization would be one in which the objects are {\em linearly separated}, defined as follows. Two sets of objects, i.e., $\oo_+$ and $\oo_-$, are said to be \emph{linearly separable} \cite{medin1981linear} if there exists at least one straight line in the 2-D space such that all points from $\oo_+$ are on one side of the line while all points from $\oo_-$ are on the other side.
 We focus on metrics that capture this linear separation, since it corresponds to an intuitive 2-D visualization.
 Given a feature pair $(f_i,f_j)$, we can represent a line $\ell$ as follows, where $x$ and $y$ represent an object's value on feature $f_i$ and $f_j$ respectively, and $w_0$, $w_i$ and $w_j$ are coefficients, where $w_j>0$.
 \begin{equation}\label{eqn:line}
@@ -389,7 +389,7 @@ In Section~\ref{sec:exp}, we will show how these optimizations modules greatly r
 \subsubsection{Pre-Transformation for Faster Feature Pair Evaluation} \label{ssec:trans}
 
 Let us review the process of computing the separability $\theta_{i,j}$. Given a feature pair $(f_i,f_j)$ and the corresponding positive and negative centroids, {\em (i)} we first compute $w_0$, $w_i$ and $w_j$ for $\lhat$ based on Equation~\ref{eqn:rep_line}. Next, for each object $o_k$, {\em (ii)} we obtain the predicted label $\eta_{i,j}^{\lhat,k}$ according to Equation~\ref{eqn:est_label}. This step requires two multiplications and three additions. Finally, {\em (iii)} we calculate $\theta_{i,j}^{k}$ and the separability $\theta_{i,j}$ based on Equation~\ref{eqn:s_object} and \ref{eqn:s_line} respectively. This whole process is repeated for every feature pair candidate. However, there is massive redundancy across the processing of different feature pairs. For instance, when calculating the separability for two different feature pairs $(f_i,f_j)$ and $(f_i,f_{j'})$ with a common $f_i$, $w_i$ is in fact shared, and calculation of $w_i\cdot \mm_{i,k}$ in Equation~\ref{eqn:est_label} is repeated for each object $o_k$. Given this, we propose to first transform $\mm_{i,k}$ into another space to reduce this computational redundancy.
-\sinha{is there another work we can cite that has done this?}
+\sinha{is there another work we can cite that has done this?} \silu{Aditya's another paper~\cite{parameswaran2012crowdscreen} did similar trick, but in different problem. Do we want to cite it?}
 
 \stitle{High Level Idea.} The high level idea for \trans is to pre-calculate some common computational components across different feature pairs, and reuse these components when computing the separability for each feature pair, thereby eliminating repeated computation. In the following, we identify the common computations across different feature pairs, transform $\mm_{i,k}$ into another space using those components, and update the separability score equation accordingly.
 
@@ -947,33 +947,44 @@ In this section, we quantify the statistical significance of the top ranking res
 \begin{figure}[h]
 \centering %%% not \center
 \vspace{-5mm}
-\subfigure[\msig]{\label{fig:msig_singleF}\includegraphics[width=.16\textwidth]{fig/msig_singleF.pdf}}
-\subfigure[\lincs]{\label{fig:lincs_singleF}\includegraphics[width=.31\textwidth]{fig/lincs_singleF.pdf}}
+\subfigure[\msig]{\label{fig:msig_singleF}\includegraphics[width=.16\textwidth]{fig/msig_SF_FP.pdf}}
+\subfigure[\lincs]{\label{fig:lincs_singleF}\includegraphics[width=.31\textwidth]{fig/lincs_SF_FP.pdf}}
 \vspace{-5mm}
-\caption{Single Feature Corrected P-value Distribution \sinha{Change Experiment ID -> Dataset ID}. For each test (x-axis), shows the significance ($-\log_{10} (corrected\_pval)$) of the \tophundred best single features (blue dots) for the (a) \msig and (b) \lincs datasets. We order the datasets by their best corrected single feature p-value, and discard the datasets where no single feature has corrected p-value better than $10^{-5}$.}
+\caption{Single Feature Corrected P-value Distribution vs. Feature Pairs' Corrected P-value Distribution. For each test (x-axis), shows the significance ($-\log_{10} (corrected\_pval)$) of the \tophundred best single features (grey dots) and feature pairs (blue dots) for the (a) \msig and (b) \lincs datasets. We order the datasets by their best corrected single feature p-value, and discard the datasets where no single feature has corrected p-value better than $10^{-5}$.}
 \vspace{-5mm}
-\label{fig:singleF}
+\label{fig:SF_FP}
 \end{figure}
 
+% \begin{figure}[h]
+% \centering %%% not \center
+% \vspace{-5mm}
+% \subfigure[\msig]{\label{fig:msig_singleF}\includegraphics[width=.16\textwidth]{fig/msig_singleF.pdf}}
+% \subfigure[\lincs]{\label{fig:lincs_singleF}\includegraphics[width=.31\textwidth]{fig/lincs_singleF.pdf}}
+% \vspace{-5mm}
+% \caption{Single Feature Corrected P-value Distribution vs. . For each test (x-axis), shows the significance ($-\log_{10} (corrected\_pval)$) of the \tophundred best single features (blue dots) for the (a) \msig and (b) \lincs datasets. We order the datasets by their best corrected single feature p-value, and discard the datasets where no single feature has corrected p-value better than $10^{-5}$.}
+% \vspace{-5mm}
+% \label{fig:singleF}
+% \end{figure}
 
-\stitle{Single Feature.} Finding \topk single features is a special case of finding feature pairs by setting $i=j$. For each single feature obtained, we compute the p-value with Fisher's exact test, denoted as $pval$. Next, we define the Bonferroni corrected p-value as $corrected\_pval= pval\times m \times n$, since there are $m \times n$ possible hypotheses, one for each possible single feature and separating line. We say a selected feature is significant if the corrected p-value is smaller than the threshold $10^{-5}$, i.e., $-\log_{10} (corrected\_pval)\geq5$. In Figure~\ref{fig:singleF}, we plot the distribution of the corrected p-value of the \tophundred features reported for each dataset in \msig and \lincs. We observe that 10 out of 10 datasets in \msig and 32 out of 40 datasets in \lincs have at least one significant single feature, and will focus on these datasets for further analysis. We observe very small p-values, $\leq 10^{-50}$, in the left part of Figure~\ref{fig:msig_singleF} and \ref{fig:lincs_singleF}, indicating that single features are sufficient to separate the object classes for several datasets well.
+
+\stitle{Single Feature.} Finding \topk single features is a special case of finding feature pairs by setting $i=j$. For each single feature obtained, we compute the p-value with Fisher's exact test, denoted as $pval$. Next, we define the Bonferroni corrected p-value as $corrected\_pval= pval\times m \times n$, since there are $m \times n$ possible hypotheses, one for each possible single feature and separating line. We say a selected feature is significant if the corrected p-value is smaller than the threshold $10^{-5}$, i.e., $-\log_{10} (corrected\_pval)\geq5$. In Figure~\ref{fig:SF_FP}, we plot the distribution of the corrected p-value of the \tophundred features reported for each dataset in \msig and \lincs. We observe that 10 out of 10 datasets in \msig and 32 out of 40 datasets in \lincs have at least one significant single feature, and will focus on these datasets for further analysis. We observe very small p-values, $\leq 10^{-50}$, in the left part of Figure~\ref{fig:msig_singleF} and \ref{fig:lincs_singleF}, indicating that single features are sufficient to separate the object classes for several datasets well.
 
 %
 %This shows the effectiveness of our Rocchio-based
 
-\begin{figure}[h]
-\centering %%% not \center
-\vspace{-5mm}
-\subfigure[\msig]{\label{fig:msig_FP}\includegraphics[width=.16\textwidth]{fig/msig_FP.pdf}}
-\subfigure[\lincs]{\label{fig:lincs_FP}\includegraphics[width=.31\textwidth]{fig/lincs_FP.pdf}}
-\vspace{-5mm}
-\caption{Feature Pairs' Corrected P-value Distribution. Plotted significance for the \tophundred best feature pairs (blue dots) for each test in the (a) \msig and (b) \lincs datasets. \sinha{Change Experiment ID -> Dataset ID} }
-\vspace{-5mm}
-\label{fig:FP}
-\end{figure}
+% \begin{figure}[h]
+% \centering %%% not \center
+% \vspace{-5mm}
+% \subfigure[\msig]{\label{fig:msig_FP}\includegraphics[width=.16\textwidth]{fig/msig_FP.pdf}}
+% \subfigure[\lincs]{\label{fig:lincs_FP}\includegraphics[width=.31\textwidth]{fig/lincs_FP.pdf}}
+% \vspace{-5mm}
+% \caption{Feature Pairs' Corrected P-value Distribution. Plotted significance for the \tophundred best feature pairs (blue dots) for each test in the (a) \msig and (b) \lincs datasets. \sinha{Change Experiment ID -> Dataset ID} }
+% \vspace{-5mm}
+% \label{fig:FP}
+% \end{figure}
 
-\stitle{Feature Pair.} We next build the contingency tables and calculate the p-value for the \topk feature pairs. To correct for $m^2$ possible feature pairs and the $n^2$ possible ways to choose the separating lines for each feature pair, we apply a Bonferroni p-value correction to produce the $ corrected\_pval = pval\times m^2 \times n^2$. We plot the distribution of the corrected p-values for the \topk feature pairs in Figure~\ref{fig:FP}. Once again, the threshold for defining a significant feature pair is set to $10^{-5}$. We find that 10 out of 10 datasets in \msig and 27 out of selected 32 datasets in \lincs have at least one significant feature pair by this metric. Visual comparison of the \tophundred single features (Figure~\ref{fig:singleF}) to the \tophundred feature pairs (Figure~\ref{fig:FP}) per dataset reveals several datasets where the
-corrected p-values of the feature pairs are more significant than those of the best single features, even after accounting for the larger search space \agp{hard to compare and estimate} \cb{maybe add single feature resutsl in gray to the plot?}. Admittedly, this is not always the case, e.g., for five \lincs datasets no feature pair was found to be significant at $ corrected\_pval \leq 10^{-5}$ while at least one single feature did meet this threshold. Overall, this analysis suggests that rapid discovery of top feature pairs may identify more significant patterns in the given dataset than a traditional single-feature analysis does.
+\stitle{Feature Pair.} We next build the contingency tables and calculate the p-value for the \topk feature pairs. To correct for $m^2$ possible feature pairs and the $n^2$ possible ways to choose the separating lines for each feature pair, we apply a Bonferroni p-value correction to produce the $ corrected\_pval = pval\times m^2 \times n^2$. We plot the distribution of the corrected p-values for the \topk feature pairs in Figure~\ref{fig:SF_FP}. Once again, the threshold for defining a significant feature pair is set to $10^{-5}$. We find that 10 out of 10 datasets in \msig and 27 out of selected 32 datasets in \lincs have at least one significant feature pair by this metric. Visual comparison of the \tophundred single features (Figure~\ref{fig:SF_FP}) to the \tophundred feature pairs (Figure~\ref{fig:SF_FP}) per dataset reveals several datasets where the
+corrected p-values of the feature pairs are more significant than those of the best single features, even after accounting for the larger search space \agp{hard to compare and estimate} \cb{maybe add single feature resutsl in gray to the plot?} \silu{updated.}. Admittedly, this is not always the case, e.g., for five \lincs datasets no feature pair was found to be significant at $ corrected\_pval \leq 10^{-5}$ while at least one single feature did meet this threshold. Overall, this analysis suggests that rapid discovery of top feature pairs may identify more significant patterns in the given dataset than a traditional single-feature analysis does.
 %, we observe that the corrected p-values of the feature pairs are often more significant and more tightly \sinha{this is not necessarily convincing. Could be fp's that share a feature.} distributed than the single feature corrected p-values. This indicates
 %that the best feature pairs have better separability quality than the top ranking single features even after accounting for the larger search space. \sinha{What about the \lincs datasets for which no significant feature pair comes out?}
 In the following, we further illustrate that feature pairs can also provide better and newer insights compared to single features.
