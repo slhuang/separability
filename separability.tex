@@ -94,22 +94,16 @@
 
 \title[Genvisage]{G{\large ENVISAGE}: Rapid Identification of Discriminative Feature Pairs for Genomic Analysis}
 
-\author[Huang \textit{et~al}.]{Silu Huang\,$^{\text{\sfb 1}}$, Charles Blatti\,$^{\text{\sfb 2}}$, Aditya Parameswaran\,$^{\text{\sfb 1}}$, and Saurabh Sinha\,$^{\text{\sfb 1,2}*}$}
+\author[Huang \textit{et~al}.]{Silu Huang\,$^{\text{\sfb 1}\dagger}$, Charles Blatti\,$^{\text{\sfb 2}\dagger}$, Saurabh Sinha\,$^{\text{\sfb 1,2}\ast}$, and Aditya Parameswaran\,$^{\text{\sfb 1,2}\ast}$ }
+
 
 \address{$^{\text{\sf 1}}$Department of Computer Science, University of Illinois Urbana-Champaign, Urbana, IL, 61801, USA and \\
 $^{\text{\sf 2}}$Institute of Genomic Biology, University of Illinois Urbana-Champaign, Urbana, IL, 61801, USA.}
 
-\author[]{} %[Sample \textit{et~al}.]{}
-
-% \authorinfo{xxx}
-%        {University of Illinois (UIUC)}
-%         {\url{xxx@illinois.edu}}
-
-
-
-\address{} %$^{\text{\sf 1}}$Computer Science, University of Illinois, Urbana-Champaign, 61802, US.
-
-\corresp{} %$^\ast$To whom correspondence should be addressed.
+\corresp{
+$^\ast$To whom correspondence should be addressed. \\
+$^\dagger$These authors contributed equally to this work.
+}
 
 \history{} %Received on XXXXX; revised on XXXXX; accepted on XXXXX
 
@@ -119,8 +113,8 @@ $^{\text{\sf 2}}$Institute of Genomic Biology, University of Illinois Urbana-Cha
 %A common but critical task in biological data analysis is the {\em separability} task: finding features that explain the difference between two different classes of objects with high dimensional feature representations, such as genes described by their functional annotations, or gene signatures described by their transcriptomic profiles. We develop an interactive data exploration tool called \genviz for this task that rapidly identifies discriminative feature pairs and outputs the corresponding visualizations. Since quickly finding top-k feature pairs is computationally challenging, especially when the numbers of objects and features are large, we propose a suite of optimizations to make \genviz more responsive, and demonstrate that our optimizations lead to a 400X speedup over competitive baselines for multiple biological data sets. With this speedup, \genviz enables the exploration of more datasets and alternative hypotheses in an interactive fashion. Finally, we apply \genviz to uncover pairs of genes whose transcriptomic responses more significantly discriminate treatments of a given drug.}
 \abstract{\textbf{Motivation:} A common but critical task in biological data analysis is the {\em separability} task: finding features that explain the difference between two different classes of objects with high dimensional feature representations, such as genes described by their functional annotations, or gene signatures described by their transcriptomic profiles.\\
 \textbf{Results:} We develop an interactive data exploration tool called \genviz for this task that rapidly identifies discriminative feature pairs and outputs the corresponding visualizations. Since quickly finding top-k feature pairs is computationally challenging, especially when the numbers of objects and features are large, we propose a suite of optimizations to make \genviz more responsive, and demonstrate that our optimizations lead to a 400X speedup over competitive baselines for multiple biological data sets. With this speedup, \genviz enables the exploration of more datasets and alternative hypotheses in an interactive fashion. Finally, we apply \genviz to uncover pairs of genes whose transcriptomic responses more significantly discriminate treatments of a given drug.\\
-\textbf{Availability:} Free webserver at \url{http://128.174.244.49:5000} \silu{move to permanent/accessible domain} with source code at \url{https://github.com/KnowEnG/Genvisage} \\
-\textbf{Contact:} \href{mailto:sinhas@illinois.edu}{sinhas@illinois.edu}\\
+\textbf{Availability:} Free webserver at \url{http://genvisage.knoweng.org:443/} with source code at \url{https://github.com/KnowEnG/Genvisage} \\
+%\textbf{Contact:} \href{mailto:adityagp@illinois.edu}{adityagp@illinois.edu}\\
 \textbf{Supplementary information:} Supplementary data are available at \textit{Bioinformatics} online.}
 
 \maketitle
