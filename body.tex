@@ -86,7 +86,7 @@ to make the task of ranking feature pairs interactive.
 
 \begin{figure*}[t]
  \centering
- \includegraphics[width=0.9\linewidth]{fig/workflow2.pdf}
+ \includegraphics[width=0.9\linewidth]{fig/workflow2.eps}
  \vspace{-10pt}
 \caption{\genviz Workflow.
 Given (a) a feature-object matrix and positive (green) and negative class (red) labels on the objects, \genviz (b) evaluates all pairs of features using several optimizations to identify (c) the top feature pair(s) and its corresponding visualization that best separates the object classes.}
@@ -349,8 +349,8 @@ Let us denote the centroids of positive objects $\oo_+$ and negative objects $\o
 \begin{figure}[h]
 \centering %%% not \center
 \vspace{-5mm}
-\subfigure[Brute Force]{\label{fig:brute_force}\includegraphics[width=.235\textwidth]{fig/metric.pdf}}
-\subfigure[Rocchio-Based]{\label{fig:rocchio}\includegraphics[width=.235\textwidth]{fig/rocchio.pdf}}
+\subfigure[Brute Force]{\label{fig:brute_force}\includegraphics[width=.235\textwidth]{fig/metric.eps}}
+\subfigure[Rocchio-Based]{\label{fig:rocchio}\includegraphics[width=.235\textwidth]{fig/rocchio.eps}}
 \vspace{-5mm}
 \caption{Calculating Separability Score $\theta_{i,j}$. The scored separating line can be defined using (a) brute force (few sample lines are shown) or (b) the representative line from a Rocchio-based measure based on the object class centroids (white circles).}
 \vspace{-5mm}
@@ -527,8 +527,8 @@ We study the impact of this strategy in Section~\ref{sec:exp}.
 \begin{figure}[t!]
  \centering
  \vspace{-2mm}
- \subfigure[\earlyT Example]{\label{fig:earlyT}\includegraphics[height=.165\textwidth]{fig/earlyT.pdf}}
- \subfigure[\sampling Example]{\label{fig:sampling}\includegraphics[height=.165\textwidth]{fig/sampling.pdf}}
+ \subfigure[\earlyT Example]{\label{fig:earlyT}\includegraphics[height=.165\textwidth]{fig/earlyT.eps}}
+ \subfigure[\sampling Example]{\label{fig:sampling}\includegraphics[height=.165\textwidth]{fig/sampling.eps}}
 % \includegraphics[width=0.8\linewidth]{fig/sampling.pdf}
  \vspace{-5mm}
 \caption{Optimization module examples. (a) When evaluating a feature pair with the \earlyT module, the $\widehat{\mm}$ post-transformation scores (above) are scanned from left to right and each object is evaluated based on Equation~\ref{eqn:s_object_transform} and when correctly classified marked in blue. Evaluation terminates at $o_5$ since the number of incorrectly classified objects exceeds the current error upper bound is $\tau=1$. When the $\widehat{\mm}$ scores are used to reorder the ``problematic'' objects (bottom), this feature pair can be eliminated from further consideration after checking only the first two objects. (b) To calculate the \topthree feature pairs with \sampling where $\epsilon = 0.05$ (above), the confidence interval of $\theta_{i,j}$ is calculated for every feature pair evaluated on the sample set $\sss$. The $3^{rd}$ interval lower bound $\zeta$ is obtained (red dotted line), and all feature pairs with a larger upper bound are designated as candidates for validation (blue intervals). The selected candidates (center box) are then evaluated on the whole object set $\hat{\oo}$ to compute the exact $\theta_{i,j}$ and pick the \topthree (rightmost box).}
@@ -620,7 +620,7 @@ pair validation when the next feature pair's upper bound smaller than the curren
 \begin{figure}[h]
  \centering
  \vspace{-5mm}
- \includegraphics[width=0.9\linewidth]{fig/candidate_ordering.pdf}
+ \includegraphics[width=0.9\linewidth]{fig/candidate_ordering.eps}
  \vspace{-5mm}
 \caption{Candidate Ordering Enhancement. (a) Feature pair candidates are sorted by the upper bounds of their confidence intervals (solid red boundary), and the lower bound of the \topthree feature pairs, i.e., $\zeta$, is set (red dotted line). (b,c,d) For each feature pair, we calculate $\theta_{i,j}$ (filled blue circle) using all objects and update $\zeta$ if necessary. Note that $\zeta$ is increased in (d) after evaluating the third feature pair and since $\zeta$ is larger than the upper bound of the fourth feature pair, candidate validation can terminate and return the top ranking pairs.}
 \vspace{-5mm}
@@ -662,7 +662,7 @@ However, the traversal order does not convey any intuition if the feature set $\
 \begin{figure}[h]
  \centering
  \vspace{-5mm}
- \includegraphics[width=0.8\linewidth]{fig/traversal.pdf}
+ \includegraphics[width=0.8\linewidth]{fig/traversal.eps}
  \vspace{-5mm}
 \caption{\traversal Orderings. \genviz is able to examine the feature pair search space (a) horizontally or (b) vertically.}
 \vspace{-5mm}
@@ -889,8 +889,8 @@ specially defined small object sets, $\widehat{\oo}$, for the 10 datasets in \ms
 
 \begin{figure}[h]
 \centering %%% not \center
-\subfigure[\msig]{\label{fig:msig_time}\includegraphics[width=.235\textwidth]{fig/msig_time.pdf}}
-\subfigure[\lincs]{\label{fig:lincs_time}\includegraphics[width=.235\textwidth]{fig/lincs_time.pdf}}
+\subfigure[\msig]{\label{fig:msig_time}\includegraphics[width=.235\textwidth]{fig/msig_time.eps}}
+\subfigure[\lincs]{\label{fig:lincs_time}\includegraphics[width=.235\textwidth]{fig/lincs_time.eps}}
 \vspace{-5mm}
 \caption{Running Time Comparison. A boxplot for each algorithm is shown with the median value appearing in matching color above. For each boxplot, whiskers are set to be $1.5\times$ the interquartile range, the outliers are shows as red dots, and the average is marked with as a black star. The number on the top shows the median running time for each algorithm.}
 \vspace{-5mm}
