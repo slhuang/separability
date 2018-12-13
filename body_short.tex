@@ -182,16 +182,16 @@ to the value of feature $f_i$ for object $o_j$ as illustrated in Figure~\ref{fig
 
 We are also given two non-overlapping sets of objects,
 one with a positive label, $\oo_+$ and the other with a negative label, $\oo_-$.
-Both sets are disjoint subsets of all objects,
-i.e., $\oo_+, \oo_-\subset \oo$, and $\oo_+\cap \oo_- = \emptyset$.
+\eat{Both sets are disjoint subsets of all objects,
+i.e., $\oo_+, \oo_-\subset \oo$, and $\oo_+\cap \oo_- = \emptyset$.}
 In our example, tumor samples, $\oo_+$,
 may be assigned the positive label,
 and the healthy tissue samples, $\oo_-$,
 the negative label.
-Let $\widehat{\oo}$ be the union of positive and negative objects; $n$ is the total number of labeled objects, i.e., $\widehat{\oo}=\oo_+\cup \oo_-$, $n=|\widehat{\oo}|$; $n\leq N$. Also, let $l_k$ be the label of object $o_k\in \widehat{\oo}$, i.e., $l_k=1$ if $o_k$ is positive and $l_k=-1$ if $o_k$ is negative.
+Let \eat{$\widehat{\oo}$ be the union of positive and negative objects; $n$ is the total number of labeled objects, i.e., }$\widehat{\oo}=\oo_+\cup \oo_-$, $n=|\widehat{\oo}|$; $n\leq N$. Also, let $l_k$ be the label of object $o_k\in \widehat{\oo}$, i.e., $l_k=1$ if $o_k$ is positive and $l_k=-1$ if $o_k$ is negative.
 
-Now, given $\mm$ and sets
-$\oo_+$ and $\oo_-$ as depicted in Figure~\ref{fig:workflow}(a),
+\eat{Now, given $\mm$ and sets
+$\oo_+$ and $\oo_-$ as depicted in Figure~\ref{fig:workflow}(a),}
 \genviz aims to find feature pairs that
 best separate the objects
 in $\oo_+$ from those in $\oo_-$ using only those two features,
@@ -217,9 +217,9 @@ We will describe our separability metric in Section~\ref{sec:metric}, and then d
 %==================================================================
 \subsection{Separability Metric}\label{sec:metric}
 
-Given a feature pair $(f_i,f_j)$ as axes, we can visualize the object sets $\oo_+$ and $\oo_-$ in a 2-D space, where each object corresponds to a point with x-value and y-value as the object's value on feature $f_i$ and $f_j$ respectively. A desirable (i.e., both interesting and interpretable) visualization would be one in which the objects are {\em linearly separated}, defined as follows. Two sets of objects, i.e., $\oo_+$ and $\oo_-$, are said to be \emph{linearly separable}~\cite{medin1981linear} if there exists at least one straight line in the 2-D space such that all points from $\oo_+$ are on one side of the line while all points from $\oo_-$ are on the other side.
+Given a feature pair $(f_i,f_j)$ as axes, we can visualize the object sets $\oo_+$ and $\oo_-$ in a 2-D space, where each object corresponds to a point with x-value and y-value as the object's value on feature $f_i$ and $f_j$ respectively. A desirable (i.e., both interesting and interpretable) visualization would be one in which the objects are {\em linearly separated}, defined as follows. Two sets of objects, i.e., $\oo_+$ and $\oo_-$, are said to be \emph{linearly separable}~\cite{medin1981linear} if there exists at least one straight line such that $\oo_+$ and $\oo_-$ are on opposite side of it.
 We focus on metrics that capture this linear separation, since it corresponds to an intuitive 2-D visualization.
-Given a feature pair $(f_i,f_j)$, we can represent a line $\ell$ as $w_i\cdot x + w_j\cdot y +w_0 =0$, where $x$ and $y$ represent an object's value on feature $f_i$ and $f_j$ respectively, and $w_0$, $w_i$ and $w_j$ are coefficients, where $w_j>0$.
+\eat{Given a feature pair $(f_i,f_j)$, we can represent a line $\ell$ as $w_i\cdot x + w_j\cdot y +w_0 =0$, where $x$ and $y$ represent an object's value on feature $f_i$ and $f_j$ respectively, and $w_0$, $w_i$ and $w_j$ are coefficients, where $w_j>0$.
 \eat{
 \begin{equation}\label{eqn:line}
 \begin{split}
@@ -227,12 +227,13 @@ Given a feature pair $(f_i,f_j)$, we can represent a line $\ell$ as $w_i\cdot x 
 \end{split}
 \end{equation}
 }
-Given a feature pair $(f_i,f_j)$ and a line $\ell$, we can predict the label of an object $o_k$, denoted as $\eta_{i,j}^{\ell,k}$, using Equation~\ref{eqn:est_label} below:
+}
+Given a feature pair $(f_i,f_j)$ and a line $\ell$, we can predict the label of an object $o_k$, denoted as $\eta_{i,j}^{\ell,k}$, using Equation~\ref{eqn:est_label} below\new{, where $w_0$, $w_i$ and $w_j$ are coefficients of $\ell$ and $w_j>0$}:
 %based on the separating line in Equation~\ref{eqn:line}. Let $\eta_{i,j}^{\ell,k}$ be the predicted label of $o_k$, calculated using Equation~\ref{eqn:est_label} below:
 \begin{equation}\label{eqn:est_label}
 {\sf Predicted \hspace{1mm} Label:}\hspace{3mm} \eta_{i,j}^{\ell,k}=sign(w_i\cdot \mm_{i,k} + w_j\cdot \mm_{j,k} +w_0)
 \end{equation}
-\noindent If $o_k$ lies above the line $\ell$, i.e., $o_k$ has higher value on y-axis than the point on line $\ell$ with the same value on x-axis as $o_k$, then $\eta_{i,j}^{\ell,k}=1$; otherwise, $\eta_{i,j}^{\ell,k}=-1$. Let $\theta_{i,j}^{\ell,k}$ be the indicator variable denoting whether an object $o_k$ is correctly separated (i.e., the sign of the predicted label is the same as the real label $l_k$): if $\eta_{i,j}^{\ell,k}\cdot l_k = 1$, then $\theta_{i,j}^{\ell,k} = 1$; otherwise, $\theta_{i,j}^{\ell,k} = 0$.
+\noindent If $o_k$ lies above the line $\ell$, i.e., $o_k$ has higher value on y-axis than the point on line $\ell$ with the same value on x-axis as $o_k$, then $\eta_{i,j}^{\ell,k}=1$; otherwise, $\eta_{i,j}^{\ell,k}=-1$. Let $\theta_{i,j}^{\ell,k}$ be the indicator variable denoting whether \eat{an object $o_k$ is correctly separated (i.e.,} the sign of the predicted label matches the real label $l_k$\eat{)}: if $\eta_{i,j}^{\ell,k}\cdot l_k = 1$, then $\theta_{i,j}^{\ell,k} = 1$; otherwise, $\theta_{i,j}^{\ell,k} = 0$.
 \eat{
 \begin{equation}\label{eqn:s_object}
 \vspace{-5mm}
@@ -245,7 +246,7 @@ Given a feature pair $(f_i,f_j)$ and a line $\ell$, we can predict the label of 
  \right.
 \end{equation}
 }
-\noindent If there is a line $\ell$ such that for every object $o_k\in \widehat{\oo}$, the object is correctly separated (i.e., $\theta_{i,j}^{\ell,k}$ = 1), then we say $\oo_+$ and $\oo_-$ are linearly separable.
+\eat{\noindent If there is a line $\ell$ such that for every object $o_k\in \widehat{\oo}$, the object is correctly separated (i.e., $\theta_{i,j}^{\ell,k}$ = 1), then we say $\oo_+$ and $\oo_-$ are linearly separable.}
 
 % \begin{equation}\label{eqn:linear}
 % \eta_{i,j}^{\ell,k} = \left\{
@@ -258,7 +259,7 @@ Given a feature pair $(f_i,f_j)$ and a line $\ell$, we can predict the label of 
 
 
 
-For \genviz, we rank feature pairs by a separability metric based on {\em how well the objects in the feature pair's 2-D visualization can be linearly separated}, formally defined next.
+\genviz's separability metric captures \eat{For \genviz, we rank feature pairs by a separability metric based on }{\em how well the objects in the feature pair's 2-D visualization can be linearly separated}, formally defined next.
 %The basic intuition is that the users can easily recognize and interpret linear separability in a 2-D visualization. Thus if a visualization is perfectly linearly separated, it should have high score in our proposed separability metric; otherwise, we would find the best separating line $\ell$ in the visualization and report the largest number of correctly separated objects as the separability score.
 Given a feature pair $(f_i, f_j)$ and a line $\ell$, the separability score of the line (denoted $\theta_{i, j}^\ell$) is defined as the sum of the indicators ($\theta_{i,j}^{\ell,k}$) for all objects: $\theta_{i,j}^{\ell}= \sum_{k}{\theta_{i,j}^{\ell,k}}$.
 \eat{
@@ -295,7 +296,7 @@ as shown in Equation~\ref{eqn:s_line}:
 % \label{fig:metric}
 % \end{figure}
 
-\stitle{Brute Force Calculation of $\theta_{i,j}$.} As suggested in Figure~\ref{fig:brute_force}, the simplest way to calculate $\theta_{i,j}$ is to first enumerate all possible separating lines $\ell$ and calculate $\theta_{i,j}^\ell$ for each of them. This is infeasible as there are an infinite number of possible lines. However, we can easily trim down the search space to $O(n^2)$ lines by linking the points corresponding to every two objects in the 2-D plane. This is because the results of all other possible lines can be covered by these $O(n^2)$ lines~\cite{vapnik1998statistical}. Nevertheless, it is still very time-consuming to consider $O(n^2)$ lines for each feature pair $(f_i,f_j)$.
+\stitle{Brute Force Calculation of $\theta_{i,j}$.} As suggested in Figure~\ref{fig:brute_force}, the simplest way to calculate $\theta_{i,j}$ is to first enumerate all possible separating lines $\ell$ and calculate $\theta_{i,j}^\ell$ for each of them. \eat{This is infeasible as there are an infinite number of possible lines. However, }We can easily trim down the search space to $O(n^2)$ lines by linking the points corresponding to every two objects in the 2-D plane. This is because the results of all other possible lines can be covered by these $O(n^2)$ lines~\cite{vapnik1998statistical}. Nevertheless, it is still very time-consuming to consider $O(n^2)$ lines for each feature pair $(f_i,f_j)$.
 
 \begin{table}[t!]
 \centering
@@ -332,7 +333,7 @@ as shown in Equation~\ref{eqn:s_line}:
 \end{table}
 
 
-\stitle{Rocchio-based Measure.} Rather than enumerating the $O(n^2)$ possible lines to find the one with maximum $\theta_{i,j}^{\ell}$, we speed up the process by intelligently selecting a single {\em representative line} $\lhat$ providing us with an estimated separability score, $\theta_{i,j}^{\lhat}$, that approximates the true linear separability score $\theta_{i, j}$.
+\stitle{Rocchio-based Measure.} \eat{Rather than enumerating the $O(n^2)$ possible lines to find the one with maximum $\theta_{i,j}^{\ell}$, }We can speed up the process by selecting a single {\em representative line} $\lhat$ providing us with an estimate of the true separability score $\theta_{i, j}$\eat{estimated separability score, $\theta_{i,j}^{\lhat}$, that approximates the true linear separability score $\theta_{i, j}$}.
 %as shown in Equation~\ref{eqn:s_viz_appr}, .
 %\begin{equation}\label{eqn:s_viz_appr}
 %\theta_{i,j} \leftarrow \theta_{i,j}^{\lhat} %\approx
@@ -340,7 +341,7 @@ as shown in Equation~\ref{eqn:s_line}:
 In order to achieve a fast and reliable estimate, we select our representative line based on Rocchio's algorithm~\cite{rocchio1971relevance}, as follows.
 %As we will show later in Section~\ref{sec:exp}, $\theta_{i,j}^{\lhat}$ is comparable to $\theta_{i,j}$ when using Rocchio-based representative line $\lhat$. Let us describe in detail about the Rocchio-based representative line.
 %The intuition behind using Rocchio's algorithm is that each object's predicted label should be the class label of its nearest class centroid.
-Let us denote the centroids of positive objects $\oo_+$ and negative objects $\oo_-$ for a given $(f_i,f_j)$ as $\mu_{i,j}^+=(\mm_i^+,\mm_j^+)$ and $\mu_{i,j}^-=(\mm_i^-,\mm_j^-)$ respectively, where $\mm_i^+$ and $\mm_j^+$ are the values of the centroids of the positive objects on feature $f_i$ and $f_j$, and $\mm_i^-$ and $\mm_j^-$ are the values of the centroids of the negative objects on feature $f_i$ and $f_j$ respectively. The perpendicular bisector of the two centroids is selected as the representative separating line $\lhat$, with {\small $w_i = \mm_i^+-\mm_i^-$}, {\small $w_j = \mm_j^+-\mm_j^-$}, and {\small $w_0 = -(\frac{(\mm_i^+)^2-(\mm_i^-)^2}{2}+\frac{(\mm_j^+)^2-(\mm_j^-)^2}{2})$} in Equation~\ref{eqn:est_label}.
+Let us denote the centroids of positive objects $\oo_+$ and negative objects $\oo_-$ for a given $(f_i,f_j)$ as $\mu_{i,j}^+=(\mm_i^+,\mm_j^+)$ and $\mu_{i,j}^-=(\mm_i^-,\mm_j^-)$ respectively, where $\mm_i^+$ and $\mm_j^+$ are the values of the centroids of the positive objects on feature $f_i$ and $f_j$, and $\mm_i^-$ and $\mm_j^-$ are the values of the centroids of the negative objects on feature $f_i$ and $f_j$ respectively. The perpendicular bisector of the line joining the two centroids is selected as the representative separating line $\lhat$, with {\small $w_i = \mm_i^+-\mm_i^-$}, {\small $w_j = \mm_j^+-\mm_j^-$}, and {\small $w_0 = -(\frac{(\mm_i^+)^2-(\mm_i^-)^2}{2}+\frac{(\mm_j^+)^2-(\mm_j^-)^2}{2})$} in Equation~\ref{eqn:est_label}.
 \eat{following the template of Equation~\ref{eqn:line} with coefficients as in Equation~\ref{eqn:rep_line}:
 %\lhat: \hspace{4mm} (\mm_i^+-\mm_i^-)\cdot x + (\mm_j^+-\mm_j^-)\cdot y -(\frac{(\mm_i^+)^2-(\mm_i^-)^2}{2}+\frac{(\mm_j^+)^2-(\mm_j^-)^2}{2}) =0
 \begin{equation}\label{eqn:rep_line}
@@ -350,28 +351,31 @@ Let us denote the centroids of positive objects $\oo_+$ and negative objects $\o
 & w_0 = -(\frac{(\mm_i^+)^2-(\mm_i^-)^2}{2}+\frac{(\mm_j^+)^2-(\mm_j^-)^2}{2})
 \end{split}
 \end{equation}}
-In Figure~\ref{fig:rocchio}, the ``Rocchio-based'' measure with the representative separating line $\theta_{i,j}^{\lhat}$ equals $13$ with one negative object (red point) mis-predicted as positive, while the true $\theta_{i,j}$ also equals $13$.
+\new{See Figure~\ref{fig:rocchio}.}
+\eat{In Figure~\ref{fig:rocchio}, the ``Rocchio-based'' measure with the representative separating line $\theta_{i,j}^{\lhat}$ equals $13$ with one negative object (red point) mis-predicted as positive, while the true $\theta_{i,j}$ also equals $13$.}
 
-\stitle{Brute-force vs. Rocchio-based.} Compared to the brute force calculation, the Rocchio-based measure is much more light-weight, but at the cost of accuracy in calculating $\theta_{i,j}$. Intuitively, the representative line is a reasonable proxy to the best separating line since the Rocchio-based measure computes the centroids of the two classes as their representatives and assigns each object to its nearest centroid. We will further empirically demonstrate that $\theta_{i,j}^{\lhat}$ is a good proxy for $\theta_{i,j}$ in Section~\ref{sec:exp_comp}. Thus, we will focus on the Rocchio-based measure subsequently, removing $\lhat$ (or $\ell$) from the superscripts where it appears, and using $\theta_{i,j}$ and $\theta_{i,j}^{\lhat}$ interchangeably.
+\stitle{Brute-force vs. Rocchio-based.} Compared to the brute force calculation, the Rocchio-based measure is much more light-weight, but at the cost of accuracy in calculating $\theta_{i,j}$. Intuitively, the representative line is a reasonable proxy to the best separating line since the Rocchio-based measure \eat{computes the centroids of the two classes as their representatives and }assigns each object to its nearest centroid. We will further empirically demonstrate that $\theta_{i,j}^{\lhat}$ is a good proxy for $\theta_{i,j}$ in Section~\ref{sec:exp_comp}. Thus, we will focus on the Rocchio-based measure subsequently, removing $\lhat$ (or $\ell$) from the superscripts where it appears, and using $\theta_{i,j}$ and $\theta_{i,j}^{\lhat}$ interchangeably.
 % \xagp{you have used Rocchio's alg/measure/representative line. Maybe avoid some of them for consistency.}
 
 
-\begin{figure}[h]
+%==================================================================
+\subsection{Proposed Suite of Optimizations}\label{sec:opt}
+
+
+\begin{figure}[t!]
 \centering %%% not \center
-\vspace{-3mm}
-\subfigure[Brute Force]{\label{fig:brute_force}\includegraphics[width=.235\textwidth]{fig/metric.eps}}
-\subfigure[Rocchio-Based]{\label{fig:rocchio}\includegraphics[width=.235\textwidth]{fig/rocchio.eps}}
+\vspace{-2mm}
+\subfigure[Brute Force]{\label{fig:brute_force}\includegraphics[width=.2\textwidth]{fig/metric.eps}}
+\subfigure[Rocchio-Based]{\label{fig:rocchio}\includegraphics[width=.2\textwidth]{fig/rocchio.eps}}
 \vspace{-5mm}
 \caption{Calculating Separability Score $\theta_{i,j}$. The scored separating line can be defined using (a) brute force (few sample lines are shown) or (b) the representative line from a Rocchio-based measure based on the object class centroids (white circles).}
 \vspace{-5mm}
 \label{fig:metric}
 \end{figure}
-%==================================================================
-\subsection{Proposed Suite of Optimizations}\label{sec:opt}
 
 In this section, we first analyze the time complexity of identifying the \topk feature pairs using the Rocchio-based measure, and then propose several optimization techniques to reduce the complexity.
 
-\stitle{Time Complexity Analysis.} In order to calculate the separability of a given feature pair $(f_i, f_j)$, if we have already calculated the class centroids for each feature, the separating line $\lhat$ can be calculated in $O(1)$ time using Equation\eat{~\ref{eqn:rep_line}} for $w_i$, $w_j$ and $w_0$. We can then calculate the number of correctly separated objects $\theta_{i,j}$ by evaluating all objects with respect to the line, i.e., $O(n)$ evaluations. Since there are $O(m^2)$ feature pair candidates, the total time complexity is $O(m^2n)$, which can be very large,
+\stitle{Time Complexity Analysis.} For\eat{In order to calculate the separability of} a given feature pair $(f_i, f_j)$, if we have already calculated the class centroids for each feature, the separating line $\lhat$ can be calculated in $O(1)$\eat{ time using Equation\eat{~\ref{eqn:rep_line}} for $w_i$, $w_j$ and $w_0$}. We can then calculate the number of correctly separated objects $\theta_{i,j}$ via\eat{ by evaluating all objects with respect to the line, i.e.,} $O(n)$ evaluations. Since there are $O(m^2)$ feature pair candidates, the total time complexity is $O(m^2n)$, which can be very large,
 since $m$ and $n$ are typically large.
 
 \stitle{Optimizations: Overview.} To reduce the time complexity, we introduce two categories of optimizations:
@@ -384,11 +388,11 @@ In the following, we refer to these optimizations as {\em modules} to indicate t
 can be used in any combination---however, in reality, careful engineering is necessary
 to ``stitch'' these modules together to multiply the effects of the optimizations.
 
-The first optimization module within the first category, \trans (Section~\ref{ssec:trans}), reduces redundant calculations across feature pairs by mapping the original feature-object matrix $\mm$ into a new space that enables faster evaluation of object labeling, and thus faster calculation of separability score. The second optimization module, \earlyT (Section~\ref{ssec:earlyT}), takes advantage of the fact that evaluation of a poorly separating feature pair can be terminated early without having to evaluate the separability of all $n$ objects.
+\eat{The first optimization module within the first category, }\trans module (Section~\ref{ssec:trans}) reduces redundant calculations across feature pairs by mapping the feature-object matrix $\mm$ into a new space that enables faster evaluation of object labeling\eat{, and thus faster calculation of separability score}. \eat{The second optimization module, }\earlyT module (Section~\ref{ssec:earlyT}) takes advantage of the fact that evaluation of a poorly separating feature pair can be terminated early without having to evaluate the separability of all $n$ objects.
 
-The first optimization module within the second category, \sampling
+\eat{The first optimization module within the second category, }\sampling module
 (Section~\ref{ssec:sampling}) first identifies likely \topk feature pair candidates by evaluating their separability on a sampled subset of all objects, and then conducts full evaluations only on these feature pair candidates.
-Finally, \traversal (Section~\ref{ssec:traversal})
+Finally, \traversal module (Section~\ref{ssec:traversal})
 reduces the number of feature pairs checked by greedily
 choosing feature pairs based on the separability of the
 corresponding single features. These optimization modules can be used on their own or combined with each other.
@@ -396,8 +400,11 @@ In Section~\ref{sec:exp}, we will show how these optimizations modules greatly r
 
 %==================================================================
 \subsubsection{Pre-Transformation for Faster Feature Pair Evaluation} \label{ssec:trans}
+\new{We observe that there is massive redundancy across $\theta_{i,j}$'s' computatation of different feature pairs. Motivated by this, we propose the \trans optimization module which will pre-calculate some common computational components once across different features and reuse these components the separability for each feature pair to eliminate the repeated computation. This \trans module transforms the original $\mm_{i,k}$ matrix into another space $\widehat{\mm}_{i,k}$ using our identified common feature pair components and updates the separability score equation accordingly. Specifically, with this transformation of the feature-object matrix $\widehat{\mm}_{i,k}$,
+evaluating whether an object was correctly separated is simplified as: if $sign(\widehat{\mm}_{i,k} + \widehat{\mm}_{j,k}) = 1$, then $\theta_{i,j}^{k}=1$; otherwise, $\theta_{i,j}^{k}=0$. Details can be found in our Supplementary materials.}
 
-Let us review the process of computing the separability $\theta_{i,j}$. Given a feature pair $(f_i,f_j)$ and the corresponding positive and negative centroids, {\em (i)} we first compute $w_0$, $w_i$ and $w_j$ for $\lhat$\eat{ based on Equation~\ref{eqn:rep_line}}. Next, for each object $o_k$, {\em (ii)} we obtain the predicted label $\eta_{i,j}^{\lhat,k}$ according to Equation~\ref{eqn:est_label}. This step requires two multiplications and three additions. Finally, {\em (iii)} we calculate $\theta_{i,j}^{k}$ and the separability $\theta_{i,j}$ based on Equations in Section~\ref{sec:metric}\eat{Equation~\ref{eqn:s_object} and \ref{eqn:s_line} respectively}. This whole process is repeated for every feature pair candidate. However, there is massive redundancy across the processing of different feature pairs. For instance, when calculating the separability for two different feature pairs $(f_i,f_j)$ and $(f_i,f_{j'})$ with a common $f_i$, $w_i$ is in fact shared, and calculation of $w_i\cdot \mm_{i,k}$ in Equation~\ref{eqn:est_label} is repeated for each object $o_k$.
+\eat{
+Let us review the process of computing the separability $\theta_{i,j}$. Given a feature pair $(f_i,f_j)$ and the corresponding positive and negative centroids, {\em (a)} we first compute $w_0$, $w_i$ and $w_j$ for $\lhat$\eat{ based on Equation~\ref{eqn:rep_line}}. Next, for each object $o_k$, {\em (b)} we obtain the predicted label $\eta_{i,j}^{\lhat,k}$ according to Equation~\ref{eqn:est_label}. This step requires two multiplications and three additions. Finally, {\em (c)} we calculate $\theta_{i,j}^{k}$ and the separability $\theta_{i,j}$ based on Equations in Section~\ref{sec:metric}\eat{Equation~\ref{eqn:s_object} and \ref{eqn:s_line} respectively}. This whole process is repeated for every feature pair candidate. However, there is massive redundancy across the processing of different feature pairs. For instance, when calculating the separability for two different feature pairs $(f_i,f_j)$ and $(f_i,f_{j'})$ with a common $f_i$, $w_i$ is in fact shared, and calculation of $w_i\cdot \mm_{i,k}$ in Equation~\ref{eqn:est_label} is repeated for each object $o_k$.
 \tr{\sinha{is there another work we can cite that has done this?} \silu{Aditya's another paper~\cite{parameswaran2012crowdscreen} did similar trick, but in different problem. Do we want to cite it?}\agp{I think it's too far off.}}
 
 Given this, we propose the \trans optimization module which will pre-calculate some common computational components once across different features and reuse these components the separability for each feature pair to eliminate the repeated computation. This \trans module transforms the original $\mm_{i,k}$ matrix into another space using our identified common feature pair components and updates the separability score equation accordingly.
@@ -445,7 +452,7 @@ $\eta_{i,j}^{k}$ in Equation~\ref{eqn:est_label}.
 In the following sections,
 we will consider $\widehat{\mm}$ using pre-transformation instead of $\mm$, and calculate $\theta_{i,j}$ accordingly\eat{
 and Equation~\ref{eqn:s_object_transform} instead of
-Equation~\ref{eqn:est_label} and~\ref{eqn:s_object}}.
+Equation~\ref{eqn:est_label} and~\ref{eqn:s_object}}.}
 %Hence, by conducting transformation in Equation~\ref{eqn:matrix_transform} and~\ref{eqn:s_object_transform}, we have mapped our problem to a new space.
 
 %\begin{figure}[h]
@@ -512,25 +519,25 @@ we need to scan all the objects
 to compute the separability score $\theta_{i,j}$\eat{ according to Equation~\ref{eqn:s_line}}.
 However, since we only need to identify the \topk feature pairs,
 we can stop as soon as we can make that determination, without
-scanning all the objects, denoted as the \earlyT module in Figure~\ref{fig:workflow}.
+scanning all the objects; we call this the \earlyT module (Figure~\ref{fig:workflow}).
 
-\stitle{High Level Idea.} We maintain a upper bound
-for the separability error $err_{i,j}$ of the \topk feature pairs,
-denoted as $\tau$.
+\stitle{High Level Idea.} We maintain a upper bound $\tau$
+for the separability error $err_{i,j}$ of the \topk feature pairs.
 Then, the lower bound of the separability
-score can be denoted as ($n-\tau$),
-where $n$ is the total number of objects $\hat{\oo}$.
+score can be denoted as ($n-\tau$)\eat{,
+where $n$ is the total number of objects $\hat{\oo}$}.
 Given a feature pair $(f_i,f_j)$, we start to scan the object list until the number of incorrectly classified objects exceeds $\tau$. If so, we can terminate early and prune this feature pair since it cannot be among the \topk.
-Otherwise, $(f_i,f_j)$ is added to the \topk feature pair set and we update $\tau$ accordingly. Although \earlyT has the potential to always reduce the running time, its benefits are sensitive to the ordering of the objects for evaluation. Since we terminate as soon as we find $\tau$ incorrectly classified objects, we can improve our running time if we examine ``problematic'' objects that are unlikely to be correctly classified relatively early.
+Otherwise, $(f_i,f_j)$ is added to the \topk feature pair set and we update $\tau$ accordingly. 
 
 \stitle{Enhancement by Object Ordering.}
-To evaluate ``problematic'' objects earlier,
+Although \earlyT has the potential to always reduce the running time, its benefits are sensitive to the ordering of the objects for evaluation. Since we terminate as soon as we find $\tau$ incorrectly classified objects, we can improve our running time if we examine ``problematic'' objects that are unlikely to be correctly classified relatively early.
+For this\eat{To evaluate ``problematic'' objects earlier},
 we order the objects in descending order of
 the number of single features $f_i$ that incorrectly
 classify the object $o_k$, i.e., $\widehat{\mm}_{i,k}\leq0$.
 Thus, the first object evaluated is the one that is incorrectly
-classified by the most single features. The benefits of this strategy is illustrated with an example in Figure~\ref{fig:earlyT}
-We study the impact of this strategy in Section~\ref{sec:exp}.
+classified by the most single features. The benefit of this strategy is illustrated with an example in Figure~\ref{fig:earlyT}.
+\eat{We study the impact of this strategy in Section~\ref{sec:exp}.}
 
 \tr{\cb{note, 0's are treated as mis-labels and ties are broken randomly.}\agp{Probably not super important to clarify this.}}
 
@@ -565,7 +572,7 @@ sample set drawn from $\hat{\oo}$.
 
 \stitle{High Level Idea.} \sampling primarily consists of two phases,
 called {\em candidate generation} and {\em validation}
-as shown in Figure~\ref{fig:sampling}.
+(Figure~\ref{fig:sampling}).
 In phase one, we estimate the confidence interval of $\theta_{i,j}$
 for each feature pair using a sampled set of objects and
 generate the candidate feature pairs for full evaluation
@@ -578,18 +585,20 @@ calculating $\theta_{i,j}$ over the whole object set, $\hat{\oo}$,
 to obtain the final \topk feature pairs.
 Unlike our previous optimizations, \sampling returns
 an approximation of the \topk ranking feature pairs.
-In Section~\ref{sec:exp_comp}, we study how the greatly
-reduced running time of \sampling affects the accuracy of the \topk pairs. %We will describe in detail in Section~\ref{sssec:generate} and \ref{sssec:validate}.
+\eat{In Section~\ref{sec:exp_comp}, we study how the greatly
+reduced running time of \sampling affects the accuracy of the \topk pairs.} %We will describe in detail in Section~\ref{sssec:generate} and \ref{sssec:validate}.
 
 
 
 \stitle{Candidate Generation.} %\label{sssec:generate}
-Let $\sss$ be a sample set drawn uniformly from the object set $\hat{\oo}$. Given a feature pair $(f_i,f_j)$, let $\theta_{i,j}(\sss)$ be the number of correctly separated objects in $\sss$. Let $\tilde{\theta}_{i,j}$ be the estimated separability score of all objects based on the sample set $\sss$. First, we can estimate $\tilde{\theta}_{i,j}$ from $\theta_{i,j}(\sss)$ using $\tilde{\theta}_{i,j} = \frac{\theta_{i,j}(\sss)}{|\sss|} \cdot n$\eat{Equation~\ref{eqn:est_score}} by assuming the ratio of correctly separated samples in $\sss$ is the same as that in $\hat{\oo}$.
+Let $\sss$ be a sample set drawn uniformly from $\hat{\oo}$. Given a feature pair $(f_i,f_j)$, let $\theta_{i,j}(\sss)$ be the number of correctly separated objects in $\sss$. \eat{Let $\tilde{\theta}_{i,j}$ be the estimated separability score of all objects based on the sample set $\sss$. First, }We can estimate $\tilde{\theta}_{i,j}$ from $\theta_{i,j}(\sss)$ using $\tilde{\theta}_{i,j} = \frac{\theta_{i,j}(\sss)}{|\sss|} \cdot n$\eat{Equation~\ref{eqn:est_score}} by assuming the ratio of correctly separated samples in $\sss$ is the same as that in $\hat{\oo}$. 
+\new{Essentially, with only $\Omega(\frac{1}{\epsilon^2})$ samples, with probability 95\%, the confidence interval for $\theta_{i,j}$ is $[\tilde{\theta}_{i,j}-\epsilon n, \tilde{\theta}_{i,j}+\epsilon n]$~\cite{hoeffding1963probability}. Note that the sample size $|\sss|$ only depends on $\epsilon$ and is independent of the number of objects, $n$. Hence, the \sampling module helps \genviz scale to datasets with large $n$.}
 \eat{
 \begin{equation}\label{eqn:est_score}
 \tilde{\theta}_{i,j} = \frac{\theta_{i,j}(\sss)}{|\sss|} \cdot n
 \end{equation}}
-\noindent Next, we show that with a constant sample set size $|\sss|$, $|\theta_{i,j}-\tilde{\theta}_{i,j}|$ is bounded by a small value with high probability, using Hoeffding's' inequality~\cite{hoeffding1963probability}. We formally quantize the sample set size in Theorem~\ref{them:est}.
+\eat{
+\noindent Next, we show that with a constant sample set size $|\sss|$, $|\theta_{i,j}-\tilde{\theta}_{i,j}|$ is bounded by a small value with high probability, using Hoeffding's' inequality~\cite{hoeffding1963probability}. \eat{We formally quantize the sample set size in Theorem~\ref{them:est}.}
 
 \begin{theorem}[Estimation Accuracy]\label{them:est}
 By considering $\Omega(\frac{1}{\epsilon^2}\cdot \log(\frac{1}{\delta}))$ samples, with probability at least $1-\delta$, we have $|\frac{\theta_{i,j}(\sss)}{|\sss|}-\frac{\theta_{i,j}}{n}| \leq \epsilon$, i.e., $|\tilde{\theta}_{i,j}-\theta_{i,j}|\leq \epsilon n$.
@@ -604,16 +613,17 @@ $$
 \end{proof}
 }
 \noindent We can treat $\log(1/\delta)$ as a constant, e.g., by setting $\delta = 0.05$. Thus, Theorem~\ref{them:est} essentially states that with only $\Omega(\frac{1}{\epsilon^2})$ samples, with probability 95\%, the confidence interval for $\theta_{i,j}$ is $[\tilde{\theta}_{i,j}-\epsilon n, \tilde{\theta}_{i,j}+\epsilon n]$. Note that the sample size $|\sss|$ only depends on $\epsilon$ and is independent of the number of objects, $n$. Hence, the \sampling module helps \genviz scale to datasets with large $n$.
+}
 %For instance, when setting $\epsilon=0.05$, the sample size is fixed to be $400$.
 
-With Theorem~\ref{them:est}, we can first calculate the confidence interval of $\theta_{i,j}$ for each feature pair $(f_i,f_j)$, as shown in the top half of Figure~\ref{fig:sampling}. Next, we compute the lower bound of $\theta_{i,j}$ for the \topk feature pairs, denoted as $\zeta$ as shown by the red dotted line in Figure~\ref{fig:sampling}. Finally, we can prune feature pairs away whose upper bound is smaller than $\zeta$. Accordingly, the candidate set $\cc$ corresponds to the feature pairs depicted by the blue intervals in Figure~\ref{fig:sampling}. These feature pairs $\cc$ will be further validated in phase two, i.e., candidate validation. Typically, $|\cc|$ will be orders of magnitude smaller than $m^2$, the original search space for all feature pairs.
+\eat{With Theorem~\ref{them:est}, }We can first calculate the confidence interval of $\theta_{i,j}$ for each feature pair $(f_i,f_j)$, as shown in the top half of Figure~\ref{fig:sampling}. Next, we compute the lower bound of $\theta_{i,j}$ for the \topk feature pairs, denoted as $\zeta$ as shown by the red dotted line in Figure~\ref{fig:sampling}. Finally, we can prune feature pairs away whose upper bound is smaller than $\zeta$. Accordingly, the candidate set $\cc$ corresponds to the feature pairs depicted by the blue intervals in Figure~\ref{fig:sampling}. These feature pairs $\cc$ will be further validated in phase two, i.e., candidate validation. Typically, $|\cc|$ will be orders of magnitude smaller than $m^2$, the original search space for all feature pairs.
 %We will verify this later in our evaluations (Section~\ref{sec:exp}).
 
 \stitle{Candidate Validation.} %\label{sssec:validate}
-Since we only estimated the separability scores $\theta_{i,j}$ for our feature pair candidates in phase one, we re-evaluate all of the candidates generated from phase one to produce our final feature pair ranking. This phase two evaluation is performed using the whole object set $\hat{\oo}$.
+\eat{Since we only estimated the separability scores $\theta_{i,j}$ for our feature pair candidates in phase one, }We re-evaluate all of the candidates generated from phase one to produce our final feature pair ranking. This \eat{phase two }evaluation is performed using the whole object set $\hat{\oo}$ and the \topk feature pairs are reported (lower half of Figure~\ref{fig:sampling}).
 \tr{\sinha{are we using early termination and object ordering in phase two?} \silu{no. We tried both and found that early termination is not helping most of time since 1) the feature pair candidates, which perform well in phase 1, are indeed the ones that are hard to prune and 2) \earlyT incurs some overhead itself.}
 }
- For each feature pair $(f_i,f_j)\in \cc$, we calculate the separability score $\theta_{i,j}$ and find the \topk feature pairs (lower half of Figure~\ref{fig:sampling}).
+\eat{For each feature pair $(f_i,f_j)\in \cc$, we calculate the separability score $\theta_{i,j}$ and find the \topk feature pairs (lower half of Figure~\ref{fig:sampling}).}
 
 \stitle{Enhancement by Candidate Ordering.}
 In Section~\ref{ssec:earlyT} we proposed an enhancement
@@ -651,16 +661,19 @@ for full evaluation. Our \traversal module
 aims to reduce the number of feature pairs
 considered from $m^2$ to a smaller number.
 
-\stitle{High Level Idea.} Instead of examining each feature pair, we only examine a limited number of feature pairs, but in an optimized traversal order. The number of examined feature pairs determines a trade-off between efficiency and accuracy. In general, fewer feature pairs checked will result in faster running times, though at the cost of accuracy.
-The full search space for the feature pairs is the upper triangle in Figure~\ref{fig:traversal}(a), where each row represents $f_i$ and each column represents $f_j$. Let $\chi$ be the limit on the number of feature pairs to be examined. We propose two different traversal orders over the search space: horizontal and vertical, as follows:
+\stitle{High Level Idea.} Instead of examining each feature pair, we only examine a limited number of feature pairs, but in an optimized traversal order. The number of examined feature pairs determines a trade-off between efficiency and accuracy. In general, fewer feature pairs checked will result in faster running times, though at the cost of accuracy. 
+\eat{The full search space for the feature pairs is the upper triangle in Figure~\ref{fig:traversal}(a), where each row represents $f_i$ and each column represents $f_j$.} Let $\chi$ be the limit on the number of feature pairs to be examined. 
+\new{However, the traversal order does not convey any intuition if the feature set $\ff$ is in random order. Hence, we further propose to enhance \traversal by feature ordering in $\ff$. We propose to first sort features based on single features' separability scores $\theta_{i,i}$. Single features with good separability individually are ranked higher. Afterwards,} 
+we propose two different traversal orders over the search space: horizontal and vertical, as follows:
 \squishlist
-\item \emph{Horizontal traversal (Figure~\ref{fig:traversal}(a)):} for each feature $f_i$, pair it with each other feature $f_j$, where $j\geq i$, to obtain $(f_i,f_j)$. Repeat for each $f_i$, where $1 \leq i\leq m$.
-\item \emph{Vertical traversal (Figure~\ref{fig:traversal}(b)):} for each feature $f_j$, pair it with each other feature $f_i$, where $i\leq j$, to obtain $(f_i,f_j)$. Repeat for each $f_j$, where $1 \leq j\leq m$.
+\item \emph{Horizontal traversal:} for each feature $f_i$, pair it with each other feature $f_j$, where $j\geq i$, to obtain $(f_i,f_j)$. Repeat for each $f_i$, $1 \leq i\leq m$. 
+\item \emph{Vertical traversal:} for each feature $f_j$, pair it with each other feature $f_i$, where $i\leq j$, to obtain $(f_i,f_j)$. Repeat for each $f_j$, where $1 \leq j\leq m$.
 %\item \emph{Diagonal traversal (Figure~\ref{fig:traversal}(c)):} for a fixed value $v$, pair $(f_i,f_{v-i})$, where $1\leq i<v$. Repeat it for each $v$, where $2 \leq v\leq 2m$.
 \squishend
 \noindent
-However, the traversal order does not convey any intuition if the feature set $\ff$ is in random order. Hence, we further propose to enhance \traversal by feature ordering in $\ff$.
+\new{The intuition of horizontal traversal is that there is at least one {\em good} single feature in each \topk feature pair; while vertical traversal prefers that both features in each \topk feature pair $(f_i,f_j)$ is a {\em good} one individually.}
 
+\eat{
 \stitle{Enhancement by Feature Ordering.} We propose to first sort features based on single features' separability scores $\theta_{i,i}$. Single features with good separability individually are ranked higher. Let $\{f_1^{'} f_2^{'},\cdots,f_m^{'}\}$ be the sorted single-feature set. Next, we discuss the intuition behind the two different traversal order schemes. Consider partitioning the sorted single-feature list into three categories based on the single-feature separability score $\theta_{i,i}$: {\em good, average,} and {\em poor}.
 \squishlist
 \item \emph{Horizontal traversal:} the intuition is that there is at least one {\em good} or {\em average} single feature in each \topk feature pair $(f_i,f_j)$.
@@ -671,6 +684,7 @@ However, the traversal order does not convey any intuition if the feature set $\
 
 %The intuition behind horizontal traversal is that there is at least one {\em top} or {\em median} single features in the \topk feature pairs $(f_i,f_j)$; while the intuition behind horizontal traversal is that both features in \topk feature pairs $(f_i,f_j)$ must rank {\em top} or {\em median} by their own.
 
+
 \begin{figure}[h]
  \centering
  \vspace{-5mm}
@@ -680,6 +694,7 @@ However, the traversal order does not convey any intuition if the feature set $\
 \vspace{-5mm}
 \label{fig:traversal}
 \end{figure}
+}
 
 %Typically, $K$ is not large, e.g., {\sc Top-1000}, while $m$ is large, e.g., {\sc 20000}.
 %\begin{example}[\traversal]
@@ -861,37 +876,62 @@ running time and the separabilities of their \topthousand feature pairs.
 %\label{fig:brute_rocchio}
 %\end{figure}
 
-
-\begin{table*}[t]
+\begin{table}[t]
 \centering
 \small
-\begin{tabular}{|c|c|c|c|c||c|c|}
+\begin{tabular}{|c|c||c|p{3cm}}
  %\hline
-
+\hline
+& Modules Used & Result \\
+\hline
+\baseline & -- & Exact \\
  \hline
- & \earlyT & \sampling & Candidate Ordering & \traversal & Approximation & Complexity\\
+ \earlyOrder  & \earlyT & Exact\\
  \hline
- \baseline & no  & no & no & Any & no &$O(m^2n)$\\
- \hline
- %\early & yes & yes & no & no & no & Any & no & $O(m^2n)$\\
- % \hline
- \earlyOrder  & yes & no & no & Any & no & $O(m^2n)$\\
- \hline
- \samp  & no & yes & no & Any & yes (guarantee) & $O(mn+m^2|\sss|+|\cc|n)$\\
- \hline
- \sampOpt  & no & yes & yes & Any  & yes (guarantee) & $O(mn+m^2|\sss|+|\cc|n)$\\
- \hline
- \horiz   & no & yes & yes & Horizontal & yes (heuristic) & $O(mn+\chi|\sss|+|\cc|n)$\\
- \hline
- \vertic   & no & yes & yes & Vertical  & yes (heuristic) & $O(mn+\chi|\sss|+|\cc|n)$ \\
- \hline
- \end{tabular}
-\caption{Selected Algorithms Using Different Optimization Modules. All algorithms, including the \baseline, are using \trans. In addition, \earlyT and \traversal are coupled with object ordering and feature ordering by default, respectively. For each algorithm (row), shows which optimization modules are employed, whether the algorithm is returning the exact answer or an approximation answer, and the running time complexity for that combination. The term ``guarantee'' (``heuristic'', resp.) indicates that the returned answer is with (without, resp.) stochastic guarantee. In addition, $m$ and $n$ are the number of features and objects, $\sss$ is the sampled set size, $\chi$ is the limit on the number of feature pairs considered, and $\cc$ is the number of generated feature pair candidates.}
+\samp  &  \sampling & Guarantee \\
+\hline
+\sampOpt & \sampling, Candidate Ordering & Guarantee \\
+\hline
+\multirow{ 2}{*}{\horiz} & \sampling, Candidate Ordering & \multirow{ 2}{*}{Heuristic} \\
+&   \traversal(Horizontal) & \\
+\hline
+\multirow{ 2}{*}{\vertic} & \sampling, Candidate Ordering & \multirow{ 2}{*}{Heuristic} \\
+&   \traversal(Vertical) & \\
+\hline
+\end{tabular}
+\caption{Selected Algorithms Using Different Optimization Modules. All algorithms, including the \baseline, are using \trans. In addition, \earlyT is coupled with object ordering by default, respectively. For each algorithm (row), shows which optimization modules are employed, and whether the algorithm is returning the exact answer or an approximation answer\eat{, and the running time complexity for that combination}. The term ``guarantee'' (``heuristic'', resp.) indicates that the returned answer is with (without, resp.) stochastic guarantee. \eat{In addition, $m$ and $n$ are the number of features and objects, $\sss$ is the sampled set size, $\chi$ is the limit on the number of feature pairs considered, and $\cc$ is the number of generated feature pair candidates.}}
 \label{tbl:alg}
 \vspace{-18pt}
-\end{table*}
+\end{table}
 
+% \begin{table*}[t]
+% \centering
+% \small
+% \begin{tabular}{|c|c|c|c|c||c|c|}
+%  %\hline
 
+%  \hline
+%  & \earlyT & \sampling & Candidate Ordering & \traversal & Approximation & Complexity\\
+%  \hline
+%  \baseline & no  & no & no & Any & no &$O(m^2n)$\\
+%  \hline
+%  %\early & yes & yes & no & no & no & Any & no & $O(m^2n)$\\
+%  % \hline
+%  \earlyOrder  & yes & no & no & Any & no & $O(m^2n)$\\
+%  \hline
+%  \samp  & no & yes & no & Any & yes (guarantee) & $O(mn+m^2|\sss|+|\cc|n)$\\
+%  \hline
+%  \sampOpt  & no & yes & yes & Any  & yes (guarantee) & $O(mn+m^2|\sss|+|\cc|n)$\\
+%  \hline
+%  \horiz   & no & yes & yes & Horizontal & yes (heuristic) & $O(mn+\chi|\sss|+|\cc|n)$\\
+%  \hline
+%  \vertic   & no & yes & yes & Vertical  & yes (heuristic) & $O(mn+\chi|\sss|+|\cc|n)$ \\
+%  \hline
+%  \end{tabular}
+% \caption{Selected Algorithms Using Different Optimization Modules. All algorithms, including the \baseline, are using \trans. In addition, \earlyT and \traversal are coupled with object ordering and feature ordering by default, respectively. For each algorithm (row), shows which optimization modules are employed, whether the algorithm is returning the exact answer or an approximation answer, and the running time complexity for that combination. The term ``guarantee'' (``heuristic'', resp.) indicates that the returned answer is with (without, resp.) stochastic guarantee. In addition, $m$ and $n$ are the number of features and objects, $\sss$ is the sampled set size, $\chi$ is the limit on the number of feature pairs considered, and $\cc$ is the number of generated feature pair candidates.}
+% \label{tbl:alg}
+% \vspace{-18pt}
+% \end{table*}
 
 \tr{
 \sinha{maybe naming algorithms A0, A1-A5.}
@@ -929,7 +969,7 @@ Similar results can be found in Figure~\ref{fig:lincs_time} for \lincs. Here, we
 
 \begin{figure}[h]
 \centering %%% not \center
-\vspace{-5mm}
+\vspace{-2mm}
 \subfigure[\msig]{\label{fig:msig_separability}\includegraphics[width=.235\textwidth]{fig/msig_accuracy.eps}}
 \subfigure[\lincs]{\label{fig:lincs_separability}\includegraphics[width=.235\textwidth]{fig/lincs_accuracy.eps}}
 \vspace{-5mm}
@@ -953,7 +993,7 @@ In this section, we quantify the statistical significance of the top ranking res
 
 \begin{figure}[h]
 \centering %%% not \center
-\vspace{-5mm}
+\vspace{-2mm}
 \subfigure[\msig]{\label{fig:msig_singleF}\includegraphics[width=.16\textwidth]{fig/msig_SF_FP.eps}}
 \subfigure[\lincs]{\label{fig:lincs_singleF}\includegraphics[width=.31\textwidth]{fig/lincs_SF_FP.eps}}
 \vspace{-5mm}
@@ -1088,7 +1128,9 @@ In \fpstbl, we examine several of the ``improved'' feature gene pairs reported b
 
 %==================================================================
 \subsection{Output Visualizations}\label{ssec:viz}
-As discussed in Section~\ref{sec:intro}, the output of \genviz is not simply a ranking of the top feature pairs with their scores, but also a visualization that helps users to interpret the separability. In Figure~\ref{fig:viz}, we depict sample output visualizations from the \msig and \lincs runs. For \msig, we select the feature pair with the highest improved p-value, i.e., $improv\_quot$, using the \sampOpt algorithm. For our \lincs representative, we visualize the gene feature pair (GLRX, NME7) for the drug vorinostat as described in the previous section. We use a heatmap to illustrate the distribution of positive objects (in blue) and negative objects (in red) under the selected feature pair $(f_i,f_j)$, where $f_i$ is x-axis, $f_j$ is y-axis. The color represents the difference between the weighted number of positive objects and negative objects. If the number of positive objects is larger than negative objects in the cell, the cell is colored as blue, otherwise, it is red. For the ease of interpretation, we also add the centroids of positive and negative objects using a blue circle and a red circle respectively. For the \msig example (Figure~\ref{fig:viz}(a)), we observe that the feature values for negative objects are clustered around zero, while the genes differentially expressed in papillary thyroid carcinomas from this \msig study have larger values overall, indicating stronger connections to the two Gene Ontology terms features, cell adhesion and response to reactive oxygen species. This is consistent with studies that have highlighted the over expression of important cell adhesion genes in thyroid cancer~\cite{gorka2007nrcam}. For the \lincs example (Figure~\ref{fig:viz}(b)), positive objects mostly have elevated expression for the two reported genes (GLRX and NME7) compared to the negative objects. The direction of this differential gene expression for both genes is consistent with literature for vorinostat experiments~\cite{qi2014systematic}, ~\cite{soldi2013genomic}. These above two examples illustrate how visualization of significant feature pairs can be a useful way to explain the separability of object sets and understand the data.
+As discussed in Section~\ref{sec:intro}, the output of \genviz is not simply a ranking of the top feature pairs with their scores, but also a visualization that helps users to interpret the separability. In Figure~\ref{fig:viz}, we depict sample output visualizations from the \msig and \lincs runs. For \msig, we select the feature pair with the highest improved p-value, i.e., $improv\_quot$, using the \sampOpt algorithm. For our \lincs representative, we visualize the gene feature pair (GLRX, NME7) for the drug vorinostat as described in the previous section. 
+\eat{We use a heatmap to illustrate the distribution of positive objects (in blue) and negative objects (in red) under the selected feature pair $(f_i,f_j)$, where $f_i$ is x-axis, $f_j$ is y-axis. The color represents the difference between the weighted number of positive objects and negative objects. If the number of positive objects is larger than negative objects in the cell, the cell is colored as blue, otherwise, it is red. For the ease of interpretation, we also add the centroids of positive and negative objects using a blue circle and a red circle respectively. }
+For the \msig example (Figure~\ref{fig:viz}(a)), we observe that the feature values for negative objects are clustered around zero, while the genes differentially expressed in papillary thyroid carcinomas from this \msig study have larger values overall, indicating stronger connections to the two Gene Ontology terms features, cell adhesion and response to reactive oxygen species. This is consistent with studies that have highlighted the over expression of important cell adhesion genes in thyroid cancer~\cite{gorka2007nrcam}. For the \lincs example (Figure~\ref{fig:viz}(b)), positive objects mostly have elevated expression for the two reported genes (GLRX and NME7) compared to the negative objects. The direction of this differential gene expression for both genes is consistent with literature for vorinostat experiments~\cite{qi2014systematic}, ~\cite{soldi2013genomic}. These above two examples illustrate how visualization of significant feature pairs can be a useful way to explain the separability of object sets and understand the data.
 \begin{figure}[h]
 \vspace{-5mm}
 \centering %%% not \center
