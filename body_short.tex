@@ -527,7 +527,7 @@ Then, the lower bound of the separability
 score can be denoted as ($n-\tau$)\eat{,
 where $n$ is the total number of objects $\hat{\oo}$}.
 Given a feature pair $(f_i,f_j)$, we start to scan the object list until the number of incorrectly classified objects exceeds $\tau$. If so, we can terminate early and prune this feature pair since it cannot be among the \topk.
-Otherwise, $(f_i,f_j)$ is added to the \topk feature pair set and we update $\tau$ accordingly. 
+Otherwise, $(f_i,f_j)$ is added to the \topk feature pair set and we update $\tau$ accordingly.
 
 \stitle{Enhancement by Object Ordering.}
 Although \earlyT has the potential to always reduce the running time, its benefits are sensitive to the ordering of the objects for evaluation. Since we terminate as soon as we find $\tau$ incorrectly classified objects, we can improve our running time if we examine ``problematic'' objects that are unlikely to be correctly classified relatively early.
@@ -591,7 +591,7 @@ reduced running time of \sampling affects the accuracy of the \topk pairs.} %We 
 
 
 \stitle{Candidate Generation.} %\label{sssec:generate}
-Let $\sss$ be a sample set drawn uniformly from $\hat{\oo}$. Given a feature pair $(f_i,f_j)$, let $\theta_{i,j}(\sss)$ be the number of correctly separated objects in $\sss$. \eat{Let $\tilde{\theta}_{i,j}$ be the estimated separability score of all objects based on the sample set $\sss$. First, }We can estimate $\tilde{\theta}_{i,j}$ from $\theta_{i,j}(\sss)$ using $\tilde{\theta}_{i,j} = \frac{\theta_{i,j}(\sss)}{|\sss|} \cdot n$\eat{Equation~\ref{eqn:est_score}} by assuming the ratio of correctly separated samples in $\sss$ is the same as that in $\hat{\oo}$. 
+Let $\sss$ be a sample set drawn uniformly from $\hat{\oo}$. Given a feature pair $(f_i,f_j)$, let $\theta_{i,j}(\sss)$ be the number of correctly separated objects in $\sss$. \eat{Let $\tilde{\theta}_{i,j}$ be the estimated separability score of all objects based on the sample set $\sss$. First, }We can estimate $\tilde{\theta}_{i,j}$ from $\theta_{i,j}(\sss)$ using $\tilde{\theta}_{i,j} = \frac{\theta_{i,j}(\sss)}{|\sss|} \cdot n$\eat{Equation~\ref{eqn:est_score}} by assuming the ratio of correctly separated samples in $\sss$ is the same as that in $\hat{\oo}$.
 \new{Essentially, with only $\Omega(\frac{1}{\epsilon^2})$ samples, with probability 95\%, the confidence interval for $\theta_{i,j}$ is $[\tilde{\theta}_{i,j}-\epsilon n, \tilde{\theta}_{i,j}+\epsilon n]$~\cite{hoeffding1963probability}. Note that the sample size $|\sss|$ only depends on $\epsilon$ and is independent of the number of objects, $n$. Hence, the \sampling module helps \genviz scale to datasets with large $n$.}
 \eat{
 \begin{equation}\label{eqn:est_score}
@@ -661,12 +661,12 @@ for full evaluation. Our \traversal module
 aims to reduce the number of feature pairs
 considered from $m^2$ to a smaller number.
 
-\stitle{High Level Idea.} Instead of examining each feature pair, we only examine a limited number of feature pairs, but in an optimized traversal order. The number of examined feature pairs determines a trade-off between efficiency and accuracy. In general, fewer feature pairs checked will result in faster running times, though at the cost of accuracy. 
-\eat{The full search space for the feature pairs is the upper triangle in Figure~\ref{fig:traversal}(a), where each row represents $f_i$ and each column represents $f_j$.} Let $\chi$ be the limit on the number of feature pairs to be examined. 
-\new{However, the traversal order does not convey any intuition if the feature set $\ff$ is in random order. Hence, we further propose to enhance \traversal by feature ordering in $\ff$. We propose to first sort features based on single features' separability scores $\theta_{i,i}$. Single features with good separability individually are ranked higher. Afterwards,} 
+\stitle{High Level Idea.} Instead of examining each feature pair, we only examine a limited number of feature pairs, but in an optimized traversal order. The number of examined feature pairs determines a trade-off between efficiency and accuracy. In general, fewer feature pairs checked will result in faster running times, though at the cost of accuracy.
+\eat{The full search space for the feature pairs is the upper triangle in Figure~\ref{fig:traversal}(a), where each row represents $f_i$ and each column represents $f_j$.} Let $\chi$ be the limit on the number of feature pairs to be examined.
+\new{However, the traversal order does not convey any intuition if the feature set $\ff$ is in random order. Hence, we further propose to enhance \traversal by feature ordering in $\ff$. We propose to first sort features based on single features' separability scores $\theta_{i,i}$. Single features with good separability individually are ranked higher. Afterwards,}
 we propose two different traversal orders over the search space: horizontal and vertical, as follows:
 \squishlist
-\item \emph{Horizontal traversal:} for each feature $f_i$, pair it with each other feature $f_j$, where $j\geq i$, to obtain $(f_i,f_j)$. Repeat for each $f_i$, $1 \leq i\leq m$. 
+\item \emph{Horizontal traversal:} for each feature $f_i$, pair it with each other feature $f_j$, where $j\geq i$, to obtain $(f_i,f_j)$. Repeat for each $f_i$, $1 \leq i\leq m$.
 \item \emph{Vertical traversal:} for each feature $f_j$, pair it with each other feature $f_i$, where $i\leq j$, to obtain $(f_i,f_j)$. Repeat for each $f_j$, where $1 \leq j\leq m$.
 %\item \emph{Diagonal traversal (Figure~\ref{fig:traversal}(c)):} for a fixed value $v$, pair $(f_i,f_{v-i})$, where $1\leq i<v$. Repeat it for each $v$, where $2 \leq v\leq 2m$.
 \squishend
@@ -764,38 +764,8 @@ In the \msig application,
 we are given a feature-object
 matrix with genes as the objects
 and gene properties as the features.
-A natural way to construct this matrix
-is to define a collection of properties
-such as Gene Ontology terms~\cite{gene2014gene},
-PFam domains~\cite{finn2015pfam},
-and KEGG pathways~\cite{kanehisa2016kegg},
-and use a Boolean value
-to indicate whether each gene is known to have a property.
-This is equivalent to constructing a network
-with gene and property nodes, with edges representing
-known annotations, and recording adjacency information
-on each gene as its feature values.
-We generalized this notion of gene-property
-relationships by adding homology edges
-(connecting homologous gene pairs based on BLAST scores~\cite{altschul1990basic})
-to the above network, and used the DRaWR algorithm~\cite{blatti2016characterizing}
-to perform a random walk with restarts
-on the heterogeneous network,
-thereby scoring the connectivity of each property node
-to each gene node.
-This resulted in the assignment of a numeric value
-for each gene-property pair ($g$, $r$),
-representing not only whether the gene is
-annotated with that property,
-but also whether other genes closely
-related to gene $g$ are annotated with property $r$.
-We thus obtained a feature-object matrix describing
-each gene (object) as a vector of its strength of
-association with each property (feature)
-in light of prior biological knowledge.
-%The values in this matrix correspond to the network connectivity between the node representing the feature gene set annotation and the node representing the object gene in a heterogeneous network of prior biological knowledge. To calculate these network connectivity scores we perform a random walk on the heterogeneous network that restarts at the feature gene set annotation node \needcite{DRAWR} and then observe the stationary probabilities of being at each gene node. The heterogeneous network here was constructed with information from BLAST, Gene Ontology, Pfam, and Pathway \needcite{each of these sources}.
-\tr{\cb{still need to be certain on the steps required to create this matrix, also may want to mention restart prob, etc}
-\sinha{About the details: providing them here might be a distraction, but the Methods section is also not appropriate because it has a nice narrative structure to it rather than the usual dump of methodological details. Maybe the citation to DRaWR is sufficient for details?}}
+Rather than being a 0/1 membership indicator matrix, the values of this feature-object matrix indicate the strength of the relationship between the gene and the set of genes that have been annotated with the gene property.
+The matrix values are calculated using random walks ~\cite{blatti2016characterizing} on a heterogeneous network built from prior knowledge found in gene annotation and protein homology databases (see Supplementary Note XX for more details).
 The positive genes for each dataset in \msig
 are the set of differentially expressed genes (DEGs)
 in a specific cancer study,
@@ -1100,7 +1070,7 @@ Grand Total & & 43.1 & 9068 & 1070\\
 
 Many of the above-mentioned 1070 significantly improved feature pairs are partially redundant, in the sense that they comprise a common best-ranked single feature (gene). An example of this is with the object set for the drug (small molecule) estradiol. We found the gene PRSS23 as the single feature with the highest separability and many feature pairs containing PRSS23 and a second gene as having an improved corrected p-value, for example (PRSS23, RAP1GAP), (PRSS23, TSC22D3), and (PRSS23, BAMBI). We looked for evidence of the relationship between the drug estradiol and these feature pair genes in the Comparative Toxicogenomics Database~\cite{grondin2018accessing} (CTD) and with our own literature survey. From this search, we found evidence for the pronounced effect of estradiol in increasing expression levels of PRSS23~\cite{chan2012serine}, RAP1GAP~\cite{moggs2004phenotypic}, and BAMBI~\cite{spink2009long}, and decreasing expression of TSC22D3~\cite{sengupta2013molecular}. So although the top single feature (gene PRSS23) reoccurred in multiple top feature pairs, each secondary feature gene was also meaningfully related to the administered drug in this case.
 
-We next examined the 1070 improved feature pairs, found over the 9 \lincs datasets, to determine their consistency with existing biological knowledge bases. For our knowledge bases, we downloaded gene interaction datasets derived from the STRING~\cite{szklarczyk2014string}, Reactome~\cite{croft2013reactome}, Pathway Commons~\cite{cerami2010pathway}, HumanNet~\cite{lee2011prioritizing}, BioGRID~\cite{chatr2017biogrid}, Intact~\cite{orchard2013mintact}, DIP~\cite{salwinski2004database}, and BLAST databases. These downloaded interaction networks covered 23,167 genes and had at least one known interaction between $2.17\%$ of all possible gene pairs. Of the 996 unique feature pairs with significant $improv\_quot$ where both genes mapped onto the genes covered by the interaction networks, 133 gene pairs ($13.4\%$) were found to have at least one known interaction. This six-fold enrichment demonstrates that \genviz more often finds pairs of genes that have a known relationship than is expected by chance. One example of such a feature pair is (GLRX, NME7) that is especially good for separating vorinostat experiments from all others. Not only are both of these genes known to have increased mRNA expression in response to vorinostat~\cite{qi2014systematic},~\cite{soldi2013genomic}, but the two genes are annotated by STRING to both be in database pathways of nucleotide biosynthesis, co-express with each other in other model organisms, and mentioned together often in literature abstracts. Later, in Section~\ref{ssec:viz}, we will demonstrate that the positive objects and negative objects are visually separated under this feature pair, as in Figure~\ref{fig:viz}.
+We next examined the 1070 improved feature pairs, found over the 9 \lincs datasets, to determine their consistency with existing biological knowledge bases (see Supplemental Note YY for details). The interaction networks from these sources covered 23,167 genes and had at least one known interaction between $2.17\%$ of all possible gene pairs. Of the 996 unique feature pairs with significant $improv\_quot$ where both genes mapped onto the genes covered by the interaction networks, 133 gene pairs ($13.4\%$) were found to have at least one known interaction. This six-fold enrichment demonstrates that \genviz more often finds pairs of genes that have a known relationship than is expected by chance. One example of such a feature pair is (GLRX, NME7) that is especially good for separating vorinostat experiments from all others. Not only are both of these genes known to have increased mRNA expression in response to vorinostat~\cite{qi2014systematic},~\cite{soldi2013genomic}, but the two genes are annotated by STRING to both be in database pathways of nucleotide biosynthesis, co-express with each other in other model organisms, and mentioned together often in literature abstracts. Later, in Section~\ref{ssec:viz}, we will demonstrate that the positive objects and negative objects are visually separated under this feature pair, as in Figure~\ref{fig:viz}.
 
 In \fpstbl, we examine several of the ``improved'' feature gene pairs reported by \genviz analysis for the \lincs nine drug datasets. Of thirty-nine feature pairs in this table, twelve of them have three types of accompanying evidence: 1) a literature-based relationship between the drug and the first gene, 2) a literature-based relationship between the drug and the second gene, and 3) an interaction network relationship between the pair of genes. Six have two of the three types of evidence and there are only three with no evidence at all. Particularly interesting are the top improved feature pairs in which neither of the single gene features ranked well alone. An example is the gene pair CDKN1A and CEBPB for separating doxorubicin experiments from others. Either gene feature alone is not within the top 600 genes for separating doxorubicin experiments from others. However, the combination of the pair is significant at a corrected p-value of $2\times10^{-25}$ and is the second most improved feature pair for doxorubicin. This feature pair also has all three types of accompanying evidence; doxorubicin is known to increase expression of CDKN1A and CEBPB~\cite{zhao2015gene}, and the pair of genes are annotated in STRING to have evidence for co-expression and text mining relationships. This feature pair can be used to form an interesting hypothesis for further analysis or experimentation. The potential for finding more significant and previously unidentified features is the reason we designed \genviz to recover top ranking feature pairs instead of just single features.
 
@@ -1128,7 +1098,7 @@ In \fpstbl, we examine several of the ``improved'' feature gene pairs reported b
 
 %==================================================================
 \subsection{Output Visualizations}\label{ssec:viz}
-As discussed in Section~\ref{sec:intro}, the output of \genviz is not simply a ranking of the top feature pairs with their scores, but also a visualization that helps users to interpret the separability. In Figure~\ref{fig:viz}, we depict sample output visualizations from the \msig and \lincs runs. For \msig, we select the feature pair with the highest improved p-value, i.e., $improv\_quot$, using the \sampOpt algorithm. For our \lincs representative, we visualize the gene feature pair (GLRX, NME7) for the drug vorinostat as described in the previous section. 
+As discussed in Section~\ref{sec:intro}, the output of \genviz is not simply a ranking of the top feature pairs with their scores, but also a visualization that helps users to interpret the separability. In Figure~\ref{fig:viz}, we depict sample output visualizations from the \msig and \lincs runs. For \msig, we select the feature pair with the highest improved p-value, i.e., $improv\_quot$, using the \sampOpt algorithm. For our \lincs representative, we visualize the gene feature pair (GLRX, NME7) for the drug vorinostat as described in the previous section.
 \eat{We use a heatmap to illustrate the distribution of positive objects (in blue) and negative objects (in red) under the selected feature pair $(f_i,f_j)$, where $f_i$ is x-axis, $f_j$ is y-axis. The color represents the difference between the weighted number of positive objects and negative objects. If the number of positive objects is larger than negative objects in the cell, the cell is colored as blue, otherwise, it is red. For the ease of interpretation, we also add the centroids of positive and negative objects using a blue circle and a red circle respectively. }
 For the \msig example (Figure~\ref{fig:viz}(a)), we observe that the feature values for negative objects are clustered around zero, while the genes differentially expressed in papillary thyroid carcinomas from this \msig study have larger values overall, indicating stronger connections to the two Gene Ontology terms features, cell adhesion and response to reactive oxygen species. This is consistent with studies that have highlighted the over expression of important cell adhesion genes in thyroid cancer~\cite{gorka2007nrcam}. For the \lincs example (Figure~\ref{fig:viz}(b)), positive objects mostly have elevated expression for the two reported genes (GLRX and NME7) compared to the negative objects. The direction of this differential gene expression for both genes is consistent with literature for vorinostat experiments~\cite{qi2014systematic}, ~\cite{soldi2013genomic}. These above two examples illustrate how visualization of significant feature pairs can be a useful way to explain the separability of object sets and understand the data.
 \begin{figure}[h]
