@@ -745,7 +745,7 @@ Last, we present some sample visualizations to illustrate the separability of th
  \lincs & 22,268 & 98,061 & 400 & $10^7$ & 40 & 165 & 97,897 \\
  \hline
  \end{tabular}
-\caption{Dataset Statistics. For each dataset, the number of features $m$, objects $N$, sample size $|\sss|$ used by \sampling module, feature pairs $\chi$ examined by \traversal module, number of object sets: \# of $\widehat{\oo}$, average positive set size: avg($|\oo_+|$), and average negative set size: avg($|\oo_-|$).}
+\caption{\scriptsize   Dataset Statistics. For each dataset, the number of features $m$, objects $N$, sample size $|\sss|$ used by \sampling module, feature pairs $\chi$ examined by \traversal module, number of object sets: \# of $\widehat{\oo}$, average positive set size: avg($|\oo_+|$), and average negative set size: avg($|\oo_-|$).}
 \label{tbl:dataset}
 \vspace{-18pt}
 \end{table}
@@ -868,7 +868,7 @@ running time and the separabilities of their \topthousand feature pairs.
 &   \traversal(Vertical) & \\
 \hline
 \end{tabular}
-\caption{Selected Algorithms Using Different Optimization Modules. All algorithms, including the \baseline, are using \trans. In addition, \earlyT is coupled with object ordering by default. Each row (algorithm) shows which optimization modules are employed, and whether the algorithm is returning the exact answer or an approximation answer\eat{, and the running time complexity for that combination}. The term ``guarantee'' (``heuristic'', resp.) indicates that the returned answer is with (without, resp.) stochastic guarantee. See Supplementary Table~\ref{appT:time} for time complexity.\eat{In addition, $m$ and $n$ are the number of features and objects, $\sss$ is the sampled set size, $\chi$ is the limit on the number of feature pairs considered, and $\cc$ is the number of generated feature pair candidates.}}
+\caption{\scriptsize   Selected Algorithms Using Different Optimization Modules. All algorithms, including the \baseline, are using \trans. In addition, \earlyT is coupled with object ordering by default. Each row (algorithm) shows which optimization modules are employed, and whether the algorithm is returning the exact or approximation answer\eat{, and the running time complexity for that combination}. The term ``guarantee'' (``heuristic'', resp.) indicates that the returned answer is with (without, resp.) stochastic guarantee. See Supplementary Table~\ref{appT:time} for time complexity.\eat{In addition, $m$ and $n$ are the number of features and objects, $\sss$ is the sampled set size, $\chi$ is the limit on the number of feature pairs considered, and $\cc$ is the number of generated feature pair candidates.}}
 \label{tbl:alg}
 \vspace{-18pt}
 \end{table}
@@ -1062,7 +1062,7 @@ pravastatin & 61 & -7.5 & 0 & 0\\
 Grand Total & & 43.1 & 9068 & 1070\\
 \hline
  \end{tabular}
-\caption{For each chosen drug from \lincs, the number of experiments in MCF7 cell line that were performed with that drug (NumExprs), and statistics for the top1000 feature pairs for that drug including the average $-\log_{10} (corrected\_pval)$ (Avg Signif), number of feature pairs with $-\log_{10} (corrected\_pval) > 5$ (Top1000 Signif), and number with $-\log_{10} (improv\_quot) > 0$ (Top1000 Improved).}
+\caption{\scriptsize   For each chosen drug from \lincs, the number of experiments in MCF7 cell line that were performed with that drug (NumExprs), and statistics for the top1000 feature pairs for that drug including the average $-\log_{10} (corrected\_pval)$ (Avg Signif), number of feature pairs with $-\log_{10} (corrected\_pval) > 5$ (Top1000 Signif), and number with $-\log_{10} (improv\_quot) > 0$ (Top1000 Improved).}
 \label{tbl:selected_fps}
 \vspace{-18pt}
 \end{table}
@@ -1150,13 +1150,12 @@ their research and dataset.
 \cb{again low priority, but how robust are these results. If you run a sampling method twice, do you get the same feature pairs. if you change the positive set slightly, are your results comparable?}
 }
 
-\eat{
+
 \section*{Funding}
 
 This work was supported by the National Institutes of Health Big Data to Knowledge (BD2K) initiative [1U54GM114838, 3U54EB020406-02S1], the National Science Foundation [IIS-1733878], 3M, and Microsoft.
 
-\vspace*{-10pt}
-}
+\vspace*{-3pt}
 
 
 %\appendix
