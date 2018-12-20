@@ -54,17 +54,27 @@ and two labeled object sets, \genviz rapidly identifies
 the top ranking pairs of features
 that most clearly separate the objects of
 the different classes.
-We show that the feature pairs identified by \genviz often more significantly
+We show that feature pairs identified by \genviz often more significantly
 discriminate between the object classes than the corresponding
 best ranking individual features, even after accounting for the larger search space.
 Thus, by focusing on separating feature pairs, \genviz
 offers researchers the ability to gain additional
 insight beyond singular features, without the prolonged duration
 needed to train a complex machine learning model.
-Moreover, the identified feature pairs can be effortlessly
-visualized in a two-dimensional interface,
+Moreover, identified feature pairs can be effortlessly
+visualized in two-dimensional graphical interfaces,
 leading to easy interpretation of
 the interplay between the features and the object classes.
+
+\begin{figure*}[t]
+ \centering
+ \includegraphics[width=0.9\linewidth]{fig/workflow2.eps}
+ \vspace{-15pt}
+\caption{\genviz Workflow.
+Given (a) a feature-object matrix and positive (green) and negative class (red) labels on the objects, \genviz (b) evaluates all pairs of features using several optimizations to identify (c) the top feature pair(s) and its corresponding visualization that best separates the object classes.}
+\label{fig:workflow}
+\vspace{-15pt}
+\end{figure*}
 
 Quickly identifying top feature pairs
 in typical datasets
@@ -79,21 +89,9 @@ For example, if objects corresponded to experimental
 conditions, and features were gene expression measurements,
 having about $20K$ gene features
 means that we need to evaluate nearly $200M$ feature pairs,
-and for each feature pair we need to at least scan all the objects,
-($\sim100K$), if using a na\"ive approach.
+and for each feature pair we need to at least scan all the objects, if using a na\"ive approach.
 Therefore, sophisticated methods are required
 to make the task of ranking feature pairs interactive.
-
-\begin{figure*}[t]
- \centering
- \includegraphics[width=0.9\linewidth]{fig/workflow2.eps}
- \vspace{-15pt}
-\caption{\genviz Workflow.
-Given (a) a feature-object matrix and positive (green) and negative class (red) labels on the objects, \genviz (b) evaluates all pairs of features using several optimizations to identify (c) the top feature pair(s) and its corresponding visualization that best separates the object classes.}
-\label{fig:workflow}
-\vspace{-15pt}
-\end{figure*}
-
 
 In developing \genviz,
 we identified a measure to score the separability
@@ -121,7 +119,7 @@ the techniques need to be adapted for the separability problem.}
 We applied \genviz to two genomic datasets.
 In one, called \lincs, we find pairs of genes
 whose expression discriminates between perturbagen experiments
-involving different drugs, and in the other, called \msig,
+involving different drug treatments, and in the other, called \msig,
 we find pairs of annotations (such as pathway membership)
 that separate differentially expressed
 cancer genes from others.
@@ -129,10 +127,9 @@ Both of these applications are on
 objects with high-dimensional feature vectors,
 so it is computationally expensive to score the separability
 for all possible feature pairs.
-With \genviz, its carefully designed
-separability metric,
-and its suite of sophisticated optimizations
-that accelerates feature pair evaluation,
+With the carefully designed
+separability metric of \genviz and its suite of sophisticated optimizations
+that accelerates evaluation,
 we are able to {\emph{accurately return the
 highest ranking separating
 feature pairs for both datasets within two minutes}}.
@@ -149,7 +146,7 @@ longer machine learning-based analysis
 that builds upon the \genviz results.
 
 We further performed an in-depth analysis
-for nine distinct drugs in the \lincs dataset and
+for nine distinct drug treatments in the \lincs dataset and
 found 1070 feature (gene) pairs that had significant separability scores and outperformed
 their corresponding single features. These gene pairs were enriched
 in literature support for known relationships between the genes and the drug,
@@ -166,10 +163,11 @@ the rapid identification of the best separating feature pairs.
 %==================================================================
 \subsection{Problem Definition}\label{sec:prob}
 
+
 Let $\mm$ be a feature-object matrix of size $m\times N$,
 where each row is a feature and each column is an
 object as shown in Figure~\ref{fig:workflow}(a).
-An example feature-object matrix is one where
+One example feature-object matrix is one where
 each object corresponds to a tissue sample
 from a cancer patient and each feature corresponds to a gene,
 where the $(i,j)^{th}$ entry represents the
@@ -188,21 +186,20 @@ In our example, tumor samples, $\oo_+$,
 may be assigned the positive label,
 and the healthy tissue samples, $\oo_-$,
 the negative label.
-Let \eat{$\widehat{\oo}$ be the union of positive and negative objects; $n$ is the total number of labeled objects, i.e., }$\widehat{\oo}=\oo_+\cup \oo_-$, $n=|\widehat{\oo}|$; $n\leq N$. Also, let $l_k$ be the label of object $o_k\in \widehat{\oo}$, i.e., $l_k=1$ if $o_k$ is positive and $l_k=-1$ if $o_k$ is negative.
+The number of labeled objects, $n$, is equal to $|\widehat{\oo}|$ where $\widehat{\oo}=\oo_+\cup \oo_-$. \eat{$\widehat{\oo}$ be the union of positive and negative objects; $n$ is the total number of labeled objects, i.e., } Also, let $l_k$ be the label of object $o_k\in \widehat{\oo}$, i.e., $l_k=1$ if $o_k$ is positive and $l_k=-1$ if $o_k$ is negative.
 
 \eat{Now, given $\mm$ and sets
 $\oo_+$ and $\oo_-$ as depicted in Figure~\ref{fig:workflow}(a),}
 \genviz aims to find feature pairs that
 best separate the objects
-in $\oo_+$ from those in $\oo_-$ using only those two features,
+in $\oo_+$ from those in $\oo_-$ using only those features,
 and then output a visualization that demonstrates the separability
 as in Figure~\ref{fig:workflow}(c).
 (We will define the metric for separability subsequently.)
 A feature pair that leads to a good ``visual'' separation
 between the positive and the negative sets may be able
-to explain or characterize the differences between them
-via a interesting,
-non-trivial relationship of the features.
+to explain or characterize their differences via a interesting,
+non-trivial relationship among the features.
 The overall workflow is depicted in Figure~\ref{fig:workflow}.
 % Since we intend \genviz to be an interactive data exploration tool to be employed before more time-consuming machine learning methods, we allow for minor sacrifices to its accuracy in exchange for substantial improvements in its running time.
 We now formally define the separability problem.
@@ -210,7 +207,7 @@ We now formally define the separability problem.
 Given a feature-object matrix $\mm$ and two labeled object sets $(\oo_+,\oo_-)$, identify the \topk feature pairs $(f_i,f_j)$ that separate $\oo_+$ from $\oo_-$ based on a given separability metric.
 \end{formulation}
 \noindent %Here a separability metric is a scoring function for any given feature pair, and \topk feature pairs refer to the $k$ feature pairs with the highest score under the separability metric.
-We will describe our separability metric in Section~\ref{sec:metric}, and then discuss optimization techniques in Section~\ref{sec:opt}. Supplementary Table~\ref{appT:notation} summarizes our notation.
+We will describe our separability metric in Section~\ref{sec:metric}, and then discuss optimization techniques in Section~\ref{sec:opt}. The notation used in the description of the method is summarized in Supplementary Table~\ref{appT:notation}.
 
 
 
@@ -228,7 +225,7 @@ We focus on metrics that capture this linear separation, since it corresponds to
 \end{equation}
 }
 }
-Given a feature pair $(f_i,f_j)$ and a line $\ell$, we can predict the label of an object $o_k$, denoted as $\eta_{i,j}^{\ell,k}$, using Equation~\ref{eqn:est_label} below\new{, where $w_0$, $w_i$ and $w_j$ are coefficients of $\ell$ and $w_j>0$}:
+Given a feature pair $(f_i,f_j)$ and a line $\ell$, we can predict the label of an object $o_k$, denoted as $\eta_{i,j}^{\ell,k}$, using Equation~\ref{eqn:est_label} below, where $w_0$, $w_i$ and $w_j$ are coefficients of $\ell$ and $w_j>0$:
 %based on the separating line in Equation~\ref{eqn:line}. Let $\eta_{i,j}^{\ell,k}$ be the predicted label of $o_k$, calculated using Equation~\ref{eqn:est_label} below:
 \begin{equation}\label{eqn:est_label}
 {\sf Predicted \hspace{1mm} Label:}\hspace{3mm} \eta_{i,j}^{\ell,k}=sign(w_i\cdot \mm_{i,k} + w_j\cdot \mm_{j,k} +w_0)

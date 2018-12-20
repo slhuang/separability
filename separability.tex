@@ -2,11 +2,18 @@
 
 \usepackage{latexsym, mathrsfs}
 \usepackage{slantsc}
+\usepackage{xspace}
+\usepackage[titletoc,title]{appendix}
+\usepackage{amsthm,amssymb}
+\usepackage{subfigure} %{subfig} {subcaption}
+\usepackage{multirow}
+\usepackage[normalem]{ulem}
+\usepackage{url}
+\usepackage{multibib}
+\newcites{app}{Supplementary References}
 %\usepackage[usenames,dvipsnames]{color}
 %\usepackage[linesnumbered,ruled,procnumbered]{algorithm2e}
 %\usepackage{paralist}
-\usepackage{xspace}
-\usepackage[titletoc,title]{appendix}
 %\usepackage{url}
 %\usepackage{graphicx}
 %\usepackage{floatflt}
@@ -14,12 +21,8 @@
 %\usepackage{balance}
 %\usepackage{spverbatim}
 %\usepackage{hyperref}
-\usepackage{amsthm,amssymb}
-\usepackage{subfigure} %{subfig} {subcaption}
-\usepackage{multirow}
-\usepackage[normalem]{ulem}
-\usepackage{url}
 
+%%%%%%% adjust spacing
 \makeatletter
 \renewcommand\section{\@startsection{section}{1}{\z@}%
                        {-8\p@ \@plus -4\p@ \@minus -4\p@}%
@@ -36,9 +39,17 @@
                        {-1.5em \@plus -0.22em \@minus -0.1em}%
                        {\normalfont\normalsize\bfseries\boldmath}}
 \makeatother
+\newcommand{\squishlist}{\begin{list}{$\bullet$}{\leftmargin=1.2em \topsep 1pt \itemsep -1pt \parsep 1pt}}
+\newcommand{\squishend}{\end{list}}
 
+
+%%%%%%%%%%% special formatting
+\newcommand{\sampar}[1]{\vspace{3pt}\noindent{\bf #1}}
 \newcommand{\topic}[1]{\vspace{1pt} \noindent \underline{\bf #1}}
-%\theoremstyle{slplain}
+\newcommand{\stitle}[1]{\vspace{0.5em}\noindent\textbf{#1}}
+
+
+%%%%%%%%%%% Theorem templates
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}{Lemma}
 \newtheorem{conjecture}{Conjecture}
@@ -48,13 +59,19 @@
 \newtheorem{observation}[theorem]{\textbf{Observation}}
 \newtheorem{claim}[lemma]{\textbf{Claim}}
 \newtheorem{problem}{\textbf{Problem}}
-\newcommand{\stitle}[1]{\vspace{0.5em}\noindent\textbf{#1}}
+%\theoremstyle{slplain}
+
+
+%%%%%%%%%%%%% special math notation
 \newcommand{\mm}{{\mathcal{M}}\xspace}
 \newcommand{\ff}{{\mathcal{F}}\xspace}
 \newcommand{\oo}{{\mathcal{O}}\xspace}
 \newcommand{\sss}{{\mathcal{S}}\xspace}
 \newcommand{\cc}{{\mathcal{C}}\xspace}
 \newcommand{\lhat}{\mathit{L}\xspace}
+
+
+%%%%%%%%%%%%%%% special words
 \newcommand{\topk}{top-k\xspace}
 \newcommand{\topthree}{top-3 }
 \newcommand{\toptwenty}{top-20 }
@@ -75,6 +92,9 @@
 \newcommand{\vertic}{{\sc VertSampOpt}\xspace}
 \newcommand{\msig}{{\sc MSigDB}\xspace}
 \newcommand{\lincs}{{\sc LINCS}\xspace}
+
+
+%%%%%%%%%%%%% editing tools
 \newcommand{\sinha}[1]{\noindent{\textcolor{blue}{[Saurabh: #1]}}}
 \newcommand{\agp}[1]{\noindent{\textcolor{red}{[Aditya: #1]}}}
 \newcommand{\agpins}[1]{\noindent{\textcolor{red}{#1}}}
@@ -87,18 +107,17 @@
 \newcommand{\todo}[1]{\noindent{\textcolor{orange}{\textbf{[TODO]: #1}}}}
 \newcommand{\needcite}[1]{\noindent{\textcolor{blue}{\textbf{[CITE] #1}}}}
 \newcommand{\expn}[1]{\noindent{\textcolor{blue}{[Expand?]: #1}}}
-\newcommand{\cut}[1]{}
 \newcommand{\trim}[1]{\noindent{\textcolor{magenta}{[Reduce?]: #1}}}
-\newcommand{\eat}[1]{}
 \newcommand{\papertext}[1]{\noindent{\textcolor{blue}{PAPER: #1}}}
-\newcommand{\new}[1]{\noindent{\textcolor{red}{#1}}}
+\newcommand{\cut}[1]{}
+\newcommand{\eat}[1]{}
 \newcommand{\tr}[1]{}
-%\newcommand{\tleftout}[1]{\noindent{\textcolor{blue}{#1}}}
 \newcommand{\tleftout}[1]{}
-\newcommand{\squishlist}{\begin{list}{$\bullet$}{\leftmargin=1.2em \topsep 1pt \itemsep -1pt \parsep 1pt}}
-\newcommand{\squishend}{\end{list}}
-\newcommand{\sampar}[1]{\vspace{3pt}\noindent{\bf #1}}
+\newcommand{\new}[1]{\noindent{\textcolor{red}{#1}}}
+%\newcommand{\tleftout}[1]{\noindent{\textcolor{blue}{#1}}}
 
+
+%%%%%%%%% old supplementary references
 \newcommand{\timetbl}{Supplementary Table 1}
 \newcommand{\fpstbl}{Supplementary Table 2}
 \newcommand{\transfig}{Supplementary Figure 1}
@@ -136,8 +155,8 @@ $^\dagger$These authors contributed equally to this work.
 
 %\abstract{
 %A common but critical task in biological data analysis is the {\em separability} task: finding features that explain the difference between two different classes of objects with high dimensional feature representations, such as genes described by their functional annotations, or gene signatures described by their transcriptomic profiles. We develop an interactive data exploration tool called \genviz for this task that rapidly identifies discriminative feature pairs and outputs the corresponding visualizations. Since quickly finding top-k feature pairs is computationally challenging, especially when the numbers of objects and features are large, we propose a suite of optimizations to make \genviz more responsive, and demonstrate that our optimizations lead to a 400X speedup over competitive baselines for multiple biological data sets. With this speedup, \genviz enables the exploration of more datasets and alternative hypotheses in an interactive fashion. Finally, we apply \genviz to uncover pairs of genes whose transcriptomic responses more significantly discriminate treatments of a given drug.}
-\abstract{\textbf{Motivation:} A common but critical task in biological data analysis is the {\em separability} task: finding features that explain the difference between two different classes of objects with high dimensional feature representations, such as genes described by their functional annotations, or gene signatures described by their transcriptomic profiles.\\
-\textbf{Results:} We develop an interactive data exploration tool called \genviz for this task that rapidly identifies discriminative feature pairs and outputs the corresponding visualizations. Since quickly finding top-k feature pairs is computationally challenging, especially when the numbers of objects and features are large, we propose a suite of optimizations to make \genviz more responsive, and demonstrate that our optimizations lead to a 400X speedup over competitive baselines for multiple biological data sets. With this speedup, \genviz enables the exploration of more datasets and alternative hypotheses in an interactive fashion. Finally, we apply \genviz to uncover pairs of genes whose transcriptomic responses more significantly discriminate treatments of a given drug.\\
+\abstract{\textbf{Motivation:} A common but critical task in biological data analysis is the {\em separability} task: finding features that explain the difference between two different classes of objects with high dimensional feature representations, such as genes described by their functional annotations or gene signatures described by their transcriptomic profiles.\\
+\textbf{Results:} We develop an interactive data exploration tool called \genviz for this task that rapidly identifies discriminative feature pairs and outputs the corresponding visualizations. Since quickly finding top-k feature pairs is computationally challenging, especially when the numbers of objects and features are large, we propose a suite of optimizations to make \genviz more responsive, and demonstrate that our optimizations lead to a 400X speedup over competitive baselines for multiple biological data sets. With this speedup, \genviz enables the exploration of more datasets and alternative hypotheses in an interactive fashion. Finally, we apply \genviz to uncover pairs of genes whose transcriptomic responses more significantly discriminate treatments of different chemotherapy drugs.\\
 \textbf{Availability:} Free webserver at \url{http://genvisage.knoweng.org:443/} with source code at \url{https://github.com/KnowEnG/Genvisage} \\
 %\textbf{Contact:} \href{mailto:adityagp@illinois.edu}{adityagp@illinois.edu}\\
 \textbf{Supplementary information:} Supplementary data are available at \textit{Bioinformatics} online.}
@@ -154,6 +173,10 @@ $^\dagger$These authors contributed equally to this work.
 \clearpage
 \begin{appendices}
 \input{appendix.tex}
+
+\bibliographystyleapp{unsrt}
+\bibliographyapp{ref}
+
 \end{appendices}
 
 \end{document}

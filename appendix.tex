@@ -1,7 +1,8 @@
-\section{Supplementary Note}
+\section{Supplementary Notes}
+
 \subsection{Pre-Transformation Module} \label{app:trans}
 Let us review the process of computing the separability $\theta_{i,j}$. Given a feature pair $(f_i,f_j)$ and the corresponding positive and negative centroids, {\em (i)} we first compute $w_0$, $w_i$ and $w_j$ for $\lhat$\eat{ based on Equation~\ref{eqn:rep_line}}. Next, for each object $o_k$, {\em (ii)} we obtain the predicted label $\eta_{i,j}^{\lhat,k}$ according to Equation~\ref{eqn:est_label}. This step requires two multiplications and three additions. Finally, {\em (iii)} we calculate $\theta_{i,j}^{k}$ and the separability $\theta_{i,j}$ based on Equations in Section~\ref{sec:metric}\eat{Equation~\ref{eqn:s_object} and \ref{eqn:s_line} respectively}. This whole process is repeated for every feature pair candidate. However, there is massive redundancy across the processing of different feature pairs. For instance, when calculating the separability for two different feature pairs $(f_i,f_j)$ and $(f_i,f_{j'})$ with a common $f_i$, $w_i$ is in fact shared, and calculation of $w_i\cdot \mm_{i,k}$ in Equation~\ref{eqn:est_label} is repeated for each object $o_k$.
-\tr{\sinha{is there another work we can cite that has done this?} \silu{Aditya's another paper~\cite{parameswaran2012crowdscreen} did similar trick, but in different problem. Do we want to cite it?}\agp{I think it's too far off.}}
+\tr{\sinha{is there another work we can cite that has done this?} \silu{Aditya's another paper~\citeapp{parameswaran2012crowdscreen} did similar trick, but in different problem. Do we want to cite it?}\agp{I think it's too far off.}}
 
 Given this, we propose the \trans optimization module which will pre-calculate some common computational components once across different features and reuse these components the separability for each feature pair to eliminate the repeated computation. This \trans module transforms the original $\mm_{i,k}$ matrix into another space using our identified common feature pair components and updates the separability score equation accordingly.
 
@@ -22,8 +23,7 @@ We\eat{Equation~\ref{eqn:matrix_transform}} also multiplies
 in the class label of the object, $l_k$,
 rather than repeating this multiplication every time the object is evaluated (see example in \transfig). With this transformation of the feature-object matrix,
 evaluating whether an object was correctly separated is simplified as: if $sign(\widehat{\mm}_{i,k} + \widehat{\mm}_{j,k}) = 1$, then $\theta_{i,j}^{k}=1$; otherwise, $\theta_{i,j}^{k}=0$. \eat{from Equation~\ref{eqn:s_object} into Equation~\ref{eqn:s_object_transform}:
-% \agp{confusing because $L$ is not there in Equation~\ref{eqn:s_object}}\silu{maybe add "Since our focus is on Rocchio-based measure, we replace the separating line $\ell$ in Equation~\ref{eqn:s_object} with the representing line $L$ in Equation~\ref{eqn:s_object_transform}."}
-%, and get rid of checking the real label $l_k$ in Equation~\ref{eqn:s_object}
+
 \begin{equation}\label{eqn:s_object_transform}
 \theta_{i,j}^{k}=\left\{
  \begin{array}{ll}
@@ -32,9 +32,7 @@ evaluating whether an object was correctly separated is simplified as: if $sign(
  \end{array}
  \right.
 \end{equation}
-%\begin{equation}\label{eqn:est_label_transform}
-%\eta_{i,j}^{\lhat,k}=\sign(\widehat{\mm}_{i,k} + \widehat{\mm}_{j,k})
-%\end{equation}
+
 After pre-transformation, we are now ready
 to compute the separability score $\theta_{i,j}$.
 Given a feature pair $(f_i,f_j)$, we can compute $\theta_{i,j}^{k}$
@@ -49,46 +47,9 @@ In the following sections,
 we will consider $\widehat{\mm}$ using pre-transformation instead of $\mm$, and calculate $\theta_{i,j}$ accordingly\eat{
 and Equation~\ref{eqn:s_object_transform} instead of
 Equation~\ref{eqn:est_label} and~\ref{eqn:s_object}}.
-%Hence, by conducting transformation in Equation~\ref{eqn:matrix_transform} and~\ref{eqn:s_object_transform}, we have mapped our problem to a new space.
-
-%\begin{figure}[h]
-%\centering %%% not \center
-%\vspace{-2mm}
-%\subfigure[Pre-Transformation]{\label{fig:transform}\includegraphics[width=.235\textwidth]{fig/transformation.pdf}}
-%\subfigure[Early Termination ($\tau = 1$)]{\label{fig:earlyT}\includegraphics[width=.235\textwidth]{fig/earlyT.pdf}}
-%\vspace{-5mm}
-%\caption{Optimizations for Feature Pair Evaluation. (a) The \trans module is applied once to the original values in the feature-object matrix $\mm$ (above) using Equation~\ref{eqn:matrix_transform} to produce $\widehat{\mm}$ (below). (b) With the \earlyT module, a feature pair can be discarded from consideration for the \topk before all objects are evaluated (above) with even greater speedup potential after re-ordering the objects (below).}
-%\vspace{-8mm}
-%\label{fig:trans_term}
-%\end{figure}
-
-%\begin{example}[Transformation]
-%Figure~\ref{fig:transform} illustrates the transformation for two features, $f_i$ and $f_j$. The top half depicts $\mm_{i,k}$ and $\mm_{j,k}$ before transformation, where green color represents a positive label and red color represents a negative label. In this example, the centroids of the positive and negative objects are $\mu_{i,j}^+=(5,7)$ and $\mu_{i,j}^-=(3,5)$ respectively. Hence, we can rewrite Equation~\ref{eqn:matrix_transform} as $\widehat{\mm}_{i,k} = (2\mm_{i,k}-8)\cdot l_k$ and $\widehat{\mm}_{j,k} = (2\mm_{i,k}-12)\cdot l_k$ for features $f_i$ and $f_j$ respectively. After calculation, we can obtain the values for $\widehat{\mm}_{i,k}$ and $\widehat{\mm}_{j,k}$ shown in the bottom half of Figure~\ref{fig:transform}.
-%\end{example}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%NEED TOGGLE%%%%%%%%%%%%%%%%%%%%%%
-% \begin{figure}[h]
-% \centering
-% \begin{subfigure}{0.235\textwidth}
-% \centering
-% \includegraphics[width=\linewidth]{fig/transformation.pdf}
-% \vspace{-5mm}
-% \caption{Pre-Transformation}%{$\theta_{i,j}^{\ell}$ with Different Lines}
-% \label{fig:transform}
-% \end{subfigure}
-% \begin{subfigure}{.235\textwidth}
-% \centering
-% \includegraphics[width=\linewidth]{fig/earlyT.pdf}
-% \vspace{-5mm}
-% \caption{Early Termination ($\tau = 1$)}%{$\theta_{i,j}^{\lhat}$ with Representative Line}
-% \label{fig:earlyT}
-% \end{subfigure}
-% \caption{Different Methods to Reduce Running Time}
-% \label{fig:metric}
-% \end{figure}
 
 
-\subsection{Sample Size in \sampling} \label{app:sampling}
+\subsection{Estimation Accuracy in \sampling Module} \label{app:sampling}
 We have proposed \sampling for estimating $\theta_{i,j}$ in Section~\ref{ssec:sampling}. Next, we formally quantize the sample set size in Theorem~\ref{them:est}.
 
 \begin{theorem}[Estimation Accuracy]\label{them:est}
@@ -103,17 +64,36 @@ $$
 $$
 \end{proof}
 }
-\noindent We can treat $\log(1/\delta)$ as a constant, e.g., by setting $\delta = 0.05$. Thus, Theorem~\ref{them:est} essentially states that with only $\Omega(\frac{1}{\epsilon^2})$ samples, with probability 95\%, the confidence interval for $\theta_{i,j}$ is $[\tilde{\theta}_{i,j}-\epsilon n, \tilde{\theta}_{i,j}+\epsilon n]$. 
+\noindent We can treat $\log(1/\delta)$ as a constant, e.g., by setting $\delta = 0.05$. Thus, Theorem~\ref{them:est} essentially states that with only $\Omega(\frac{1}{\epsilon^2})$ samples, with probability 95\%, the confidence interval for $\theta_{i,j}$ is $[\tilde{\theta}_{i,j}-\epsilon n, \tilde{\theta}_{i,j}+\epsilon n]$.
 
-\subsection{Example of \traversal} \label{app:trav}
+
+\subsection{Example for \traversal Module} \label{app:trav}
 Assume $m=2\times 10^4$. Initially, the number of possible feature pairs is roughly $\frac{m^2}{2}=2\times 10^8$. However, if we limit the number of considered feature pairs to $\chi=10^7$, we reduce our search space to $\frac{1}{20}$ of the total number of feature pairs. We order the single features by their individual separability scores. In horizontal traversal, only feature pairs with at least one individual feature ranked in the top 500 will be considered; while vertical traversal will consider only feature pairs with both individual features ranked better than 2000.
+
+
+\subsection{Construction of \msig Feature-Object Matrix} \label{app:msig_matrix}
+To construct the feature-object matrix for \msig, which has gene objects and gene property features, we collected prior knowledge about gene annotations and protein homology from several databases.
+Our gene annotations and gene properties were extracted from Gene Ontology terms~\citeapp{gene2014gene},
+PFam domains~\citeapp{finn2015pfam}, and Reactome~\citeapp{fabregat2017reactome}  and KEGG~\citeapp{kanehisa2016kegg} pathways.
+We constructed a heterogeneous  network with nodes for all 22,210 genes and 21,235 properties from these databases and with edges representing their annotations between genes and properties.
+We also created weighted homology-based edges in the network between pairs of genes based on their protein sequence similarity as determined by BLAST scores~\citeapp{altschul1990basic}.
+We used the first phase of the DRaWR algorithm~\citeapp{blatti2016characterizing} with a restart probability of 0.5 to perform a random walk restarting from each gene node on the heterogeneous network, thereby scoring the connectivity of all nodes in the network to the gene.
+For each gene-property pair ($g$, $r$), we assigned the numeric value from the random walk stationary probability distribution that represents not only whether the gene is annotated with that property, but also whether other genes closely related to gene $g$ are annotated with property $r$.
+We thus obtained a feature-object matrix describing each gene (object) as a vector of its strength of association with each property (feature) in light of prior biological knowledge.
+
 
 \subsection{Speedup Analysis for \lincs} \label{app:lincs}
 In Figure~\ref{fig:lincs_time}, we observe over $400\times$ average decrease in the running time of finding the \topk feature pairs that separate the \lincs experiments of a single perturbagen from others. The greatest speedup comes with adding the \sampling module, where only $100K$ feature pair candidates, i.e., $|\cc|$, are checked out of all $250M$ feature pairs (\timetbl). For the selected algorithms with best running times, \horiz and \vertic, the pre-transformation and feature ordering overhead account for an average of $45+35=80s$ of the overall 104 and 94 median seconds respectively.
 
-\section{Supplementary Table}
 
-\subsection{Notations in the Paper}~\label{appT:notation}
+\subsection{Gene Interaction Datasets} \label{app:relation_data}
+For our knowledge bases of protein and gene interactions, we downloaded datasets derived from 8 data sources: STRING~\citeapp{szklarczyk2014string}, Reactome~\citeapp{croft2013reactome}, Pathway Commons~\citeapp{cerami2010pathway}, HumanNet~\citeapp{lee2011prioritizing}, BioGRID~\citeapp{chatr2017biogrid}, Intact~\citeapp{orchard2013mintact}, DIP~\citeapp{salwinski2004database}, and BLAST databases. The datasets were downloaded, harmonized, and mapped to Ensembl gene identifiers using the KnowEnG Knowledge Network Builder \url{https://github.com/KnowEnG/KN_Builder}. The final processed network used in this work can be downloaded from \url{https://github.com/KnowEnG/KN_Fetcher/blob/master/Contents.md#gene}.
+
+
+\section{Supplementary Tables}
+
+\subsection{\genviz Method Notation}\label{appT:notation}
+Notation used in this paper.
 \begin{table}[h]
 \centering
 \vspace{-5mm}
@@ -144,12 +124,13 @@ In Figure~\ref{fig:lincs_time}, we observe over $400\times$ average decrease in 
  $\widehat{\mm}$ & $\mm$ after transformation & $\tilde{\theta}_{i,j}$ & estimated $\theta_{i,j}$\\
  \hline
  \end{tabular}
-\caption{\scriptsize Notation used in this paper.}
+%\caption{\scriptsize Notation used in this paper.}
 \label{tbl:notation}
 \vspace{-18pt}
 \end{table}
 
-\subsection{Time Complexity of Selected Algorithms}~\label{appT:time}
+\subsection{Time Complexity of Selected Algorithms}\label{appT:time}
+Time Complexity of the Selected Algorithms. Here, $m$ and $n$ are the number of features and objects, $\sss$ is the sampled set size, $\chi$ is the limit on the number of feature pairs considered, and $\cc$ is the number of generated feature pair candidates.
 \begin{table}[h]
 \centering
 \vspace{-5mm}
@@ -174,61 +155,68 @@ In Figure~\ref{fig:lincs_time}, we observe over $400\times$ average decrease in 
  \vertic  & $O(mn+\chi|\sss|+|\cc|n)$ \\
  \hline
  \end{tabular}
-\caption{Time Complexity of the Selected Algorithms. Here, $m$ and $n$ are the number of features and objects, $\sss$ is the sampled set size, $\chi$ is the limit on the number of feature pairs considered, and $\cc$ is the number of generated feature pair candidates.}
+%\caption{Time Complexity of the Selected Algorithms. Here, $m$ and $n$ are the number of features and objects, $\sss$ is the sampled set size, $\chi$ is the limit on the number of feature pairs considered, and $\cc$ is the number of generated feature pair candidates.}
 \label{tbl:alg_time}
 \end{table}
 
-\subsection{Details for Running Time Comparison}\label{appT:time}
+\subsection{Running Time Detailed Comparison}\label{appT:time}
 For each dataset collection, MSigDB and LINCS, show two statistics FPsChecked and ObjectsChecked, for each optimization module phase (columns).  FPsChecked is the number of feature pairs evaluated in the phase, and ObjectsChecked is the average number of sample objects that are evaluated accross all feature pairs.
 
-\subsection{Detailed Analysis of 'Improved' Feature Pairs}\label{appT:fp}
+\subsection{In-depth Analysis of 'Improved' Feature Pairs}\label{appT:fp}
 For each drug dataset (col C), we return a limited number of gene feature pairs (cols E,F) that after correction were the most "improved" over their corresponding single feature results either by the change in the corrected\_pvalue (cols H,I,J,N,O) or the change in the feature rankings (cols K,L,M,P).  Pubmed IDs (cols Q,R) are provided when the relationship between the drug and the gene feature were found in the Comparative Toxicogenomics Database (CTD) or by manual literature search (denoted by *-asterisk).  When relationships between the gene features themselves were discovered, the type and strength of the relationships were reported (col S) and the number of relationships quantified (col T).
 
 
-\section{Supplementary Figure}
-\subsection{\trans}~\label{appF:transform}
-\begin{figure}[h]
+\section{Supplementary Figures}
+
+\subsection{Example for \trans Module}~\label{appF:transform}
+The \trans module is applied once to the original values in the feature-object matrix $\mm$ (above) to produce $\widehat{\mm}$ (below). For two features, $f_i$ and $f_j$. The top half depicts $\mm_{i,k}$ and $\mm_{j,k}$ before transformation, where green color represents a positive label and red color represents a negative label. In this example, the centroids of the positive and negative objects are $\mu_{i,j}^+=(5,7)$ and $\mu_{i,j}^-=(3,5)$ respectively. Hence, we can rewrite $\widehat{\mm}_{i,k} = (2\mm_{i,k}-8)\cdot l_k$ and $\widehat{\mm}_{j,k} = (2\mm_{i,k}-12)\cdot l_k$ for features $f_i$ and $f_j$ respectively. After calculation, we can obtain the values for $\widehat{\mm}_{i,k}$ and $\widehat{\mm}_{j,k}$ shown in the bottom half.
+\begin{figure}[!htb]
 \centering %%% not \center
-\vspace{-6mm}
-\includegraphics[width=.235\textwidth]{fig/transformation.eps}
 \vspace{-5mm}
-\caption{The \trans module is applied once to the original values in the feature-object matrix $\mm$ (above) to produce $\widehat{\mm}$ (below). For two features, $f_i$ and $f_j$. The top half depicts $\mm_{i,k}$ and $\mm_{j,k}$ before transformation, where green color represents a positive label and red color represents a negative label. In this example, the centroids of the positive and negative objects are $\mu_{i,j}^+=(5,7)$ and $\mu_{i,j}^-=(3,5)$ respectively. Hence, we can rewrite $\widehat{\mm}_{i,k} = (2\mm_{i,k}-8)\cdot l_k$ and $\widehat{\mm}_{j,k} = (2\mm_{i,k}-12)\cdot l_k$ for features $f_i$ and $f_j$ respectively. After calculation, we can obtain the values for $\widehat{\mm}_{i,k}$ and $\widehat{\mm}_{j,k}$ shown in the bottom half.}
-\vspace{-8mm}
+\includegraphics[width=.235\textwidth]{fig/transformation.eps}
+%\vspace{-5mm}
+%\caption{The \trans module is applied once to the original values in the feature-object matrix $\mm$ (above) to produce $\widehat{\mm}$ (below). For two features, $f_i$ and $f_j$. The top half depicts $\mm_{i,k}$ and $\mm_{j,k}$ before transformation, where green color represents a positive label and red color represents a negative label. In this example, the centroids of the positive and negative objects are $\mu_{i,j}^+=(5,7)$ and $\mu_{i,j}^-=(3,5)$ respectively. Hence, we can rewrite $\widehat{\mm}_{i,k} = (2\mm_{i,k}-8)\cdot l_k$ and $\widehat{\mm}_{j,k} = (2\mm_{i,k}-12)\cdot l_k$ for features $f_i$ and $f_j$ respectively. After calculation, we can obtain the values for $\widehat{\mm}_{i,k}$ and $\widehat{\mm}_{j,k}$ shown in the bottom half.}
+%\vspace{-8mm}
 \label{fig:trans_term}
 \end{figure}
 
 
-\subsection{\traversal}~\label{appF:traversal}
-\begin{figure}[h]
+\subsection{Illustration for \traversal Module}~\label{appF:traversal}
+After feature ordering, \traversal enables \genviz is able to examine the feature pair search space (a) horizontally or (b) vertically.
+\begin{figure}[!htb]
  \centering
- \vspace{-5mm}
+% \vspace{-5mm}
  \includegraphics[width=0.7\linewidth]{fig/traversal.eps}
- \vspace{-5mm}
-\caption{After feature ordering, \traversal enables \genviz is able to examine the feature pair search space (a) horizontally or (b) vertically.}
-\vspace{-5mm}
+% \vspace{-5mm}
+%\caption{After feature ordering, \traversal enables \genviz is able to examine the feature pair search space (a) horizontally or (b) vertically.}
+%\vspace{-5mm}
 \label{fig:traversal}
 \end{figure}
 
+
 \subsection{Separability Score Comparison}~\label{appF:exp_sep}
-\begin{figure}[h]
+Comparison of Brute Force-based and Rocchio-based separability score. (a) For each of 10 datasets, we display the ratio of the true separability score between the best feature pair chosen by brute force and by the Rocchio-based method. (b) For each dataset, we display the ratio of the true separability score and the Rocchio-based separability score for the best feature pair selected using Rocchio-based method.
+\begin{figure}[!htb]
 \centering %%% not \center
-\vspace{-4mm}
+\vspace{-5mm}
 \subfigure[Best Feature Pair Comparison]{\label{fig:brute_rocchio_ratio}\includegraphics[width=.235\textwidth]{fig/rocchio_brute_ratio.eps}}
 \subfigure[Measure Comparison]{\label{fig:brute_rocchio_score}\includegraphics[width=.235\textwidth]{fig/rocchio_brute_score.eps}}
-\vspace{-5mm}
-\caption{Comparison of Brute Force-based and Rocchio-based separability score. (a) For each of 10 datasets, we display the ratio of the true separability score between the best feature pair chosen by brute force and by the Rocchio-based method. (b) For each dataset, we display the ratio of the true separability score and the Rocchio-based separability score for the best feature pair selected using Rocchio-based method.}
-\vspace{-5mm}
+%\vspace{-5mm}
+%\caption{Comparison of Brute Force-based and Rocchio-based separability score. (a) For each of 10 datasets, we display the ratio of the true separability score between the best feature pair chosen by brute force and by the Rocchio-based method. (b) For each dataset, we display the ratio of the true separability score and the Rocchio-based separability score for the best feature pair selected using Rocchio-based method.}
+%\vspace{-5mm}
 \label{fig:brute_rocchio}
 \end{figure}
 
+
 \subsection{Histogram of $improv\_quot$}~\label{appF_exp_hist}
-\begin{figure}[h]
+Histogram of $improv\_quot$. For the \toptwenty feature pairs from all runs from the (a) \msig and (b) \lincs datasets, distribution of the improvement of the feature pair significance over the corresponding single feature significance. The red line shows the significance threshold of 5.
+\begin{figure}[!htb]
 \centering %%% not \center
 \vspace{-5mm}
 \subfigure[\msig]{\label{fig:msig_histogram_diff}\includegraphics[width=.235\textwidth]{fig/histogram_msig_diff_pval.eps}}
 \subfigure[\lincs]{\label{fig:lincs_histogram_diff}\includegraphics[width=.235\textwidth]{fig/histogram_lincs_diff_pval.eps}}
-\vspace{-5mm}
-\caption{Histogram of $improv\_quot$. For the \toptwenty feature pairs from all runs from the (a) \msig and (b) \lincs datasets, distribution of the improvement of the feature pair significance over the corresponding single feature significance. The red line shows the significance threshold of 5.}
-\vspace{-3mm}
+%\vspace{-5mm}
+%\caption{Histogram of $improv\_quot$. For the \toptwenty feature pairs from all runs from the (a) \msig and (b) \lincs datasets, distribution of the improvement of the feature pair significance over the corresponding single feature significance. The red line shows the significance threshold of 5.}
+%\vspace{-3mm}
 \label{fig:histogram_diff}
 \end{figure}
