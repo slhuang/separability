@@ -15,6 +15,9 @@ echo "creating bibtex"
 bibtex separability
 echo "creating PDF"
 pdflatex separability.tex
+bibtex separability.aux
+bibtex app.aux
+pdflatex separability.tex
 pdflatex separability.tex
 
 rm -rf *.aux
@@ -23,3 +26,4 @@ rm -rf *.blg
 #rm -rf *.log
 rm -rf *.out
 echo "DONE"
+
