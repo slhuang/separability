@@ -13,6 +13,7 @@ pdflatex separability.tex
 echo "creating bibtex"
 #python gdoc2latex.py "https://docs.google.com/document/d/1KLq-8gsntsIpZA5LIHDXUB2sR849G8oqWaGuVYF78u4/edit?usp=sharing" > ref.bib
 bibtex separability
+bibtex app
 echo "creating PDF"
 pdflatex separability.tex
 pdflatex separability.tex
@@ -20,6 +21,6 @@ pdflatex separability.tex
 rm -rf *.aux
 rm -rf *.bbl
 rm -rf *.blg
-#rm -rf *.log
+rm -rf *.log
 rm -rf *.out
 echo "DONE"
