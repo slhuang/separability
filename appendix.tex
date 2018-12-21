@@ -178,7 +178,7 @@ The \trans module is applied once to the original values in the feature-object m
 \includegraphics[width=.235\textwidth]{fig/transformation.eps}
 %\vspace{-5mm}
 %\caption{The \trans module is applied once to the original values in the feature-object matrix $\mm$ (above) to produce $\widehat{\mm}$ (below). For two features, $f_i$ and $f_j$. The top half depicts $\mm_{i,k}$ and $\mm_{j,k}$ before transformation, where green color represents a positive label and red color represents a negative label. In this example, the centroids of the positive and negative objects are $\mu_{i,j}^+=(5,7)$ and $\mu_{i,j}^-=(3,5)$ respectively. Hence, we can rewrite $\widehat{\mm}_{i,k} = (2\mm_{i,k}-8)\cdot l_k$ and $\widehat{\mm}_{j,k} = (2\mm_{i,k}-12)\cdot l_k$ for features $f_i$ and $f_j$ respectively. After calculation, we can obtain the values for $\widehat{\mm}_{i,k}$ and $\widehat{\mm}_{j,k}$ shown in the bottom half.}
-%\vspace{-8mm}
+\vspace{-8mm}
 \label{fig:trans_term}
 \end{figure}
 
@@ -212,7 +212,7 @@ Comparison of Brute Force-based and Rocchio-based separability score. (a) For ea
 \subfigure[Measure Comparison]{\label{fig:brute_rocchio_score}\includegraphics[width=.235\textwidth]{fig/rocchio_brute_score.eps}}
 %\vspace{-5mm}
 %\caption{Comparison of Brute Force-based and Rocchio-based separability score. (a) For each of 10 datasets, we display the ratio of the true separability score between the best feature pair chosen by brute force and by the Rocchio-based method. (b) For each dataset, we display the ratio of the true separability score and the Rocchio-based separability score for the best feature pair selected using Rocchio-based method.}
-%\vspace{-5mm}
+\vspace{-5mm}
 \label{fig:brute_rocchio}
 \end{figure}
 
@@ -226,6 +226,6 @@ Histogram of $improv\_quot$. For the \toptwenty feature pairs from all runs from
 \subfigure[\lincs]{\label{fig:lincs_histogram_diff}\includegraphics[width=.235\textwidth]{fig/histogram_lincs_diff_pval.eps}}
 %\vspace{-5mm}
 %\caption{Histogram of $improv\_quot$. For the \toptwenty feature pairs from all runs from the (a) \msig and (b) \lincs datasets, distribution of the improvement of the feature pair significance over the corresponding single feature significance. The red line shows the significance threshold of 5.}
-%\vspace{-3mm}
+\vspace{-3mm}
 \label{fig:histogram_diff}
 \end{figure}
