@@ -53,7 +53,7 @@ Given a matrix of values for object features
 and two labeled object sets, \genviz rapidly identifies
 the top ranking pairs of features
 that most clearly separate the objects of
-the different classes.
+the different classes. 
 We show that feature pairs identified by \genviz often more significantly
 discriminate between the object classes than the corresponding
 best ranking individual features, even after accounting for the larger search space.
@@ -76,7 +76,8 @@ Given (left) a feature-object matrix and green positive and red negative class l
 \vspace{-15pt}
 \end{figure*}
 
-Quickly identifying top feature pairs
+\new{We note that feature pair extraction are widely adopted in the literature and has been shown to be effective in many different biological settings~\cite{hanczar2007feature,geman2004classifying,shi2011top, shen2017identification,sinha2008systematic, watkinson2008identification}. In particular, \cite{geman2004classifying, shi2011top} demonstrate that predictors with gene-pairs as input features are more robust to normalization and can achieve better model performance, compared to predictors with only single genes as features. However, }
+quickly identifying top feature pairs
 in typical datasets
 is a challenging task due to some fundamental limitations:
 first, the number of feature pairs can be large;
@@ -93,7 +94,8 @@ and for each feature pair we need to at least scan all the objects, if using a n
 Therefore, sophisticated methods are required
 to make the task of ranking feature pairs interactive.
 
-In developing \genviz,
+\new{Most existing works~\cite{shen2017identification, basu2018iterative,shah2014random,schwarz2010safari} employ machine learning approaches, heuristically returning feature pairs without really exploring the full search space. To the contrary, \genviz aims to provide optimal results by exhaustively searching over the full space, while employing a suit of optimizations to speed up the whole process. Specifically, }
+in developing \genviz,
 we identified a measure to score the separability
 of a given feature pair for two object classes.
 This measure is conducive to
@@ -105,6 +107,7 @@ Satisfying both of these requirements
 enables \genviz to support interactive separability analysis
 in a manner that promotes the generation and prioritization
 of hypotheses for further investigation.
+\new{Other metrics, e.g., synergy in \cite{watkinson2008identification}, have been proposed for evaluating the utility of feature pairs. However, such metrics can hardly benefit from optimization techniques and thus result in a very long running time even with parallel computing as reported in \cite{watkinson2008identification}. Indeed, similar metric as in \genviz, has been adopted in \cite{unger2010linear} for separating two classes of biological samples, however, with no focus on improving the efficiency~\cite{unger2010linear}.}
 Using this separability measure, we develop a suite of novel
 optimizations to make \genviz interactive for realistic data set sizes,
 targeting: {\em (a)} elimination of repeated computation;
@@ -206,6 +209,8 @@ We now formally define the separability problem.
 \begin{formulation}[Separability]\label{prob:separability}
 Given a feature-object matrix $\mm$ and two labeled object sets $(\oo_+,\oo_-)$, identify the \topk feature pairs $(f_i,f_j)$ that separate $\oo_+$ from $\oo_-$ based on a given separability metric.
 \end{formulation}
+
+
 \noindent %Here a separability metric is a scoring function for any given feature pair, and \topk feature pairs refer to the $k$ feature pairs with the highest score under the separability metric.
 We will describe our separability metric in Section~\ref{sec:metric}, and then discuss optimization techniques in Section~\ref{sec:opt}. The notation used in the description of the method is summarized in Supplementary Table~\ref{appT:notation}.
 
@@ -216,6 +221,7 @@ We will describe our separability metric in Section~\ref{sec:metric}, and then d
 
 Given a feature pair $(f_i,f_j)$ as axes, we can visualize the object sets $\oo_+$ and $\oo_-$ in a 2-D space, where each object corresponds to a point with x-value and y-value as the object's value on feature $f_i$ and $f_j$ respectively. A desirable (i.e., both interesting and interpretable) visualization would be one in which the objects are {\em linearly separated}, defined as follows. Two sets of objects, i.e., $\oo_+$ and $\oo_-$, are said to be \emph{linearly separable}~\cite{medin1981linear} if there exists at least one straight line such that $\oo_+$ and $\oo_-$ are on opposite side of it.
 We focus on metrics that capture this linear separation, since it corresponds to an intuitive 2-D visualization.
+\new{Indeed, the goal of identifying pairs of genomic features that linearly separate between two classes of biological samples has been studied previously. For example, Unger \& Chor \cite{unger2010linear} sought to identify all gene pairs whose expression levels achieve perfect separation between two classes. Similarly, Sinha~\cite{sinha2003discriminative} proposed methods to identify pairs of motifs that discriminate two classes of sequences. Next, we will describe the metric formally.}
 \eat{Given a feature pair $(f_i,f_j)$, we can represent a line $\ell$ as $w_i\cdot x + w_j\cdot y +w_0 =0$, where $x$ and $y$ represent an object's value on feature $f_i$ and $f_j$ respectively, and $w_0$, $w_i$ and $w_j$ are coefficients, where $w_j>0$.
 \eat{
 \begin{equation}\label{eqn:line}
