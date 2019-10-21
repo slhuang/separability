@@ -2,7 +2,7 @@
 
 \subsection{Pre-Transformation Module} \label{app:trans}
 Let us review the process of computing the separability $\theta_{i,j}$. Given a feature pair $(f_i,f_j)$ and the corresponding positive and negative centroids, {\em (i)} we first compute $w_0$, $w_i$ and $w_j$ for $\lhat$\eat{ based on Equation~\ref{eqn:rep_line}}. Next, for each object $o_k$, {\em (ii)} we obtain the predicted label $\eta_{i,j}^{\lhat,k}$ according to Equation~\ref{eqn:est_label}. This step requires two multiplications and three additions. Finally, {\em (iii)} we calculate $\theta_{i,j}^{k}$ and the separability $\theta_{i,j}$ based on formulations in Section~\ref{sec:metric}\eat{Equation~\ref{eqn:s_object} and \ref{eqn:s_line} respectively}. This whole process is repeated for every feature pair candidate. However, there is massive redundancy across the processing of different feature pairs. For instance, when calculating the separability for two different feature pairs $(f_i,f_j)$ and $(f_i,f_{j'})$ with a common $f_i$, $w_i$ is in fact shared, and calculation of $w_i\cdot \mm_{i,k}$ in Equation~\ref{eqn:est_label} is repeated for each object $o_k$.
-\tr{\sinha{is there another work we can cite that has done this?} \silu{Aditya's another paper~\citeapp{parameswaran2012crowdscreen} did similar trick, but in different problem. Do we want to cite it?}\agp{I think it's too far off.}}
+\tr{\sinha{is there another work we can cite that has done this?} \silu{Aditya's another paper~\cite{parameswaran2012crowdscreen} did similar trick, but in different problem. Do we want to cite it?}\agp{I think it's too far off.}}
 
 Given this, we propose the \trans optimization module which will pre-calculate some common computational components once across different features and reuse these components the separability for each feature pair to eliminate the repeated computation. This \trans module transforms the original $\mm_{i,k}$ matrix into another space using our identified common feature pair components and updates the separability score equation accordingly.
 
@@ -69,11 +69,11 @@ $$
 
 \subsection{Construction of \msig Feature-Object Matrix} \label{app:msig_matrix}
 To construct the feature-object matrix for \msig, which has gene objects and gene property features, we collected prior knowledge about gene annotations and protein homology from several databases.
-Our gene annotations and gene properties were extracted from Gene Ontology terms~\citeapp{gene2014gene},
-PFam domains~\citeapp{finn2015pfam}, and Reactome~\citeapp{fabregat2017reactome}  and KEGG~\citeapp{kanehisa2016kegg} pathways.
+Our gene annotations and gene properties were extracted from Gene Ontology terms~\cite{gene2014gene},
+PFam domains~\cite{finn2015pfam}, and Reactome~\cite{fabregat2017reactome}  and KEGG~\cite{kanehisa2016kegg} pathways.
 We constructed a heterogeneous  network with nodes for all 22,210 genes and 21,235 properties from these databases and with edges representing their annotations between genes and properties.
-We also created weighted homology-based edges in the network between pairs of genes based on their protein sequence similarity as determined by BLAST scores~\citeapp{altschul1990basic}.
-We used the first phase of the DRaWR algorithm~\citeapp{blatti2016characterizing} with a restart probability of 0.5 to perform a random walk restarting from each gene node on the heterogeneous network, thereby scoring the connectivity of all nodes in the network to the gene.
+We also created weighted homology-based edges in the network between pairs of genes based on their protein sequence similarity as determined by BLAST scores~\cite{altschul1990basic}.
+We used the first phase of the DRaWR algorithm~\cite{blatti2016characterizing} with a restart probability of 0.5 to perform a random walk restarting from each gene node on the heterogeneous network, thereby scoring the connectivity of all nodes in the network to the gene.
 For each gene-property pair ($g$, $r$), we assigned the numeric value from the random walk stationary probability distribution that represents not only whether the gene is annotated with that property, but also whether other genes closely related to gene $g$ are annotated with property $r$.
 We thus obtained a feature-object matrix describing each gene (object) as a vector of its strength of association with each property (feature) in light of prior biological knowledge.
 
@@ -84,9 +84,9 @@ In Figure~\ref{fig:lincs_time}, we observe over $400\times$ average decrease in 
 
 \subsection{Gene Interaction Datasets} \label{app:relation_data}
 For our knowledge bases of protein and gene interactions, we downloaded datasets derived from 8 data sources:
-STRING~\citeapp{szklarczyk2014string}, Reactome~\citeapp{croft2013reactome}, Pathway Commons~\citeapp{cerami2010pathway},
-HumanNet~\citeapp{lee2011prioritizing}, BioGRID~\citeapp{chatr2017biogrid}, Intact~\citeapp{orchard2013mintact},
-DIP~\citeapp{salwinski2004database}, and BLAST~\citeapp{altschul1990basic} databases. 
+STRING~\cite{szklarczyk2014string}, Reactome~\cite{croft2013reactome}, Pathway Commons~\cite{cerami2010pathway},
+HumanNet~\cite{lee2011prioritizing}, BioGRID~\cite{chatr2017biogrid}, Intact~\cite{orchard2013mintact},
+DIP~\cite{salwinski2004database}, and BLAST~\cite{altschul1990basic} databases. 
 The datasets were downloaded, harmonized, and mapped to Ensembl gene identifiers using the 
 KnowEnG Knowledge Network Builder \url{https://github.com/KnowEnG/KN_Builder}. 
 The final processed network used in this work can be downloaded from \url{https://github.com/KnowEnG/KN_Fetcher/blob/master/Contents.md#gene}.

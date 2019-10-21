@@ -42,12 +42,16 @@ regression with LASSO regularization~\cite{peng2010regularized}
 or pattern mining from random forest models~\cite{breiman2001random}.
 However, running such methods on datasets with
 tens of thousands of features is extremely time-intensive.
-Motivated by these observations,
-we sought to build a tool that strikes a balance between the
-two above-mentioned ``extreme''
-strategies, enabling us to retrieve more than just the best {\em singular} features, and doing so in an {\em interactive} manner.
 
-We present \genviz,
+\new{To balance between the two above-mentioned ``extreme'' strategies, people have historically looked at feature pairs, which is more informative than single features and not as complex as general machine learning algorithms. Existing works~\cite{hanczar2007feature,geman2004classifying,shi2011top, shen2017identification,sinha2008systematic, watkinson2008identification} have shown that feature pair extraction is an effective approach in many different biological settings. In particular, \cite{geman2004classifying, shi2011top} demonstrate that predictors using gene-pairs as input features are more robust to normalization and can achieve better model performance, compared to predictors using only single genes as features. To identify top feature pairs, some existing works~\cite{shen2017identification, basu2018iterative,shah2014random,schwarz2010safari} employ machine learning approaches, heuristically returning feature pairs without really exploring the full search space. As a result of heuristic, there is no guarantee on the quality of the returned feature pairs. On the other hand, other works~\cite{watkinson2008identification} aim to provide optimal results by exhaustively searching over the full space. However, they do not scale to a large number of features and samples. This is partially due to the selection of the separability metric. For instance, synergy is proposed in \cite{watkinson2008identification} for evaluating the utility of feature pairs. Metrics like synergy aim to capture not only linear separability but also non-linear separability. Consequently, the intrinsic complexity of these metrics makes them difficult to benefit from optimization techniques and thus result in a very long running time even with parallel computing as reported in \cite{watkinson2008identification}. To the contrary, metrics based on linear separability has limited coverage of different separability scenarios, but is more intuitive to the users and in the meantime enables optimizations. Indeed, using linear separability metric to identify pairs of genomic features between two classes of biological samples has been studied previously. For example, Unger \& Chor \cite{unger2010linear} sought to identify all gene pairs whose expression levels achieve perfect separation between two classes. Similarly, Sinha~\cite{sinha2003discriminative} proposed methods to identify pairs of motifs that discriminate two classes of sequences. However, none of them focus on improving the efficiency.}
+
+
+%Indeed, \cite{unger2010linear} adopted linear separability metric for their problem, but with no focus on how to improve the efficiency~\cite{unger2010linear}
+
+
+%{Motivated by these observations, we sought to build a tool that strikes a balance between the two above-mentioned ``extreme'' strategies, enabling us to retrieve more than just the best {\em singular} features, and doing so in an {\em interactive} manner.}
+
+Motivated by these observations, we present \genviz,
 an interactive data exploration tool to address the separability problem.
 Given a matrix of values for object features
 and two labeled object sets, \genviz rapidly identifies
@@ -76,8 +80,8 @@ Given (left) a feature-object matrix and green positive and red negative class l
 \vspace{-15pt}
 \end{figure*}
 
-\new{We note that feature pair extraction are widely adopted in the literature and has been shown to be effective in many different biological settings~\cite{hanczar2007feature,geman2004classifying,shi2011top, shen2017identification,sinha2008systematic, watkinson2008identification}. In particular, \cite{geman2004classifying, shi2011top} demonstrate that predictors with gene-pairs as input features are more robust to normalization and can achieve better model performance, compared to predictors with only single genes as features. However, }
-quickly identifying top feature pairs
+
+Quickly identifying top feature pairs
 in typical datasets
 is a challenging task due to some fundamental limitations:
 first, the number of feature pairs can be large;
@@ -94,8 +98,8 @@ and for each feature pair we need to at least scan all the objects, if using a n
 Therefore, sophisticated methods are required
 to make the task of ranking feature pairs interactive.
 
-\new{Most existing works~\cite{shen2017identification, basu2018iterative,shah2014random,schwarz2010safari} employ machine learning approaches, heuristically returning feature pairs without really exploring the full search space. To the contrary, \genviz aims to provide optimal results by exhaustively searching over the full space, while employing a suit of optimizations to speed up the whole process. Specifically, }
-in developing \genviz,
+
+In developing \genviz,
 we identified a measure to score the separability
 of a given feature pair for two object classes.
 This measure is conducive to
@@ -107,7 +111,6 @@ Satisfying both of these requirements
 enables \genviz to support interactive separability analysis
 in a manner that promotes the generation and prioritization
 of hypotheses for further investigation.
-\new{Other metrics, e.g., synergy in \cite{watkinson2008identification}, have been proposed for evaluating the utility of feature pairs. However, such metrics can hardly benefit from optimization techniques and thus result in a very long running time even with parallel computing as reported in \cite{watkinson2008identification}. Indeed, similar metric as in \genviz, has been adopted in \cite{unger2010linear} for separating two classes of biological samples, however, with no focus on improving the efficiency~\cite{unger2010linear}.}
 Using this separability measure, we develop a suite of novel
 optimizations to make \genviz interactive for realistic data set sizes,
 targeting: {\em (a)} elimination of repeated computation;
@@ -221,7 +224,6 @@ We will describe our separability metric in Section~\ref{sec:metric}, and then d
 
 Given a feature pair $(f_i,f_j)$ as axes, we can visualize the object sets $\oo_+$ and $\oo_-$ in a 2-D space, where each object corresponds to a point with x-value and y-value as the object's value on feature $f_i$ and $f_j$ respectively. A desirable (i.e., both interesting and interpretable) visualization would be one in which the objects are {\em linearly separated}, defined as follows. Two sets of objects, i.e., $\oo_+$ and $\oo_-$, are said to be \emph{linearly separable}~\cite{medin1981linear} if there exists at least one straight line such that $\oo_+$ and $\oo_-$ are on opposite side of it.
 We focus on metrics that capture this linear separation, since it corresponds to an intuitive 2-D visualization.
-\new{Indeed, the goal of identifying pairs of genomic features that linearly separate between two classes of biological samples has been studied previously. For example, Unger \& Chor \cite{unger2010linear} sought to identify all gene pairs whose expression levels achieve perfect separation between two classes. Similarly, Sinha~\cite{sinha2003discriminative} proposed methods to identify pairs of motifs that discriminate two classes of sequences. Next, we will describe the metric formally.}
 \eat{Given a feature pair $(f_i,f_j)$, we can represent a line $\ell$ as $w_i\cdot x + w_j\cdot y +w_0 =0$, where $x$ and $y$ represent an object's value on feature $f_i$ and $f_j$ respectively, and $w_0$, $w_i$ and $w_j$ are coefficients, where $w_j>0$.
 \eat{
 \begin{equation}\label{eqn:line}
