@@ -5,21 +5,21 @@
 %
 % -- IMPORTANT NOTE
 %
-% This template contains comments intended 
-% to minimize problems and delays during our production 
+% This template contains comments intended
+% to minimize problems and delays during our production
 % process. Please follow the template instructions
 % whenever possible.
 %
-% % % % % % % % % % % % % % % % % % % % % % % 
+% % % % % % % % % % % % % % % % % % % % % % %
 %
-% Once your paper is accepted for publication, 
-% PLEASE REMOVE ALL TRACKED CHANGES in this file 
-% and leave only the final text of your manuscript. 
+% Once your paper is accepted for publication,
+% PLEASE REMOVE ALL TRACKED CHANGES in this file
+% and leave only the final text of your manuscript.
 % PLOS recommends the use of latexdiff to track changes during review, as this will help to maintain a clean tex file.
 % Visit https://www.ctan.org/pkg/latexdiff?lang=en for info or contact us at latex@plos.org.
 %
 %
-% There are no restrictions on package use within the LaTeX files except that 
+% There are no restrictions on package use within the LaTeX files except that
 % no packages listed in the template may be deleted.
 %
 % Please do not include colors or graphics in the text.
@@ -33,8 +33,8 @@
 % Please include tables/figure captions directly after the paragraph where they are first cited in the text.
 %
 % DO NOT INCLUDE GRAPHICS IN YOUR MANUSCRIPT
-% - Figures should be uploaded separately from your manuscript file. 
-% - Figures generated using LaTeX should be extracted and removed from the PDF before submission. 
+% - Figures should be uploaded separately from your manuscript file.
+% - Figures generated using LaTeX should be extracted and removed from the PDF before submission.
 % - Figures containing multiple panels/subfigures must be combined into one image file before submission.
 % For figure citations, please use "Fig" instead of "Figure".
 % See http://journals.plos.org/plosone/s/figures for PLOS figure guidelines.
@@ -58,15 +58,15 @@
 %
 % Do not include text that is not math in the math environment. For example, CO2 should be written as CO\textsubscript{2} instead of CO$_2$.
 %
-% Please add line breaks to long display equations when possible in order to fit size of the column. 
+% Please add line breaks to long display equations when possible in order to fit size of the column.
 %
 % For inline equations, please do not include punctuation (commas, etc) within the math environment unless this is part of the equation.
 %
-% When adding superscript or subscripts outside of brackets/braces, please group using {}.  For example, change "[U(D,E,\gamma)]^2" to "{[U(D,E,\gamma)]}^2". 
+% When adding superscript or subscripts outside of brackets/braces, please group using {}.  For example, change "[U(D,E,\gamma)]^2" to "{[U(D,E,\gamma)]}^2".
 %
 % Do not use \cal for caligraphic font.  Instead, use \mathcal{}
 %
-% % % % % % % % % % % % % % % % % % % % % % % % 
+% % % % % % % % % % % % % % % % % % % % % % % %
 %
 % Please contact latex@plos.org with any questions.
 %
@@ -125,13 +125,13 @@
 
 
 % Remove comment for double spacing
-%\usepackage{setspace} 
+%\usepackage{setspace}
 %\doublespacing
 
 % Text layout
 \raggedright
 \setlength{\parindent}{0.5cm}
-\textwidth 5.25in 
+\textwidth 5.25in
 \textheight 8.75in
 
 % Bold the 'Figure #' in the caption and separate it from the title/caption with a period
@@ -313,7 +313,7 @@ Aditya Parameswaran\textsuperscript{1,2,3\dag},
 \bigskip
 
 % Insert additional author notes using the symbols described below. Insert symbol callouts after author names as necessary.
-% 
+%
 % Remove or comment out the author notes below if they aren't used.
 %
 % Primary Equal Contribution Note
@@ -331,7 +331,7 @@ Aditya Parameswaran\textsuperscript{1,2,3\dag},
 
 % % Current address notes
 % \textcurrency Current Address: Dept/Program/Center, Institution Name, City, State, Country % change symbol to "\textcurrency a" if more than one current address note
-% % \textcurrency b Insert second current address 
+% % \textcurrency b Insert second current address
 % % \textcurrency c Insert third current address
 
 % % Deceased author note
@@ -346,19 +346,38 @@ Aditya Parameswaran\textsuperscript{1,2,3\dag},
 \end{flushleft}
 % Please keep the abstract below 300 words
 \section*{Abstract}
-\textbf{Motivation.} \new{A common but critical task in genomic data analysis is one of {\em separability}: finding features that {\em explain the difference} between two classes of biological objects described by high-dimensional feature vectors}, such as genes described by their functional annotations, or gene signatures described by their transcriptomic profiles.\\
-\noindent 
-\textbf{Results.} We develop an \new{interactive exploration} tool called \genviz that rapidly identifies discriminative feature pairs and \new{displays} the corresponding visualizations. Since quickly finding top-k feature pairs is computationally challenging, especially when the numbers of objects and features are large, we propose a suite of optimizations to make \genviz more responsive, and demonstrate that our optimizations lead to a \new{{\em 400X}} speedup over competitive baselines for multiple biological data sets. With this speedup, \genviz enables the exploration of more datasets \new{as well as alternate} hypotheses in an interactive fashion. We apply \genviz to uncover pairs of genes whose transcriptomic responses \new{\sout{more}} significantly discriminate treatments of different chemotherapy drugs.\\
+\textbf{Motivation.} \new{A common but critical task in genomic data analysis is 
+finding features (often genes) that {\em separate} and potentially explain the 
+difference between two classes of biological objects (e.g. healthy versus 
+diseased patients).  As lower-cost, high-throughput experimental methods greatly 
+increase the number of samples that are assayed as objects for analysis, 
+computational methods are needed to quickly provide insights into 
+high-dimensional datasets with tens of thousands of objects and features.}\\
+\noindent
+\textbf{Results.} We develop an \new{interactive exploration} tool called 
+\genviz that \new{specializes in rapidly discovering the most discriminative 
+feature pairs in a dataset} and \new{displaying} the corresponding 
+visualizations. Since quickly finding top feature pairs is computationally 
+challenging, especially when the numbers of objects and features are large, we 
+propose a suite of optimizations to make \genviz more responsive and demonstrate 
+that our optimizations lead to a \new{{\em 400X}} speedup over competitive 
+baselines for multiple biological data sets. With this speedup, \genviz enables 
+the exploration of more \new{large-scale} datasets \new{and alternate} 
+hypotheses in an interactive fashion. We apply \genviz to uncover pairs of genes 
+whose transcriptomic responses \new{\sout{more}} significantly discriminate 
+treatments of \new{\sout{different} several} chemotherapy drugs.\\
 
-\noindent \textbf{Availability.} Free webserver at \url{http://genvisage.knoweng.org:443/} with source code at \url{https://github.com/KnowEnG/Genvisage} \\
+\noindent \textbf{Availability.} Free webserver at 
+\url{http://genvisage.knoweng.org:443/} with source code at 
+\url{https://github.com/KnowEnG/Genvisage} \\
 
 \linenumbers
 
 \input{body_short.tex}
 
 % Please keep the Author Summary between 150 and 200 words
-% Use first person. PLOS ONE authors please skip this step. 
-% Author Summary not valid for PLOS ONE submissions.   
+% Use first person. PLOS ONE authors please skip this step.
+% Author Summary not valid for PLOS ONE submissions.
 % \section*{Author summary}
 % Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eget porta erat. Morbi consectetur est vel gravida pretium. Suspendisse ut dui eu ante cursus gravida non sed sem. Nullam sapien tellus, commodo id velit id, eleifend volutpat quam. Phasellus mauris velit, dapibus finibus elementum vel, pulvinar non tellus. Nunc pellentesque pretium diam, quis maximus dolor faucibus id. Nunc convallis sodales ante, ut ullamcorper est egestas vitae. Nam sit amet enim ultrices, ultrices elit pulvinar, volutpat risus.
 
@@ -412,8 +431,8 @@ Aditya Parameswaran\textsuperscript{1,2,3\dag},
 
 % %PLOS does not support heading levels beyond the 3rd (no 4th level headings).
 % \subsection*{\lorem\ and \ipsum\ nunc blandit a tortor}
-% \subsubsection*{3rd level heading} 
-% Maecenas convallis mauris sit amet sem ultrices gravida. Etiam eget sapien nibh. Sed ac ipsum eget enim egestas ullamcorper nec euismod ligula. Curabitur fringilla pulvinar lectus consectetur pellentesque. Quisque augue sem, tincidunt sit amet feugiat eget, ullamcorper sed velit. Sed non aliquet felis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris commodo justo ac dui pretium imperdiet. Sed suscipit iaculis mi at feugiat. 
+% \subsubsection*{3rd level heading}
+% Maecenas convallis mauris sit amet sem ultrices gravida. Etiam eget sapien nibh. Sed ac ipsum eget enim egestas ullamcorper nec euismod ligula. Curabitur fringilla pulvinar lectus consectetur pellentesque. Quisque augue sem, tincidunt sit amet feugiat eget, ullamcorper sed velit. Sed non aliquet felis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris commodo justo ac dui pretium imperdiet. Sed suscipit iaculis mi at feugiat.
 
 % \begin{enumerate}
 % 	\item{react}
@@ -437,7 +456,7 @@ Aditya Parameswaran\textsuperscript{1,2,3\dag},
 
 % \section*{Conclusion}
 
-% CO\textsubscript{2} Maecenas convallis mauris sit amet sem ultrices gravida. Etiam eget sapien nibh. Sed ac ipsum eget enim egestas ullamcorper nec euismod ligula. Curabitur fringilla pulvinar lectus consectetur pellentesque. Quisque augue sem, tincidunt sit amet feugiat eget, ullamcorper sed velit. 
+% CO\textsubscript{2} Maecenas convallis mauris sit amet sem ultrices gravida. Etiam eget sapien nibh. Sed ac ipsum eget enim egestas ullamcorper nec euismod ligula. Curabitur fringilla pulvinar lectus consectetur pellentesque. Quisque augue sem, tincidunt sit amet feugiat eget, ullamcorper sed velit.
 
 % Sed non aliquet felis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris commodo justo ac dui pretium imperdiet. Sed suscipit iaculis mi at feugiat. Ut neque ipsum, luctus id lacus ut, laoreet scelerisque urna. Phasellus venenatis, tortor nec vestibulum mattis, massa tortor interdum felis, nec pellentesque metus tortor nec nisl. Ut ornare mauris tellus, vel dapibus arcu suscipit sed. Nam condimentum sem eget mollis euismod. Nullam dui urna, gravida venenatis dui et, tincidunt sodales ex. Nunc est dui, sodales sed mauris nec, auctor sagittis leo. Aliquam tincidunt, ex in facilisis elementum, libero lectus luctus est, non vulputate nisl augue at dolor. For more information, see \nameref{S1_Appendix}.
 
@@ -484,9 +503,9 @@ Aditya Parameswaran\textsuperscript{1,2,3\dag},
 %
 % Compile your BiBTeX database using our plos2015.bst
 % style file and paste the contents of your .bbl file
-% here. See http://journals.plos.org/plosone/s/latex for 
+% here. See http://journals.plos.org/plosone/s/latex for
 % step-by-step instructions.
-% 
+%
 
 
 % \bibliographystyle{plain}
