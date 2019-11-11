@@ -13,8 +13,9 @@ differentially expressed genes versus genes with unaltered gene expression in a
 carefully designed experiment~\cite{liberzon2015molecular}. To understand the
 mechanisms that determine these object classes, researchers often employ
 statistical and machine learning tools to identify a manageable subset of features
-that accentuate or explain the differences between classes \new{---a problem we
-refer to as the {\em separability problem}.}
+that accentuate\new{, discriminate, or help explain the differences between classes,
+i.e., {\em separate} the two classes. We therefore refer to this problem as the
+{\em separability problem}.}
 
 Many tools have been developed in several different biological
 settings~\cite{hanczar2007feature, geman2004classifying, shi2011top,
@@ -29,14 +30,14 @@ built with gene feature pairs are more robust to normalization and can achieve
 better model performance than predictors using single genes as
 features~\cite{geman2004classifying, shi2011top}. Additionally, methods focused
 on feature pairs offer the advantage of providing more interpretable results over
-more complex machine learning approaches that return several features to
+more complicated machine learning approaches that return a complex combination of several features to
 discriminate the classes, such as multivariate regression with LASSO
 regularization~\cite{peng2010regularized} or pattern mining from random forest
 models~\cite{breiman2001random}. Some existing
 works~\cite{shen2017identification, basu2018iterative, shah2014random,
 schwarz2010safari} employ these more complex machine learning approaches in order
-to heuristically return more interpretable feature pairs. However, as a result
-of this heuristic, these methods do not fully explore the search space nor offer
+to heuristically return more interpretable feature pairs. However, these heuristic
+methods do not fully explore the search space nor do they offer
 a guarantee on the quality of the returned feature pairs.
 
 A major problem with current methods that address the separability problem with
@@ -57,14 +58,14 @@ al.~\cite{watkinson2008identification}.
 One reason that more complex machine learning and feature pair based methods
 do not scale well with the number of features and objects is the
 the selection of the metric for scoring separability. In Watkinson et
-al.~\cite{watkinson2008identification}, synergy is
-proposed for evaluating the utility of feature pairs. Metrics like synergy aim
+al.~\cite{watkinson2008identification}, a metric called synergy is
+proposed for evaluating the utility of feature pairs, aiming
 to capture both linear and non-linear aspects of the separability of the two
 class. Consequently, the intrinsic complexity of these metrics makes them
 difficult to benefit from optimization techniques. Metrics based only on
-quantifying linear separability, on the other hand, may return a more limited
-subset of interesting features, but they also may be more intuitive for users to 
-understand and enable more performance optimizations and speedups. The linear
+quantifying {\em linear} separability, on the other hand, may return a more limited
+subset of interesting features, but they also may be more intuitive for users to
+understand and simultaneously enable more performance optimizations and speedups. The linear
 separability metric has been used in previous studies to identify pairs of
 genes with expression differences between two cancer types~\cite{unger2010linear}
 or pairs of motifs that discriminate between different types of genomic
@@ -73,18 +74,18 @@ sequences~\cite{sinha2003discriminative}.
 Motivated by these observations, we present \genviz, an interactive data
 exploration tool designed to address the separability problem and scale to the
 size of large genomic analysis datasets. To enable this scalability, \genviz
-focuses on returning the top ranking feature pairs that discriminate the objects 
+focuses on returning the top ranking feature pairs that discriminate the objects
 of separate classes, rather than returning larger subsets of features using more
-complex, longer to train machine learning approaches. \genviz is also based 
-around a linear separability metric that provides an intuitive interpretation 
-to feature pairs while enabling and simplifying the design of several important 
-performance optimizations. These optimizations include {\em (a)} elimination of 
-repeated computation for different features pairs; {\em (b)} pruning poor 
+complex and longer to train heuristic machine learning approaches. \genviz is also based
+around a linear separability metric that provides an intuitive interpretation
+to feature pairs while enabling and simplifying the design of several important
+performance optimizations. These optimizations include {\em (a)} elimination of
+repeated computation for different features pairs; {\em (b)} pruning poor
 ranking pairs during early execution; {\em (c)} sampling with a quality guarantee
-to further reduce running time; and {\em (d)} cleverly traversing the search 
+to further reduce running time; and {\em (d)} cleverly traversing the search
 space of feature pairs for improved efficiency.
 
-We applied \genviz to two large genomic datasets with tens of thousands of objects 
+We applied \genviz to two large genomic datasets with tens of thousands of objects
 and high-dimensional feature vectors where it is computationally expensive to score
 the separability for all possible feature pairs. In one, called \lincs, we find
 pairs of genes whose expression discriminates between perturbagen experiments
@@ -93,16 +94,16 @@ pairs of annotations (such as pathway membership) that separate differentially
 expressed cancer genes from other genes. With the carefully designed
 separability metric of \genviz and its suite of sophisticated optimizations
 that accelerates evaluation, we are able to {\emph{accurately return the
-highest ranking separating feature pairs for both datasets within two minutes on 
-a single machine}}. This reflects a \emph{180X} and \emph{400X} speedup over a 
-competitive baseline for the \msig and \lincs data sets (respectively). We also 
-show that the feature pairs identified by \genviz often more significantly 
-discriminate between the object classes than the corresponding best ranking 
-individual features, even after accounting for the larger search space. Finally, 
-we performed an in-depth analysis for nine distinct drug treatments in the 
-\lincs dataset and found 1070 feature (gene) pairs that had significant 
-separability scores. These gene pairs were enriched in literature support for 
-known relationships between the genes and the drug, as well as known 
+highest ranking separating feature pairs for both datasets within two minutes on
+a single machine}}. This reflects a \emph{180X} and \emph{400X} speedup over a
+competitive baseline for the \msig and \lincs data sets (respectively). We also
+show that the feature pairs identified by \genviz often more significantly
+discriminate between the object classes than the corresponding best ranking
+individual features, even after accounting for the larger search space. Finally,
+we performed an in-depth analysis for nine distinct drug treatments in the
+\lincs dataset and found 1070 feature (gene) pairs that had significant
+separability scores. These gene pairs were enriched in literature support for
+known relationships between the genes and the drug, as well as known
 interactions between the genes themselves.
 
 By focusing on separating feature pairs, \genviz offers researchers the
@@ -110,7 +111,7 @@ ability to gain additional insight into their object classes beyond singular
 features, without the prolonged duration needed to train a complex machine
 learning model. By implementing optimizations that take advantage of a linear
 separability metric, \genviz enables researchers to quickly explore their data,
-identify the strongest, most compelling features, and from simple visualizations 
+identify the strongest, most compelling features, and from simple visualizations
 form hypotheses about the interplay between features and with the
 object classes. The performance of our tool also allows researchers to
 investigate multiple definitions of the object classes and investigate
@@ -304,7 +305,7 @@ as shown in Equation~\ref{eqn:s_line}:
  \end{tabular}
 \caption{Notation used in this paper.}
 \label{tbl:notation}
-\vspace{-18pt}
+\vspace{-1pt}
 \end{table}
 }
 
@@ -493,7 +494,7 @@ we need to scan all the objects
 to compute the separability score $\theta_{i,j}$\eat{ according to Equation~\ref{eqn:s_line}}.
 However, since we only need to identify feature pairs in the \topk,
 we can stop for each feature pair as soon as we can make that determination, without
-scanning all objects; we call this the \earlyT module (Figure~\ref{fig:workflow}).
+scanning all objects; we call this the \earlyT module.
 
 \stitle{High Level Idea.} We maintain a upper bound $\tau$
 for the separability error $err_{i,j}$ of the \topk feature pairs.
@@ -727,7 +728,7 @@ Last, we present some sample visualizations to illustrate the separability of th
   %\hline
 
   \hline
-  & EARTY- STOP & SAMP- LING & Candidate Ordering & TRAVER- SAL & Approx- mation & Complex- tity\\
+  & EARLY- STOP & SAMP- LING & Candidate Ordering & TRAVER- SAL & Approx- mation & Complex- tity\\
   %& \earlyT & \sampling & Candidate Ordering & \traversal & Approximation & Complexity\\
   \hline
   \baseline & no  & no & no & Any & no &$O(m^2n)$\\

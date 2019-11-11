@@ -293,7 +293,7 @@
 % Title must be 250 characters or less.
 \begin{flushleft}
 {\Large
-\textbf\newline{G{\large ENVISAGE}: Rapid Identification of Discriminative Feature Pairs for Genomic Analysis} % Please use "sentence case" for title and headings (capitalize only the first word in a title (or heading), the first word in a subtitle (or subheading), and any proper nouns).
+\textbf\newline{G{\large ENVISAGE}: Rapid Identification of Discriminative and Explainable Feature Pairs for Genomic Analysis} % Please use "sentence case" for title and headings (capitalize only the first word in a title (or heading), the first word in a subtitle (or subheading), and any proper nouns).
 }
 \newline
 % Insert author names, affiliations and corresponding author email (do not include titles, positions, or degrees).
@@ -347,16 +347,17 @@ Aditya Parameswaran\textsuperscript{1,2,3\dag},
 % Please keep the abstract below 300 words
 \section*{Abstract}
 \textbf{Motivation.} \new{A common but critical task in genomic data analysis is 
-finding features (often genes) that {\em separate} and potentially explain the 
-difference between two classes of biological objects (e.g. healthy versus 
+finding features that {\em separate} and thereby help explain  
+differences between two classes of biological objects (e.g., genes that help 
+explain the difference between healthy versus 
 diseased patients).  As lower-cost, high-throughput experimental methods greatly 
 increase the number of samples that are assayed as objects for analysis, 
 computational methods are needed to quickly provide insights into 
 high-dimensional datasets with tens of thousands of objects and features.}\\
 \noindent
 \textbf{Results.} We develop an \new{interactive exploration} tool called 
-\genviz that \new{specializes in rapidly discovering the most discriminative 
-feature pairs in a dataset} and \new{displaying} the corresponding 
+\genviz that \new{rapidly discovers the most discriminative 
+feature pairs in a dataset} and \new{displays} the corresponding 
 visualizations. Since quickly finding top feature pairs is computationally 
 challenging, especially when the numbers of objects and features are large, we 
 propose a suite of optimizations to make \genviz more responsive and demonstrate 
@@ -364,8 +365,8 @@ that our optimizations lead to a \new{{\em 400X}} speedup over competitive
 baselines for multiple biological data sets. With this speedup, \genviz enables 
 the exploration of more \new{large-scale} datasets \new{and alternate} 
 hypotheses in an interactive fashion. We apply \genviz to uncover pairs of genes 
-whose transcriptomic responses \new{\sout{more}} significantly discriminate 
-treatments of \new{\sout{different} several} chemotherapy drugs.\\
+whose transcriptomic responses significantly discriminate 
+treatments of \new{several} chemotherapy drugs.\\
 
 \noindent \textbf{Availability.} Free webserver at 
 \url{http://genvisage.knoweng.org:443/} with source code at 
