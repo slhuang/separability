@@ -1,4 +1,4 @@
-%!TEX root=plos_latex_template.tex
+%!TEX root=main.tex
 
 %====================================================================
 \section{Introduction}
@@ -12,11 +12,12 @@ two competing drug treatments~\cite{lamb2006connectivity}, or characterizing
 differentially expressed genes versus genes with unaltered gene expression in a
 carefully designed experiment~\cite{liberzon2015molecular}. To understand the
 mechanisms that determine these object classes, researchers often employ
-statistical and machine learning tools to identify a manageable subset of features
+statistical and machine learning tools to identify a manageable subset of features, e.g. genes, 
 that accentuate\new{, discriminate, or help explain the differences between classes,
 i.e., {\em separate} the two classes. We therefore refer to this problem as the
 {\em separability problem}.}
 
+\stitle{\new{Challenge 1: Explainable Separation with Guarantees.} }
 Many tools have been developed in several different biological
 settings~\cite{hanczar2007feature, geman2004classifying, shi2011top,
 shen2017identification, sinha2008systematic, watkinson2008identification}
@@ -29,19 +30,20 @@ or univariate classifiers~\cite{lai2006comparison}. Specifically, predictors
 built with gene feature pairs are more robust to normalization and can achieve
 better model performance than predictors using single genes as
 features~\cite{geman2004classifying, shi2011top}. Additionally, methods focused
-on feature pairs offer the advantage of providing more interpretable results over
+on feature pairs offer the advantage of providing more  \new{interpretable or explainable results} over
 more complicated machine learning approaches that return a complex combination of several features to
 discriminate the classes, such as multivariate regression with LASSO
 regularization~\cite{peng2010regularized} or pattern mining from random forest
 models~\cite{breiman2001random}. Some existing
-works~\cite{shen2017identification, basu2018iterative, shah2014random,
-schwarz2010safari} employ these more complex machine learning approaches in order
+papers~\cite{shen2017identification, basu2018iterative, shah2014random,
+schwarz2010safari} employ these more complex machine learning approaches 
 to heuristically return more interpretable feature pairs. However, these heuristic
 methods do not fully explore the search space nor do they offer
 a guarantee on the quality of the returned feature pairs.
 
+\stitle{\new{Challenge 2: Scalability in Data Size.} }
 A major problem with current methods that address the separability problem with
-either feature pairs or more complex machine learning models, is that they do not
+either feature pairs or more complex machine learning models is that they do not
 scale to the growing size of genomic data sets. As is often the case with
 genomics, the biological objects being analyzed (e.g., tissue samples or drug
 experiments) are frequently represented by high dimensional numeric feature
@@ -51,7 +53,7 @@ dataset is also increasing and likely to grow in orders of magnitude over the
 next decade~\cite{stephens2015big}. Applying the standard methods to datasets with
 tens of thousands of objects and features results in massive running times that
 preclude interactive exploration of the data. For example, exhaustively searching
-for the optimal feature pairs from the full space of possibilities resulted in
+for the optimal feature pairs from the full space of possibilities in a typical genomic analysis  resulted in
 running times over an hour on a 200 node compute cluster in Watkinson et
 al.~\cite{watkinson2008identification}.
 
@@ -71,12 +73,13 @@ genes with expression differences between two cancer types~\cite{unger2010linear
 or pairs of motifs that discriminate between different types of genomic
 sequences~\cite{sinha2003discriminative}.
 
-Motivated by these observations, we present \genviz, an interactive data
+
+\stitle{\new{A Scalable and Explainable Tool for Addressing Separability: \genviz.}} Motivated by these observations, we present \genviz, an interactive data
 exploration tool designed to address the separability problem and scale to the
 size of large genomic analysis datasets. To enable this scalability, \genviz
 focuses on returning the top ranking feature pairs that discriminate the objects
 of separate classes, rather than returning larger subsets of features using more
-complex and longer to train heuristic machine learning approaches. \genviz is also based
+complex and longer to train machine learning approaches. \genviz is also based
 around a linear separability metric that provides an intuitive interpretation
 to feature pairs while enabling and simplifying the design of several important
 performance optimizations. These optimizations include {\em (a)} elimination of
@@ -955,7 +958,7 @@ In this section, we quantify the statistical significance of the top ranking res
 \subfigure[\msig]{\label{fig:msig_singleF}\includegraphics[width=.3\textwidth]{fig/msig_SF_FP.eps}}
 \subfigure[\lincs]{\label{fig:lincs_singleF}\includegraphics[width=.6\textwidth]{fig/lincs_SF_FP.eps}}
 \vspace{-2mm}
-\caption{Single Feature Corrected P-value Distribution vs. Feature Pairs' Corrected P-value Distribution. For each test (x-axis), shows the significance ($-\log_{10} (corrected\_pval)$) of the \tophundred best single features (grey dots) and feature pairs (blue dots) for the (a) \msig and (b) \lincs datasets. We order the datasets by their best corrected single feature p-value, and discard the datasets where no single feature has corrected p-value better than $10^{-5}$.}
+\caption{Single Feature Bonferroni Corrected P-value Distribution vs. Feature Pairs' Corrected P-value Distribution. For each test (x-axis), shows the significance ($-\log_{10} (corrected\_pval)$) of the \tophundred best single features (grey dots) and feature pairs (blue dots) for the (a) \msig and (b) \lincs datasets. We order the datasets by their best corrected single feature p-value, and discard the datasets where no single feature has corrected p-value better than $10^{-5}$.}
 \vspace{-5mm}
 \label{fig:SF_FP}
 \end{figure}
@@ -1006,7 +1009,7 @@ In the following, we further illustrate that feature pairs can also provide bett
 
 \stitle{New Insights from Feature Pairs.} In order to assess the quality of the top ranking feature pairs, we focused on the \lincs data set where the objects are experimental treatments on the MCF7 breast cancer cell line with the same {\em drug} and the features are expression values for different {\em genes}. For the evaluations above, we used object sets for the 40 drugs with the largest number of LINCS experiments. For the following analysis, we refine our list to those that are common drugs and have at least 60 LINCS experiments on the MCF7 cell line. These nine drugs are vorinostat, trichostatin, estradiol, tamoxifen, doxorubicin, gemcitabine, daunorubicin, idarubicin, and pravastatin. For each chosen drug, we ran the \sampOpt algorithm of \genviz to rank the \topthousand feature (gene) pairs for separating the LINCS experiments of the drug from all other MCF7 experiments.
 
-For all drugs, except pravastatin, all of the \topthousand ranked feature pairs were found to be significant ($-\log_{10} (corrected\_pval) > 5$). The average log significance of the \topthousand feature pairs correlated with the number of experiments ($r=0.91$) in the drug's positive object set (Table~\ref{tbl:selected_fps})\eat{, as expected}. As described in the Section~\ref{sec:FPvSF}, we are especially interested in feature pairs whose corrected p-value is better than the corrected p-values of their corresponding single features ($-\log_{10} (improv\_quot) > 0$). We found 1070 ``improved'' feature pairs with larger separability over their single feature among the top1000 of these evaluation drug sets. One drug, trichostatin, had especially strong single features and showed no feature pairs that significantly improved on them. The remaining seven drugs, however, benefited from the feature pair analysis yielding between 9 (tamoxifen) and 369 (doxorubicin) improved feature pairs (Table~\ref{tbl:selected_fps}).
+For all drugs, except pravastatin, all of the \topthousand ranked feature pairs were found to be significant, i.e. $-\log_{10} (corrected\_pval) > 5$ (see Table~\ref{tbl:selected_fps}). As described in the Section~\ref{sec:FPvSF}, we are especially interested in feature pairs whose corrected p-value is better than the corrected p-values of their corresponding single features ($-\log_{10} (improv\_quot) > 0$). We found 1070 ``improved'' feature pairs with larger separability over their single feature among the top1000 of these evaluation drug sets. One drug, trichostatin, had especially strong single features and showed no feature pairs that significantly improved on them. The remaining seven drugs, however, benefited from the feature pair analysis yielding between 9 (tamoxifen) and 369 (doxorubicin) improved feature pairs (Table~\ref{tbl:selected_fps}).
 
 
 \begin{table}[t!]
